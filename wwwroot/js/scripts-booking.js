@@ -1,9 +1,13 @@
 // IIFE to protect the global scope and internal variables.
 (function() {
 
-    dateform = "DD/MM/YYYY";
-    timeform = "HH:mm";
+    var loadedpercent = 0;
+    var resource = 'https://' + prefix + '-ukofficehours.azurewebsites.net';
+    var endpoint = 'https://' + prefix + '-ukofficehours.azurewebsites.net/' + prefix + 'adapp';
+    var tenantid = 'microsoft.com';
+    var rootfnsite = resource;
 
+    // Special Binding Handlers to deal with the datepickers bindings in knockout
     ko.bindingHandlers.weekdaydatePicker = {
         init: function(element, valueAccessor, allBindingsAccessor) {
             //initialize datepicker with some optional options
@@ -26,7 +30,6 @@
                 var value = valueAccessor();
 
                 value(moment(event.date, dateform).format(dateform));
-
                 element.blur();
 
             });
@@ -118,7 +121,6 @@
         return moment(viewmodel_addslot.StartDate() + " " + viewmodel_addslot.StartTime(), "DD/MM/YYYY HH:mm").add(viewmodel_addslot.Duration(), "minutes");
     });
 
-    // THIS Viewmodel is implemented as a function - it's extremely complicated and includes client-side filtering mechanisms, all of the others are basic vars.
     function viewmodel_viewallslots() {
 
         var self = this;
@@ -287,7 +289,6 @@
         });
 
         ko.applyBindings(self, document.getElementById("bindingforBookedlist"));
-
     }
 
     function viewmodel_viewallisvs() {
@@ -548,17 +549,6 @@
         EmailLink: ko.observable('')
     };
 
-    // Settings for clientside operations()
-    var resource = 'https://threeshades.co.uk';
-    var endpoint = 'https://THREESHADES.CO.UK/DOANDAVOIDAPP';
-
-    var tenantid = 'threeshades.co.uk';
-    var clientid = 'aede39e8-adef-45a5-8c82-8fa7f9d8109e';
-    var officeclientresource = 'https://outlook.office365.com';
-    var rootfnsite = "https://doandavoidserverless.azurewebsites.net/"; // Serverless mode
-
-    // Status display functions
-    var loadedpercent = 0;
 
     function loadstarted() {
 
@@ -899,7 +889,6 @@
     // If already logged in then show logout box.
     if (!authContext.getCachedUser()) {
 
-
         document.getElementById("loginorout").className += " btn btn-alert";
 
         log.html = "logmein";
@@ -947,6 +936,7 @@
         showpanel($.QueryString.StartPanel);
 
     });
+
     // Enable the Bootstrap Datetimepicker controls with sat and sun disabled, in uk dd/mm/yyyy date format 
     $(function() {
         $('#StartDate').datetimepicker({
@@ -960,6 +950,5 @@
             format: 'HH:mm'
         });
     });
-
 
 })();
