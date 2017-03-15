@@ -223,6 +223,7 @@
         };
 
         // Get the main page content if we are not on the first page and render the stuff to the DOM
+
         authContext.acquireToken(clientid, function(error, token) {
 
             $.ajax({
