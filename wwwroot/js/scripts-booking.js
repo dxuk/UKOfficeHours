@@ -1,18 +1,18 @@
 // IIFE to protect the global scope and internal variables.
 (function() {
 
+    // Pick up settings from config.js and make them usable
     var loadedpercent = 0;
     var resource = 'https://' + prefix + '-ukofficehours.azurewebsites.net';
     var endpoint = 'https://' + prefix + '-ukofficehours.azurewebsites.net/' + prefix + 'adapp';
-    var tenantid = 'microsoft.com';
     var rootfnsite = resource;
 
     // Special Binding Handlers to deal with the datepickers bindings in knockout
     ko.bindingHandlers.weekdaydatePicker = {
         init: function(element, valueAccessor, allBindingsAccessor) {
+
             //initialize datepicker with some optional options
             var options = allBindingsAccessor().dateTimePickerOptions || {};
-
             var funcOnSelecttime = function() {
                 var observable = valueAccessor();
                 observable($(element).datepicker("getDate"));
