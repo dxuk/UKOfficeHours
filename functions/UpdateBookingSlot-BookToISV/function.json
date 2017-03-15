@@ -1,0 +1,35 @@
+﻿{
+  "bindings": [
+    {
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "get",
+        "post"
+      ],
+      "authLevel": "anonymous"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    },
+    {
+      "type": "table",
+      "name": "tblbk",
+      "tableName": "bookingslot",
+      "connection": "storageConnection",
+      "direction": "out"
+    },
+    {
+      "type": "table",
+      "name": "tblisv",
+      "tableName": "isv",
+      "take": 1,
+      "connection": "storageConnection",
+      "direction": "in"
+    }
+  ],
+  "disabled": false
+}
