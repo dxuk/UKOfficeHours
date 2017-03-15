@@ -1,9 +1,9 @@
 # Outbound Push via Kudu Zip API 
 param(
  
-    $sitename = "devdemfwebapp",
+    $sitename = "cideploy-ukofficehours",
     $resgrp =  "devdemrg",
-    $sub = "External Demo Subscription",
+    $sub = "Internal DX OH Subscription",
     $SOURCEALIAS = "Source_Alias",
     $File = "wwwroot.ZIP"
     
