@@ -1,0 +1,241 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "prefix": {
+            "defaultValue": "dev",
+            "type": "string"
+        }
+    },
+    "variables": {
+        "StorageAccount_Data": "[concat(parameters('prefix'),'ukohstoragedata')]",
+        "StorageAccount_Functions": "[concat(parameters('prefix'),'ukohstoragefn')]",
+        "AppServicePlan_FrontEnd": "[concat(parameters('prefix'),'-ukohasp')]",
+        "AppServicePlan_Functions": "UKSouthPlan",
+        "WebApp_FrontEndName": "[concat(parameters('prefix'),'-ukofficehours')]",
+        "WebApp_HostName": "[concat(variables('WebApp_FrontEndName'),'.azurewebsites.net')]",
+        "WebApp_KUDUHostName": "[concat(variables('WebApp_FrontEndName'),'.scm.azurewebsites.net')]",
+        "FunctionApp_Name": "[concat(parameters('prefix'),'ukohfn')]",
+        "FunctionApp_HostName": "[concat(parameters('prefix'),'ukohfn','.azurewebsites.net')]",
+        "FunctionApp_KUDUHostName": "[concat(parameters('prefix'),'ukohfn','.scm.azurewebsites.net')]",
+        "CDN_ProfileName": "[concat(parameters('prefix'),'-ukofficehours')]",
+        "CDN_Endpoint_Name": "[concat(parameters('prefix'),'-ukofficehours','/', parameters('prefix'),'-ukofficehours')]",
+        "AppInsightsComponentName": "[concat(parameters('prefix'),'-ukofficehours')]"
+    },
+    "resources": [{
+            "type": "Microsoft.Cdn/profiles",
+            "sku": {
+                "name": "Standard_Verizon"
+            },
+            "name": "[variables('CDN_ProfileName')]",
+            "apiVersion": "2016-04-02",
+            "location": "WestEurope",
+            "tags": {},
+            "properties": {
+                "provisioningState": "Succeeded",
+                "resourceState": "Active"
+            },
+            "dependsOn": []
+        },
+        {
+            "type": "Microsoft.Insights/components",
+            "kind": "web",
+            "name": "[variables('AppInsightsComponentName')]",
+            "apiVersion": "2014-04-01",
+            "location": "eastus",
+            "properties": {
+                "ApplicationId": "[variables('AppInsightsComponentName')]"
+            },
+            "dependsOn": []
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_RAGRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[variables('StorageAccount_Data')]",
+            "apiVersion": "2016-01-01",
+            "location": "uksouth",
+            "tags": {},
+            "properties": {
+                "encryption": {
+                    "keySource": "Microsoft.Storage",
+                    "services": {
+                        "blob": {
+                            "enabled": true
+                        }
+                    }
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[variables('StorageAccount_Functions')]",
+            "apiVersion": "2016-01-01",
+            "location": "uksouth",
+            "tags": {},
+            "properties": {},
+            "dependsOn": []
+        },
+        {
+            "type": "Microsoft.Web/serverfarms",
+            "sku": {
+                "name": "F1",
+                "tier": "Free",
+                "size": "F1",
+                "family": "F",
+                "capacity": 0
+            },
+            "kind": "app",
+            "name": "[variables('AppServicePlan_FrontEnd')]",
+            "apiVersion": "2015-08-01",
+            "location": "UK South",
+            "properties": {
+                "name": "[variables('AppServicePlan_FrontEnd')]",
+                "numberOfWorkers": 0
+            },
+            "dependsOn": []
+        },
+        {
+            "type": "Microsoft.Web/serverfarms",
+            "sku": {
+                "name": "Y1",
+                "tier": "Dynamic",
+                "size": "Y1",
+                "family": "Y",
+                "capacity": 0
+            },
+            "kind": "functionapp",
+            "name": "[variables('AppServicePlan_Functions')]",
+            "apiVersion": "2015-08-01",
+            "location": "UK South",
+            "properties": {
+                "name": "[variables('AppServicePlan_Functions')]",
+                "numberOfWorkers": 0
+            },
+            "dependsOn": []
+        },
+        {
+            "type": "Microsoft.Web/sites",
+            "kind": "functionapp",
+            "name": "[variables('FunctionApp_Name')]",
+            "apiVersion": "2015-08-01",
+            "location": "UK South",
+            "properties": {
+                "name": "[variables('FunctionApp_Name')]",
+                "hostNames": [
+                    "[variables('FunctionApp_HostName')]"
+                ],
+                "enabledHostNames": [
+                    "[variables('FunctionApp_HostName')]",
+                    "[variables('FunctionApp_KUDUHostName')]"
+                ],
+                "hostNameSslStates": [{
+                        "name": "[variables('FunctionApp_HostName')]",
+                        "sslState": 0,
+                        "thumbprint": null,
+                        "ipBasedSslState": 0
+                    },
+                    {
+                        "name": "[variables('FunctionApp_KUDUHostName')]",
+                        "sslState": 0,
+                        "thumbprint": null,
+                        "ipBasedSslState": 0
+                    }
+                ],
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms',variables('AppServicePlan_Functions'))]"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms',variables('AppServicePlan_Functions'))]"
+            ]
+        },
+        {
+            "type": "Microsoft.Web/sites",
+            "kind": "app",
+            "name": "[variables('WebApp_FrontEndName')]",
+            "apiVersion": "2015-08-01",
+            "location": "UK South",
+            "properties": {
+                "name": "[variables('WebApp_HostName')]",
+                "hostNames": [
+                    "[variables('WebApp_HostName')]"
+                ],
+                "enabledHostNames": [
+                    "[variables('WebApp_HostName')]",
+                    "[variables('WebApp_KUDUHostName')]"
+                ],
+                "hostNameSslStates": [{
+                        "name": "[variables('WebApp_HostName')]",
+                        "sslState": 0,
+                        "thumbprint": null,
+                        "ipBasedSslState": 0
+                    },
+                    {
+                        "name": "[variables('WebApp_KUDUHostName')]",
+                        "sslState": 0,
+                        "thumbprint": null,
+                        "ipBasedSslState": 0
+                    }
+                ],
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms',variables('AppServicePlan_FrontEnd'))]"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms',variables('AppServicePlan_FrontEnd'))]"
+            ]
+        },
+        {
+            "type": "Microsoft.Cdn/profiles/endpoints",
+            "name": "[variables('CDN_Endpoint_Name')]",
+            "apiVersion": "2016-04-02",
+            "location": "WestEurope",
+            "tags": {},
+            "properties": {
+                "originHostHeader": "[variables('WebApp_HostName')]",
+                "isHttpAllowed": true,
+                "isHttpsAllowed": true,
+                "queryStringCachingBehavior": "IgnoreQueryString",
+                "originPath": "[variables('WebApp_HostName')]",
+                "origins": [{
+                    "name": "[variables('WebApp_HostName')]",
+                    "properties": {
+                        "hostName": "[variables('WebApp_HostName')]",
+                        "httpPort": 80,
+                        "httpsPort": 443
+                    }
+                }],
+                "contentTypesToCompress": [
+                    "text/plain",
+                    "text/html",
+                    "text/css",
+                    "text/javascript",
+                    "application/x-javascript",
+                    "application/javascript",
+                    "application/json",
+                    "application/xml"
+                ],
+                "isCompressionEnabled": true,
+                "origins": [{
+                    "name": "[variables('CDN_OriginName')]",
+                    "properties": {
+                        "hostName": "[variables('WebApp_HostName')]",
+                        "httpPort": 80,
+                        "httpsPort": 443
+                    }
+                }]
+
+
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Cdn/profiles', variables('CDN_ProfileName'))]"
+            ]
+        }
+    ]
+}

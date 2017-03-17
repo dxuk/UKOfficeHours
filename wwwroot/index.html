@@ -31,7 +31,7 @@
                         <ul class="nav navbar-nav" id="menuleft">
                             <li><a class="btn btn-alert" id="viewslotsbutton">View All Slots</a></li>
                             <li><a class='btn btn-alert' id="addslotsbutton">Add New Slot</a></li>
-                            <li><a class="btn btn-info" id="viewisvsbutton">ToDo: View All Issued Codes</a></li>
+
                             <li><a class='btn btn-alert' id="addisvbutton">Get a Code</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right navbar" id="loginas">
@@ -130,75 +130,6 @@
                                         <th>PBE</th>
                                         <th>ISV</th>
                                         <th>Month</th>
-                                    </tr>
-                                </thead>
-                                <tbody data-bind="foreach: $root.filteredItems">
-                                    <tr data-bind="css: { success: BookedToISV === 'None', info: moment().diff(StartDateTime, 'minutes') >= 0 }">
-                                        <td data-bind="text: moment(StartDateTime).format('dddd, MMMM Do YYYY')"></td>
-                                        <td data-bind="text: moment(StartDateTime).format('LT')"></td>
-                                        <td data-bind="text: Duration"></td>
-                                        <td data-bind="text: TechnicalEvangelist"></td>
-                                        <td data-bind="text: PBE"></td>
-                                        <td data-bind="text: BookedToISV"></td>
-                                        <td data-bind="text: PartitionKey"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12" id="viewisvssection">
-                    <div class="panel panel-primary" id="bindingforisvlist">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">
-                                <span>View and query all ISVs </span> <button type="button" class="btn btn-info" id="filters" data-toggle="collapse" data-target="#demo">Toggle Filters</button>
-                            </h3>
-                        </div>
-                        <div class="panel-body collapse" id="demo">
-                            <div class="panel panel-info">
-                                <div class="panel-heading">
-                                    <button id="rsisvsettings" class="btn btn-danger" data-bind="click: ResetFilters">Reset Filters</button>
-                                    <button id="svisvsettings" class="btn btn-success" data-bind="click: SaveFilters">Save Filters</button>
-                                    <button id="loisvsettings" class="btn btn-warning" data-bind="click: LoadFilters">Load Filters</button>
-                                    <span id="notify-settings"></span>
-                                </div>
-                                <div class="panel-body">
-                                    <div class="form-horizontal" role="form">
-                                        <div class="form-group">
-                                            <label for="mnthfilter" class="col-sm-1 control-label">Month</label>
-                                            <div class="col-sm-2">
-                                                <select id="mnthfilter" class="col-sm-2 form-control" data-bind="options: PKList, value: FilterPK"></select>
-                                            </div>
-                                            <label for="pbefilter" class="col-sm-1 control-label">PBE</label>
-                                            <div class="col-sm-2">
-                                                <select id="pbefilter" class="col-sm-2 form-control" data-bind="options: PBEList, value: FilterPBE"></select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="tefilter" class="col-sm-1 control-label">TE</label>
-                                            <div class="col-sm-2">
-                                                <select id="tefilter" class="col-sm-2 form-control" data-bind="options: TEList, value: FilterTE"></select>
-                                            </div>
-                                            <label for="isvfilter" class="col-sm-1 control-label">ISV</label>
-                                            <div class="col-sm-2">
-                                                <select id="isvfilter" class="col-sm-2 form-control" data-bind="options: ISVList, value: FilterISV"></select>
-                                            </div>
-                                            <label for="futurefilter" class="col-sm-1 control-label">'Special'</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel-body">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Start Time</th>
-                                        <th>Duration (mins)</th>
-                                        <th>TE</th>
-                                        <th>PBE</th>
-
                                     </tr>
                                 </thead>
                                 <tbody data-bind="foreach: $root.filteredItems">
