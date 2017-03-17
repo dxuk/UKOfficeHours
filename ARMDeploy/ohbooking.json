@@ -3,15 +3,14 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "prefix": {
-            "defaultValue": "dev",
             "type": "string"
         }
     },
     "variables": {
         "StorageAccount_Data": "[concat(parameters('prefix'),'ukohstoragedata')]",
         "StorageAccount_Functions": "[concat(parameters('prefix'),'ukohstoragefn')]",
-        "AppServicePlan_FrontEnd": "[concat(parameters('prefix'),'-ukohasp')]",
-        "AppServicePlan_Functions": "UKSouthPlan",
+        "AppServicePlan_FrontEnd": "[concat(parameters('prefix'),'-ukohwebasp')]",
+        "AppServicePlan_Functions": "[concat(parameters('prefix'),'-ukohfnasp')]",
         "WebApp_FrontEndName": "[concat(parameters('prefix'),'-ukofficehours')]",
         "WebApp_HostName": "[concat(variables('WebApp_FrontEndName'),'.azurewebsites.net')]",
         "WebApp_KUDUHostName": "[concat(variables('WebApp_FrontEndName'),'.scm.azurewebsites.net')]",
@@ -102,7 +101,7 @@
                 "name": "[variables('AppServicePlan_FrontEnd')]",
                 "numberOfWorkers": 0
             },
-            "dependsOn": []
+            "dependsOn": ["[resourceId('Microsoft.Web/serverfarms', variables('AppServicePlan_Functions'))]"]
         },
         {
             "type": "Microsoft.Web/serverfarms",
@@ -120,8 +119,7 @@
             "properties": {
                 "name": "[variables('AppServicePlan_Functions')]",
                 "numberOfWorkers": 0
-            },
-            "dependsOn": []
+            }
         },
         {
             "type": "Microsoft.Web/sites",
@@ -154,9 +152,10 @@
                 "serverFarmId": "[resourceId('Microsoft.Web/serverfarms',variables('AppServicePlan_Functions'))]"
             },
             "dependsOn": [
-                "[resourceId('Microsoft.Web/serverfarms',variables('AppServicePlan_Functions'))]"
+                "[resourceId('Microsoft.Web/serverfarms', variables('AppServicePlan_Functions'))]"
             ]
         },
+
         {
             "type": "Microsoft.Web/sites",
             "kind": "app",
@@ -164,7 +163,7 @@
             "apiVersion": "2015-08-01",
             "location": "UK South",
             "properties": {
-                "name": "[variables('WebApp_HostName')]",
+                "name": "[variables('WebApp_FrontEndName')]",
                 "hostNames": [
                     "[variables('WebApp_HostName')]"
                 ],
@@ -198,11 +197,9 @@
             "location": "WestEurope",
             "tags": {},
             "properties": {
-                "originHostHeader": "[variables('WebApp_HostName')]",
                 "isHttpAllowed": true,
                 "isHttpsAllowed": true,
                 "queryStringCachingBehavior": "IgnoreQueryString",
-                "originPath": "[variables('WebApp_HostName')]",
                 "origins": [{
                     "name": "[variables('WebApp_HostName')]",
                     "properties": {
@@ -221,17 +218,7 @@
                     "application/json",
                     "application/xml"
                 ],
-                "isCompressionEnabled": true,
-                "origins": [{
-                    "name": "[variables('CDN_OriginName')]",
-                    "properties": {
-                        "hostName": "[variables('WebApp_HostName')]",
-                        "httpPort": 80,
-                        "httpsPort": 443
-                    }
-                }]
-
-
+                "isCompressionEnabled": true
             },
             "dependsOn": [
                 "[resourceId('Microsoft.Cdn/profiles', variables('CDN_ProfileName'))]"
