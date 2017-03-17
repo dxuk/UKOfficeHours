@@ -73,7 +73,7 @@
         {
             "type": "Microsoft.Storage/storageAccounts",
             "sku": {
-                "name": "Standard_LRS",
+                "name": "Standard_RAGRS",
                 "tier": "Standard"
             },
             "kind": "Storage",
@@ -151,11 +151,76 @@
                 ],
                 "serverFarmId": "[resourceId('Microsoft.Web/serverfarms',variables('AppServicePlan_Functions'))]"
             },
+            "resources": [{
+                    "apiVersion": "2015-08-01",
+                    "name": "appsettings",
+                    "type": "config",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Web/sites', variables('FunctionApp_Name'))]",
+                        "[resourceId('Microsoft.Storage/storageAccounts', variables('StorageAccount_Functions'))]",
+                        "[resourceId('Microsoft.Storage/storageAccounts', variables('StorageAccount_Data'))]"
+                    ],
+                    "properties": {
+                        "AzureWebJobsStorage": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('StorageAccount_Functions'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('StorageAccount_Functions')), '2015-05-01-preview').key1,';')]",
+                        "AzureWebJobsDashboard": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('StorageAccount_Functions'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('StorageAccount_Functions')), '2015-05-01-preview').key1,';')]",
+                        "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('StorageAccount_Functions'), ';AccountKey=', listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('StorageAccount_Functions')), '2015-05-01-preview').key1, ';')]",
+                        "WEBSITE_CONTENTSHARE": "[variables('FunctionApp_Name')]",
+                        "storageConnection": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('StorageAccount_Data'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('StorageAccount_Data')), '2015-05-01-preview').key1,';')]",
+                        "FUNCTIONS_EXTENSION_VERSION": "latest"
+                    },
+                    "tags": {
+                        "displayName": "[variables('FunctionApp_Name')]"
+                    }
+                },
+                {
+                    "name": "authsettings",
+                    "type": "config",
+                    "apiVersion": "2015-08-01",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Web/sites', variables('FunctionApp_Name'))]",
+                        "[resourceId('Microsoft.Web/sites/config', variables('FunctionApp_Name'), 'appsettings')]"
+                    ],
+                    "tags": {
+                        "displayName": "websiteAuthSettings"
+                    },
+                    "properties": {
+                        "enabled": true,
+                        "unauthenticatedClientAction": 1,
+                        "tokenStoreEnabled": true,
+                        "allowedExternalRedirectUrls": [
+                            "[concat('https://',variables('WebApp_HostName'),'/index.html')]"
+                        ],
+                        "defaultProvider": 0,
+                        "clientId": "[variables('AzureAD_ClientID')]",
+                        "clientSecret": null,
+                        "issuer": "[variables('AzureAD_TenantURI')]",
+                        "allowedAudiences": [
+                            "[resourceId('Microsoft.Web/sites/',variables('WebApp_HostName'))]"
+                        ],
+                        "additionalLoginParams": null,
+                        "isAadAutoProvisioned": true,
+                        "googleClientId": null,
+                        "googleClientSecret": null,
+                        "googleOAuthScopes": null,
+                        "facebookAppId": null,
+                        "facebookAppSecret": null,
+                        "facebookOAuthScopes": [
+                            ""
+                        ],
+                        "twitterConsumerKey": null,
+                        "twitterConsumerSecret": null,
+                        "microsoftAccountClientId": null,
+                        "microsoftAccountClientSecret": null,
+                        "microsoftAccountOAuthScopes": [
+                            ""
+                        ]
+                    }
+                }
+            ],
             "dependsOn": [
                 "[resourceId('Microsoft.Web/serverfarms', variables('AppServicePlan_Functions'))]"
             ]
         },
-
         {
             "type": "Microsoft.Web/sites",
             "kind": "app",
