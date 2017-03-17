@@ -1,5 +1,4 @@
-﻿
-/*! adal-angular v1.0.13 2016-11-08 */
+﻿/*! adal-angular v1.0.13 2016-11-08 */
 var AuthenticationContext = function () {
     "use strict"; return AuthenticationContext = function (a) {
         if (this.REQUEST_TYPE = { LOGIN: "LOGIN", RENEW_TOKEN: "RENEW_TOKEN", UNKNOWN: "UNKNOWN" },

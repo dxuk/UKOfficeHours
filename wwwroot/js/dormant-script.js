@@ -1,9 +1,10 @@
 // Settings for app to be loaded into the global scope
-// DEV Configuration
-// We could make this server agnostic by declaring these server-side but this is a js spa so we will simply switch the config file out at deploy time
+// CI / local (Default) Configuration
+// We could make this server agnostic by declaring these server-side but this 
+// is a js spa so we will simply switch the config file out at deploy time
 
-var prefix = 'devdeploy' // Dummy CI Deployment prefix 
-var clientid = ''; // Dummy CI Deployment Azure AD App 
+var prefix = 'cilocaldeploy' // Dummy CI Deployment prefix 
+var clientid = 'aede39e8-adef-45a5-8c82-8fa7f9d810ga'; // Dummy CI Deployment Azure AD App 
 
 var instance = 'https://login.microsoftonline.com/'; // Azure AD logon endpoint
 
@@ -15,6 +16,7 @@ var timeform = "HH:mm"; // 12h UK time
 var resource = 'https://' + prefix + '-ukofficehours.azurewebsites.net';
 var endpoint = 'https://' + prefix + '-ukofficehours.azurewebsites.net/';
 var rootfnsite = resource;
+All--');
 //    return ko.utils.arrayGetDistinctValues(tes.sort()).sort();
 //});
 //self.PKList = ko.computed(function () {
