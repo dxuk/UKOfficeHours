@@ -59,7 +59,7 @@ public class httpUtils
 
     public static string GetCurrentUserEmailFromClaims()
     {
-        return ClaimsPrincipal.Current.Claims.Where(e => e.Type == ClaimTypes.Email).FirstOrDefault().Value;
+        return ClaimsPrincipal.Current.Claims.Where(e => e.Type == ClaimTypes.Name).FirstOrDefault().Value;
     }
 
     public static bool IsAuthenticated()
