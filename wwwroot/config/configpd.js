@@ -1,8 +1,8 @@
 // Settings for app to be loaded into the global scope
-// DEV Configuration
+// Production Configuration
 // We could make this server agnostic by declaring these server-side but this is a js spa so we will simply switch the config file out at deploy time
 
-var prefix = 'devdeploy' // Dummy CI Deployment prefix 
+var prefix = 'pd' // Dummy CI Deployment prefix 
 var clientid = ''; // Dummy CI Deployment Azure AD App 
 
 var instance = 'https://login.microsoftonline.com/'; // Azure AD logon endpoint

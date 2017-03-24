@@ -4,6 +4,12 @@
     "parameters": {
         "prefix": {
             "type": "string"
+        },
+        "AzureAD_TenantURI": {
+            "type": "string"
+        },
+        "AzureAD_ClientID": {
+            "type": "string"
         }
     },
     "variables": {
@@ -191,11 +197,11 @@
                             "[concat('https://',variables('WebApp_HostName'),'/index.html')]"
                         ],
                         "defaultProvider": 0,
-                        "clientId": "[variables('AzureAD_ClientID')]",
+                        "clientId": "[parameters('AzureAD_ClientID')]",
                         "clientSecret": null,
-                        "issuer": "[variables('AzureAD_TenantURI')]",
+                        "issuer": "[parameters('AzureAD_TenantURI')]",
                         "allowedAudiences": [
-                            "[resourceId('Microsoft.Web/sites/',variables('WebApp_HostName'))]"
+                            "[variables('WebApp_HostName')]"
                         ],
                         "additionalLoginParams": null,
                         "isAadAutoProvisioned": true,

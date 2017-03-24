@@ -683,7 +683,7 @@
         // Security and ADAL integration
         // ClientID etc is declared in config.js
 
-        // AuthN stuff for the Security Demo using adal.js
+        // AuthN stuff for the Security config using adal.js
         var authContext = new AuthenticationContext({
             instance: authinstance,
             tenant: tenantid,
@@ -727,13 +727,9 @@
 
         loadfinished();
 
-
-
         // auto-switch to the requested panel on ready()
         $(document).ready(function() {
             showpanel($.QueryString.StartPanel);
         });
-
-
 
     })();
