@@ -16,7 +16,7 @@
         },
         "sna": {
             "type": "string",
-            "defaultValue": "Office Hours"
+            "defaultValue": "Office Hours Service"
         }
     },
     "variables": {

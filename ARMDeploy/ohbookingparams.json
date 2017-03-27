@@ -4,6 +4,9 @@
     "parameters": {
         "svprefix": {
             "value": "dummyprefix"
+        },
+        "sna": {
+            "value": "Office Hours Service "
         }
     }
 }
