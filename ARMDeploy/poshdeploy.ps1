@@ -57,6 +57,8 @@ New-AzureRmResourceGroupDeployment -ResourceGroupName $rg -TemplateFile $templat
 Write-Host "Resource Group Deployment Complete" -ForegroundColor Green
 Write-Host "Function App Deployment Running" -ForegroundColor yellow
 
+
+
 # Deploy the function app #
 Remove-Item ((Get-Item -Path ".\" -Verbose).FullName + "\deploy\functions.zip") -ErrorAction ignore
 [IO.Compression.ZipFile]::CreateFromDirectory(((Get-Item -Path ".\" -Verbose).FullName + "\functions\"),((Get-Item -Path ".\" -Verbose).FullName + "\deploy\functions.zip"))
@@ -66,6 +68,11 @@ $password =  ([xml] $site).publishData.publishProfile[0].userPWD  # The Password
 $fnsitename = ($deployname + "ukohfn")
 $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $username, $password)))
 $apifn = "https://$fnsitename.scm.azurewebsites.net/api/zip/site/wwwroot/"
+while ((curl $apifn).StatusCode -ne 200)
+{
+    Write-Host "Waiting for fn site to startup"
+    Start-sleep -Seconds 1 
+}
 Invoke-RestMethod -Uri $apifn -Headers @{Authorization=("Basic {0}" -f $base64AuthInfo)} -Method PUT -InFile ((Get-Item -Path ".\" -Verbose).FullName + "\deploy\functions.zip")
 
 Write-Host "Function App Deployment Complete" -ForegroundColor Green
@@ -80,6 +87,11 @@ $password2 =  ([xml] $site2).publishData.publishProfile[0].userPWD  # The Passwo
 $sitename = ($deployname + "-ukofficehours")
 $base64AuthInfo2 = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $username2, $password2)))
 $apiwb = "https://$sitename.scm.azurewebsites.net/api/zip/site/wwwroot/"
+while ((curl $apiwb).StatusCode -ne 200)
+{
+    Write-Host "Waiting for fn site to startup"
+    Start-sleep -Seconds 1 
+}
 Invoke-RestMethod -Uri $apiwb -Headers @{Authorization=("Basic {0}" -f $base64AuthInfo2)} -Method PUT -InFile ((Get-Item -Path ".\" -Verbose).FullName + "\deploy\web.zip")
 
 Write-Host "Deploying Storage Account Tables" -ForegroundColor Green
@@ -93,7 +105,7 @@ Write-Host "Deploying Storage Account Tables" -ForegroundColor Green
 
 # Define the storage account and context.
 $StorageAccountName = $deployname + "ukohstoragedata"
-$Ctx = New-AzureStorageContext $StorageAccountName -StorageAccountKey (Get-AzureRmStorageAccountKey -Name ($deployname + "ukohstoragedata") -ResourceGroupName ohdv)[0].Value
+$Ctx = New-AzureStorageContext $StorageAccountName -StorageAccountKey (Get-AzureRmStorageAccountKey -Name ($deployname + "ukohstoragedata") -ResourceGroupName $rg)[0].Value
 
 #Create the tables
 New-AzureStorageTable –Name "isv" -Context $Ctx -ErrorAction ignore

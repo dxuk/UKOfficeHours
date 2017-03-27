@@ -19,13 +19,14 @@
         "AppServicePlan_Functions": "[concat(parameters('prefix'),'-ukohfnasp')]",
         "WebApp_FrontEndName": "[concat(parameters('prefix'),'-ukofficehours')]",
         "WebApp_HostName": "[concat(variables('WebApp_FrontEndName'),'.azurewebsites.net')]",
-        "WebApp_KUDUHostName": "[concat(variables('WebApp_FrontEndName'),'.scm.azurewebsites.net')]",
         "FunctionApp_Name": "[concat(parameters('prefix'),'ukohfn')]",
-        "FunctionApp_HostName": "[concat(parameters('prefix'),'ukohfn','.azurewebsites.net')]",
-        "FunctionApp_KUDUHostName": "[concat(parameters('prefix'),'ukohfn','.scm.azurewebsites.net')]",
         "CDN_ProfileName": "[concat(parameters('prefix'),'-ukofficehours')]",
         "CDN_Endpoint_Name": "[concat(parameters('prefix'),'-ukofficehours','/', parameters('prefix'),'-ukofficehours')]",
-        "AppInsightsComponentName": "[concat(parameters('prefix'),'-ukofficehours')]"
+        "AppInsightsComponentName": "[concat(parameters('prefix'),'-ukofficehours')]",
+        "WebApp_KUDUHostName": "[concat(variables('WebApp_FrontEndName'),'.scm.azurewebsites.net')]",
+        "FunctionApp_HostName": "[concat(parameters('prefix'),'ukohfn','.azurewebsites.net')]",
+        "FunctionApp_KUDUHostName": "[concat(parameters('prefix'),'ukohfn','.scm.azurewebsites.net')]"
+
     },
     "resources": [{
             "type": "Microsoft.Cdn/profiles",
@@ -135,26 +136,6 @@
             "location": "UK South",
             "properties": {
                 "name": "[variables('FunctionApp_Name')]",
-                "hostNames": [
-                    "[variables('FunctionApp_HostName')]"
-                ],
-                "enabledHostNames": [
-                    "[variables('FunctionApp_HostName')]",
-                    "[variables('FunctionApp_KUDUHostName')]"
-                ],
-                "hostNameSslStates": [{
-                        "name": "[variables('FunctionApp_HostName')]",
-                        "sslState": 0,
-                        "thumbprint": null,
-                        "ipBasedSslState": 0
-                    },
-                    {
-                        "name": "[variables('FunctionApp_KUDUHostName')]",
-                        "sslState": 0,
-                        "thumbprint": null,
-                        "ipBasedSslState": 0
-                    }
-                ],
                 "serverFarmId": "[resourceId('Microsoft.Web/serverfarms',variables('AppServicePlan_Functions'))]"
             },
             "resources": [{
@@ -185,8 +166,7 @@
                     "type": "config",
                     "apiVersion": "2015-08-01",
                     "dependsOn": [
-                        "[resourceId('Microsoft.Web/sites', variables('FunctionApp_Name'))]",
-                        "[resourceId('Microsoft.Web/sites/config', variables('FunctionApp_Name'), 'appsettings')]"
+                        "[resourceId('Microsoft.Web/sites', variables('FunctionApp_Name'))]"
                     ],
                     "properties": {
                         "cors": {
@@ -196,6 +176,9 @@
                                 "https://functions-next.azure.com",
                                 "[concat('https://',variables('WebApp_HostName'))]"
                             ]
+                        },
+                        "apiDefinition": {
+                            "url": "[concat('https://',variables('WebApp_HostName'),'/swagger/docs/v1')]"
                         }
                     }
                 },
@@ -241,26 +224,6 @@
             "location": "UK South",
             "properties": {
                 "name": "[variables('WebApp_FrontEndName')]",
-                "hostNames": [
-                    "[variables('WebApp_HostName')]"
-                ],
-                "enabledHostNames": [
-                    "[variables('WebApp_HostName')]",
-                    "[variables('WebApp_KUDUHostName')]"
-                ],
-                "hostNameSslStates": [{
-                        "name": "[variables('WebApp_HostName')]",
-                        "sslState": 0,
-                        "thumbprint": null,
-                        "ipBasedSslState": 0
-                    },
-                    {
-                        "name": "[variables('WebApp_KUDUHostName')]",
-                        "sslState": 0,
-                        "thumbprint": null,
-                        "ipBasedSslState": 0
-                    }
-                ],
                 "serverFarmId": "[resourceId('Microsoft.Web/serverfarms',variables('AppServicePlan_FrontEnd'))]"
             },
             "dependsOn": [
