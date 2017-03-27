@@ -28,6 +28,8 @@ param
     
 )
 
+$localtenantdomaindoverride
+
 $siteroot = "https://$deployname-ukofficehours.azurewebsites.net"
 $display = "$deployname-ukofficehours"
 Write-Host "Script Running - deploying environment $deployname to rg $rg in subscription $sub" -ForegroundColor yellow
@@ -40,7 +42,9 @@ Add-Type -A System.IO.Compression.FileSystem
 $clientid = $localappidoverride
 $tenantid = $localtenantoverride
 $tenanturi = "https://sts.windows.net/$tenantid/"
-$currentADdomainandtenant = $localtenantdomainoverride
+$currentADdomainandtenant = $localtenantdomaindoverride
+
+$localtenantdomaindoverride
 
 if ($localappidoverride -eq $null) 
 {
