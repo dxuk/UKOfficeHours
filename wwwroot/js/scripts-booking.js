@@ -33,7 +33,7 @@
 
         // Tech Debt - this should be really done with promises, 
         // but we just want to ensure that the loading of the config data is loaded before everything
-        // else renders Hence the sync forced call.
+        // else renders: Hence the sync forced call. I will review this after go-live.
 
         $.ajax({
             method: "GET",
