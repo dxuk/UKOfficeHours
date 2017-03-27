@@ -13,9 +13,6 @@
         },
         "AzureAD_ClientID": {
             "type": "string"
-        },
-        "sitename": {
-            "type": "string"
         }
     },
     "variables": {
