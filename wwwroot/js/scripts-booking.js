@@ -42,7 +42,8 @@
                 // we have data, update the viewmodel and let knockout take care of the binding
                 clientid = result.ClientId;
                 tenantid = result.TenantId;
-                $("#bannertitle").html = result.Service_Description;
+                $('#bannertitle').html = result.Service_Description;
+                console.info("Service is:" + result.Service_Description);
                 console.info("Client ID is:" + clientid);
                 console.info("Tenant ID is:" + tenantid);;
             },
