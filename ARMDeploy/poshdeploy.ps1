@@ -87,7 +87,7 @@ New-AzureRmResourceGroup -Name $rg -Location $loc -Force
 write-host "Deploying with prefix :" + $deployname 
 WRITE-HOST "exec command: New-AzureRmResourceGroupDeployment -ResourceGroupName $rg -TemplateFile $templatefile -Force -TemplateParameterFile $tempparamfile -prefix $deployname -AzureAD_TenantURI $tenanturi -AzureAD_ClientID $clientid -AzureAD_TenantID $currentADdomainandtenant"
 
-New-AzureRmResourceGroupDeployment -ResourceGroupName $rg -TemplateFile $templatefile -Force -TemplateParameterFile $tempparamfile -prefix "$deployname" -AzureAD_TenantURI "$tenanturi" -AzureAD_ClientID "$clientid" -AzureAD_TenantID "$currentADdomainandtenant"
+New-AzureRmResourceGroupDeployment -ResourceGroupName $rg -TemplateFile $templatefile -Force -TemplateParameterFile $tempparamfile -prefix "$deployname" -AzureAD_TenantURI "$tenanturi" -AzureAD_TenantID "$currentADdomainandtenant" -AzureAD_ClientID "$clientid"
 
 Write-Host "Resource Group Deployment Complete" -ForegroundColor Green
 Write-Host "Function App Deployment Running" -ForegroundColor yellow
