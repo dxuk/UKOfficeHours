@@ -14,7 +14,7 @@
         "AzureAD_ClientID": {
             "type": "string"
         },
-        "SiteName": {
+        "sitename": {
             "type": "string"
         }
     },
