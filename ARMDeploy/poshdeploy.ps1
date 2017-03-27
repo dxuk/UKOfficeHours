@@ -64,7 +64,8 @@ if ($localappidoverride -ne $null)
     }
 
     # Pull the appropriate tenant data (from the named subscription) and application
-    # ** This will need to be overwritten if the subscription is backed by a different AD tenant from the application **
+    # ** This will need to be overwritten if the subscription is backed by a different AD tenant from the application, or you don't have permissions to look it up !**
+
     $clientid = $currentapp.ApplicationId 
     $tenantid = (Get-AzureRmsubscription -SubscriptionName $sub).TenantId 
     $tenanturi = "https://sts.windows.net/$tenantid/"
