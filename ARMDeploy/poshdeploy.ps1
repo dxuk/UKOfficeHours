@@ -7,11 +7,16 @@
 
 param
 (
+
     $deployname = "dummyci",
     $rg = "oh$deployname",
     $loc = "UKSouth",
-    $sub = "Internal DX OH Subscription"
+    $sub = "Internal DX OH Subscription",
+    $siteroot = "https://$deployname-ukofficehours.azurewebsites.net",
+    $display = "$deployname-ukofficehours"
+
 )
+
 
 Write-Host "Script Running - deploying rg $deployname" -ForegroundColor yellow
 $templatefile = ((Get-Item -Path ".\" -Verbose).FullName + "\armdeploy\ohbooking.json")
@@ -19,12 +24,32 @@ $tempparamfile = ((Get-Item -Path ".\" -Verbose).FullName + "\armdeploy\ohbookin
 $temploc = "test.output.txt"
 Add-Type -A System.IO.Compression.FileSystem
 
+Write-Host "Retrieving AD Application $display" -ForegroundColor yellow
+$currentapp = (get-azurermadapplication -IdentifierUri $siteroot)
+
+if ($currentapp -ne $null) 
+{
+    Write-Host "Found App:" $currentapp.ApplicationId
+    
+}
+else
+{
+    Write-Host "App URI not found ... Creating AD Application $display" -ForegroundColor yellow
+    $currentapp = New-AzureRmADApplication -DisplayName $display -HomePage $siteroot -IdentifierUris $siteroot 
+    Write-Host "Created App: " $currentapp.ApplicationId
+}
+
+# Pull the appropriate tenant (from the named subscription) and application
+$clientid = $currentapp.ApplicationId 
+$tenantid = (Get-AzureRmsubscription -SubscriptionName $sub).TenantId # This will need to be overwritten if the subscription is backed by a different AD tenant from the application
+$tenanturi = "https://sts.windows.net/$tenantid/"
+
 Write-Host "Resource Group Deployment Running" -ForegroundColor yellow
 
 # Trigger the resource group deployment #
 Select-AzureRmSubscription -SubscriptionName $sub
 New-AzureRmResourceGroup -Name $rg -Location $loc -Force
-New-AzureRmResourceGroupDeployment -ResourceGroupName $rg -TemplateFile $templatefile -Force -TemplateParameterFile $tempparamfile
+New-AzureRmResourceGroupDeployment -ResourceGroupName $rg -TemplateFile $templatefile -Force -TemplateParameterFile $tempparamfile -AzureAD_ClientID $clientid
 
 Write-Host "Resource Group Deployment Complete" -ForegroundColor Green
 Write-Host "Function App Deployment Running" -ForegroundColor yellow
