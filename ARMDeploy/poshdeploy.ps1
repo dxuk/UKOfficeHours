@@ -154,8 +154,8 @@ $StorageAccountName = $deployname + "ukohstoragedata"
 $Ctx = New-AzureStorageContext $StorageAccountName -StorageAccountKey (Get-AzureRmStorageAccountKey -Name ($deployname + "ukohstoragedata") -ResourceGroupName $rg)[0].Value
 
 #Create the tables
-New-AzureStorageTable �Name "isv" -Context $Ctx -ErrorAction ignore
-New-AzureStorageTable �Name "bookingslot" �Context $Ctx -ErrorAction ignore
+New-AzureStorageTable -Name "isv" -Context $Ctx -ErrorAction ignore
+New-AzureStorageTable -Name "bookingslot" -Context $Ctx -ErrorAction ignore
 
 $Ctx = $null
 
