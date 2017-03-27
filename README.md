@@ -1,9 +1,11 @@
 # UKOfficeHours
+===============
+
 Home for the source code of the DX UK Office Hours Booking Site
 ---------------------------------------------------------------
 
 Deploys a multi-site app architecture in a resource group, with table storage, a web front end in app service and a functions middle tier
-=========================================================================================================================================
+
 The service is simply a simple example booking system, written as a Knockout / Bootstrap SPA
 The front end is pure HTML5/js, using knockout for data binding, moment.js for date handling and bootstrap for UI styling.
 It uses Azure Functions for it's API / Middle Tier and is deployed via the KUDU Zip API to Azure app service
