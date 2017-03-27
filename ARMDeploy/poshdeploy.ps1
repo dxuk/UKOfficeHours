@@ -9,8 +9,7 @@
 # Valid environments for our internal usage deployment are "lo","cd","de","ts","pr", but any free combination can in theory be used.
 # "lo" local
 # "co" continuous delivery
-# "de" development testing
-# "ts" test environment and qa
+# "de" de
 # "pr" production / live environment
 
 # Skipping -deployname param will run a dummy ci deployment to a resgroup of "dc" - a dummy ci testing environment.
@@ -66,6 +65,9 @@ Write-Host "Resource Group Deployment Running" -ForegroundColor yellow
 # Trigger the resource group deployment #
 Select-AzureRmSubscription -SubscriptionName $sub
 New-AzureRmResourceGroup -Name $rg -Location $loc -Force
+
+write-host "Deploying with prefix :" + $deployname 
+
 New-AzureRmResourceGroupDeployment -ResourceGroupName $rg -TemplateFile $templatefile -Force -TemplateParameterFile $tempparamfile -prefix $deployname -AzureAD_TenantURI $tenanturi -AzureAD_ClientID $clientid -AzureAD_TenantID $currentADdomainandtenant
 
 Write-Host "Resource Group Deployment Complete" -ForegroundColor Green
