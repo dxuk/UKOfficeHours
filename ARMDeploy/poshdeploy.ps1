@@ -87,6 +87,11 @@ New-AzureRmResourceGroup -Name $rg -Location $loc -Force
 write-host "Deploying with prefix :" + $deployname 
 WRITE-HOST "exec command: New-AzureRmResourceGroupDeployment -ResourceGroupName $rg -TemplateFile $templatefile -Force -TemplateParameterFile $tempparamfile -prefix $deployname -AzureAD_TenantURI $tenanturi -AzureAD_TenantID $currentADdomainandtenant -AzureAD_ClientID $clientid "
 
+$clientid 
+$tenantid 
+$tenanturi 
+$currentADdomainandtenant 
+
 New-AzureRmResourceGroupDeployment -ResourceGroupName $rg -TemplateFile $templatefile -Force -TemplateParameterFile $tempparamfile -prefix "$deployname" -AzureAD_TenantURI "$tenanturi" -AzureAD_TenantID "$currentADdomainandtenant" -AzureAD_ClientID "$clientid"
 
 Write-Host "Resource Group Deployment Complete" -ForegroundColor Green
