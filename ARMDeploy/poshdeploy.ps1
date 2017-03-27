@@ -81,17 +81,8 @@ Write-Host "Function App Deployment Complete" -ForegroundColor Green
 Write-Host "Web App Deployment Running" -ForegroundColor yellow
 
 # Deploy the front end site #
-
-# Copy the correct config file to the root of the app before deploying it
-# Inject the appropriate Tenant And APP ID data into the config
-Copy-Item ((Get-Item -Path ".\" -Verbose).FullName + "\wwwroot\config\config.js" + $deployname + ".js") ((Get-Item -Path ".\" -Verbose).FullName + "\wwwroot\config\config-LOCAL.js") -force
-Copy-Item ((Get-Item -Path ".\" -Verbose).FullName + "\ARMDeploy\config\config" + $deployname + ".js") ((Get-Item -Path ".\" -Verbose).FullName + "\wwwroot\config\config.js") -force
-
 Remove-Item ((Get-Item -Path ".\" -Verbose).FullName + "\deploy\web.zip") -ErrorAction ignore
 [IO.Compression.ZipFile]::CreateFromDirectory(((Get-Item -Path ".\" -Verbose).FullName + "\wwwroot\"),((Get-Item -Path ".\" -Verbose).FullName + "\deploy\web.zip"))
-
-Copy-Item ((Get-Item -Path ".\" -Verbose).FullName + "\wwwroot\config\config-LOCAL.js") ((Get-Item -Path ".\" -Verbose).FullName + "\wwwroot\config\config.js" + $deployname + ".js") -force
-
 
 $site2 = Get-AzureRmWebAppPublishingProfile -Name ($deployname + "-ukofficehours") -ResourceGroup $rg -Format "WebDeploy" -OutputFile $temploc
 $username2 =  ([xml] $site2).publishData.publishProfile[0].userName # The Username

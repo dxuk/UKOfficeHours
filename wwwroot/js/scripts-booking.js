@@ -12,6 +12,20 @@
         var allisvsbound = false;
         var myisvsforfilter;
 
+        // Pick up server specific settings and load the ad config via a function call from the remote server
+        var clientid = '';
+        var tenantid = '';
+
+        $.ajax({
+            method: "GET",
+            url: rootfnsite + "api/GetConfig",
+            success: function(result) {
+                // we have data, update the viewmodel and let knockout take care of the binding
+                clientid = result.ClientId;
+                tenantid = result.TenantId;
+            }
+        });
+
         // Declare Special Binding Handlers to deal with the datepickers bindings in knockout
         // DatePicker
         ko.bindingHandlers.weekdaydatePicker = {
