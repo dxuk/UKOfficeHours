@@ -33,4 +33,10 @@ A simple example booking system, written as a Knockout / Bootstrap SPA
 Uses Azure Functions for it's API / Middle Tier and is deployed via web deploy to azure app service
 
 Azure Table Storage is used on the back end for data nosql storage.
->>>>>>> f37b52ccbb6281e6bea9d3ef079d83661751621c
+
+Visual Studio Team System is used to trigger and host the build and deploy system, whilst the primary code repo is here.
+
+<img src="https://dxukprogrammatic.visualstudio.com/_apis/public/build/definitions/fe221f9a-c953-4f87-8184-d1d51aec1f9e/1/badge">
+
+
+
