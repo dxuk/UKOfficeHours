@@ -2,7 +2,7 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "prefix": {
+        "svprefix": {
             "type": "string"
         },
         "AzureAD_TenantURI": {
@@ -16,19 +16,19 @@
         }
     },
     "variables": {
-        "StorageAccount_Data": "[concat(parameters('prefix'),'ukohstoragedata')]",
-        "StorageAccount_Functions": "[concat(parameters('prefix'),'ukohstoragefn')]",
-        "AppServicePlan_FrontEnd": "[concat(parameters('prefix'),'-ukohwebasp')]",
-        "AppServicePlan_Functions": "[concat(parameters('prefix'),'-ukohfnasp')]",
-        "WebApp_FrontEndName": "[concat(parameters('prefix'),'-ukofficehours')]",
+        "StorageAccount_Data": "[concat(parameters('svprefix'),'ukohstoragedata')]",
+        "StorageAccount_Functions": "[concat(parameters('svprefix'),'ukohstoragefn')]",
+        "AppServicePlan_FrontEnd": "[concat(parameters('svprefix'),'-ukohwebasp')]",
+        "AppServicePlan_Functions": "[concat(parameters('svprefix'),'-ukohfnasp')]",
+        "WebApp_FrontEndName": "[concat(parameters('svprefix'),'-ukofficehours')]",
         "WebApp_HostName": "[concat(variables('WebApp_FrontEndName'),'.azurewebsites.net')]",
-        "FunctionApp_Name": "[concat(parameters('prefix'),'ukohfn')]",
-        "CDN_ProfileName": "[concat(parameters('prefix'),'-ukofficehours')]",
-        "CDN_Endpoint_Name": "[concat(parameters('prefix'),'-ukofficehours','/', parameters('prefix'),'-ukofficehours')]",
-        "AppInsightsComponentName": "[concat(parameters('prefix'),'-ukofficehours')]",
+        "FunctionApp_Name": "[concat(parameters('svprefix'),'ukohfn')]",
+        "CDN_ProfileName": "[concat(parameters('svprefix'),'-ukofficehours')]",
+        "CDN_Endpoint_Name": "[concat(parameters('svprefix'),'-ukofficehours','/', parameters('svprefix'),'-ukofficehours')]",
+        "AppInsightsComponentName": "[concat(parameters('svprefix'),'-ukofficehours')]",
         "WebApp_KUDUHostName": "[concat(variables('WebApp_FrontEndName'),'.scm.azurewebsites.net')]",
-        "FunctionApp_HostName": "[concat(parameters('prefix'),'ukohfn','.azurewebsites.net')]",
-        "FunctionApp_KUDUHostName": "[concat(parameters('prefix'),'ukohfn','.scm.azurewebsites.net')]"
+        "FunctionApp_HostName": "[concat(parameters('svprefix'),'ukohfn','.azurewebsites.net')]",
+        "FunctionApp_KUDUHostName": "[concat(parameters('svprefix'),'ukohfn','.scm.azurewebsites.net')]"
 
     },
     "resources": [{
