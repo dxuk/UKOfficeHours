@@ -21,7 +21,10 @@ param
     $deployname = "dc",
     $rg = "oh$deployname",
     $loc = "UKSouth",
-    $sub = "Internal DX OH Subscription"
+    $sub = "",                  #subscription to deploy into
+    $localtenantoverride = "",  # azure ad tenant guid to connect application to 
+    $localappidoverride = "",   # azure ad app client id to point client app to
+    $localtenantdomaindoverride = "" # azure ad domain name to point client app to.
     
 )
 
@@ -34,31 +37,40 @@ $temploc = "test.output.txt"
 
 Add-Type -A System.IO.Compression.FileSystem
 
-Write-Host "Retrieving AD Application $display" -ForegroundColor yellow
-$currentapp = (get-azurermadapplication -IdentifierUri $siteroot)
-
-if ($currentapp -ne $null) 
-{
-    Write-Host "Found App:" $currentapp.ApplicationId
-  
-}
-else
-{
-    Write-Host "App URI not found ... Creating AD Application $display" -ForegroundColor yellow
-    $currentapp = New-AzureRmADApplication -DisplayName $display -HomePage $siteroot -IdentifierUris $siteroot -ReplyUrls @($siteroot)
-    
-    # We could fire the Set-AzureADApplication cmdlet from the AzureAD module here to add OAuth Implicit flow support here
-    # but we will add this manually to the manifest at the end of the 1st deployment.
-     
-    Write-Host "Created App: " $currentapp.ApplicationId
-}
-
-# Pull the appropriate tenant data (from the named subscription) and application
-# ** This will need to be overwritten if the subscription is backed by a different AD tenant from the application **
-$clientid = $currentapp.ApplicationId 
-$tenantid = (Get-AzureRmsubscription -SubscriptionName $sub).TenantId 
+$clientid = $localappidoverride
+$tenantid = $localtenantoverride
 $tenanturi = "https://sts.windows.net/$tenantid/"
-$currentADdomainandtenant = (Get-AzureRmTenant -TenantId (Get-AzureRmSubscription -SubscriptionName $sub).TenantId).Domain
+$currentADdomainandtenant = $localtenantdomainoverride
+
+if ($localappidoverride -ne $null) 
+{
+    Write-Host "Retrieving AD Application $display" -ForegroundColor yellow
+    $currentapp = (get-azurermadapplication -IdentifierUri $siteroot)
+
+    if ($currentapp -ne $null) 
+    {
+        Write-Host "Found App:" $currentapp.ApplicationId
+    
+    }
+    else
+    {
+        Write-Host "App URI not found ... Creating AD Application $display" -ForegroundColor yellow
+        $currentapp = New-AzureRmADApplication -DisplayName $display -HomePage $siteroot -IdentifierUris $siteroot -ReplyUrls @($siteroot)
+        
+        # We could fire the Set-AzureADApplication cmdlet from the AzureAD module here to add OAuth Implicit flow support here
+        # but we will add this manually to the manifest at the end of the 1st deployment.
+        
+        Write-Host "Created App: " $currentapp.ApplicationId
+    }
+
+    # Pull the appropriate tenant data (from the named subscription) and application
+    # ** This will need to be overwritten if the subscription is backed by a different AD tenant from the application **
+    $clientid = $currentapp.ApplicationId 
+    $tenantid = (Get-AzureRmsubscription -SubscriptionName $sub).TenantId 
+    $tenanturi = "https://sts.windows.net/$tenantid/"
+    $currentADdomainandtenant = (Get-AzureRmTenant -TenantId (Get-AzureRmSubscription -SubscriptionName $sub).TenantId).Domain
+
+}
 
 Write-Host "Resource Group Deployment Running" -ForegroundColor yellow
 
@@ -124,8 +136,8 @@ $StorageAccountName = $deployname + "ukohstoragedata"
 $Ctx = New-AzureStorageContext $StorageAccountName -StorageAccountKey (Get-AzureRmStorageAccountKey -Name ($deployname + "ukohstoragedata") -ResourceGroupName $rg)[0].Value
 
 #Create the tables
-New-AzureStorageTable –Name "isv" -Context $Ctx -ErrorAction ignore
-New-AzureStorageTable –Name "bookingslot" –Context $Ctx -ErrorAction ignore
+New-AzureStorageTable ï¿½Name "isv" -Context $Ctx -ErrorAction ignore
+New-AzureStorageTable ï¿½Name "bookingslot" ï¿½Context $Ctx -ErrorAction ignore
 
 $Ctx = $null
 
