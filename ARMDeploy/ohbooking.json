@@ -25,11 +25,7 @@
         "FunctionApp_Name": "[concat(parameters('svprefix'),'ukohfn')]",
         "CDN_ProfileName": "[concat(parameters('svprefix'),'-ukofficehours')]",
         "CDN_Endpoint_Name": "[concat(parameters('svprefix'),'-ukofficehours','/', parameters('svprefix'),'-ukofficehours')]",
-        "AppInsightsComponentName": "[concat(parameters('svprefix'),'-ukofficehours')]",
-        "WebApp_KUDUHostName": "[concat(variables('WebApp_FrontEndName'),'.scm.azurewebsites.net')]",
-        "FunctionApp_HostName": "[concat(parameters('svprefix'),'ukohfn','.azurewebsites.net')]",
-        "FunctionApp_KUDUHostName": "[concat(parameters('svprefix'),'ukohfn','.scm.azurewebsites.net')]"
-
+        "AppInsightsComponentName": "[concat(parameters('svprefix'),'-ukofficehours')]"
     },
     "resources": [{
             "type": "Microsoft.Cdn/profiles",
