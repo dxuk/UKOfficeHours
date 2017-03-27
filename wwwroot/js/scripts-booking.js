@@ -42,8 +42,9 @@
                 // we have data, update the viewmodel and let knockout take care of the binding
                 clientid = result.ClientId;
                 tenantid = result.TenantId;
+                $("#bannertitle").html = result.Service_Description;
                 console.info("Client ID is:" + clientid);
-                console.info("Tenant ID is:" + tenantid);
+                console.info("Tenant ID is:" + tenantid);;
             },
             error: function() {
                 alert('Failed to load config:');
@@ -405,7 +406,6 @@
             // and it then pops up the modal dialog.
             SetBookingSlot: function(bookingslot) {
 
-
                 // Set up the modal form data bindings to receive the selected row values
                 viewmodel_viewslots.submitdata.RowKey(bookingslot.RowKey);
                 viewmodel_viewslots.submitdata.PartitionKey(bookingslot.PartitionKey);
@@ -709,6 +709,7 @@
         $("#addisvsection").toggle();
         $("#bookwithcodesection").toggle();
         var visiblepanel = "welcome";
+
 
         loadupdatestatus(30);
 

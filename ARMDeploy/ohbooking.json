@@ -13,6 +13,9 @@
         },
         "AzureAD_ClientID": {
             "type": "string"
+        },
+        "Service_Description": {
+            "type": "string"
         }
     },
     "variables": {
@@ -155,7 +158,8 @@
                         "FUNCTIONS_EXTENSION_VERSION": "latest",
                         "AzureAD_ClientID": "[parameters('AzureAD_ClientID')]",
                         "AzureAD_TenantURI": "[parameters('AzureAD_TenantURI')]",
-                        "AzureAD_TenantID": "[parameters('AzureAD_TenantID')]"
+                        "AzureAD_TenantID": "[parameters('AzureAD_TenantID')]",
+                        "Service_Description": "[parameters('Service_Description')]"
                     },
                     "tags": {
                         "displayName": "[variables('FunctionApp_Name')]"
