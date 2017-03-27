@@ -42,7 +42,7 @@ $tenantid = $localtenantoverride
 $tenanturi = "https://sts.windows.net/$tenantid/"
 $currentADdomainandtenant = $localtenantdomainoverride
 
-if ($localappidoverride -ne $null) 
+if ($localappidoverride -eq $null) 
 {
     Write-Host "Retrieving AD Application $display" -ForegroundColor yellow
     $currentapp = (get-azurermadapplication -IdentifierUri $siteroot)
@@ -71,6 +71,11 @@ if ($localappidoverride -ne $null)
     $tenanturi = "https://sts.windows.net/$tenantid/"
     $currentADdomainandtenant = (Get-AzureRmTenant -TenantId (Get-AzureRmSubscription -SubscriptionName $sub).TenantId).Domain
 
+}
+else
+{
+
+    Write-Host "AppID and tenant data overridden"
 }
 
 Write-Host "Resource Group Deployment Running" -ForegroundColor yellow
