@@ -85,7 +85,7 @@ Select-AzureRmSubscription -SubscriptionName $sub
 New-AzureRmResourceGroup -Name $rg -Location $loc -Force
 
 write-host "Deploying with prefix :" + $deployname 
-WRITE-HOST "exec command: New-AzureRmResourceGroupDeployment -ResourceGroupName $rg -TemplateFile $templatefile -Force -TemplateParameterFile $tempparamfile -prefix $deployname -AzureAD_TenantURI $tenanturi -AzureAD_ClientID $clientid -AzureAD_TenantID $currentADdomainandtenant"
+WRITE-HOST "exec command: New-AzureRmResourceGroupDeployment -ResourceGroupName $rg -TemplateFile $templatefile -Force -TemplateParameterFile $tempparamfile -prefix $deployname -AzureAD_TenantURI $tenanturi -AzureAD_TenantID $currentADdomainandtenant -AzureAD_ClientID $clientid "
 
 New-AzureRmResourceGroupDeployment -ResourceGroupName $rg -TemplateFile $templatefile -Force -TemplateParameterFile $tempparamfile -prefix "$deployname" -AzureAD_TenantURI "$tenanturi" -AzureAD_TenantID "$currentADdomainandtenant" -AzureAD_ClientID "$clientid"
 
