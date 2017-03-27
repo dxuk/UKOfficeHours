@@ -99,7 +99,7 @@ $tenantid
 $tenanturi 
 $currentADdomainandtenant 
 
-New-AzureRmResourceGroupDeployment -ResourceGroupName $rg -TemplateFile $templatefile -Force -TemplateParameterFile $tempparamfile -prefix "$deployname" -AzureAD_TenantURI "$tenanturi" -AzureAD_TenantID "$currentADdomainandtenant" -AzureAD_ClientID "$clientid"
+New-AzureRmResourceGroupDeployment -ResourceGroupName $rg -TemplateFile $templatefile -Force -TemplateParameterFile $tempparamfile -svprefix "$deployname" -AzureAD_TenantURI "$tenanturi" -AzureAD_TenantID "$currentADdomainandtenant" -AzureAD_ClientID "$clientid"
 
 Write-Host "Resource Group Deployment Complete" -ForegroundColor Green
 Write-Host "Function App Deployment Running" -ForegroundColor yellow
