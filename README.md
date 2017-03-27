@@ -45,6 +45,9 @@ For local debugging to work, you also probably want to add your local endpoint a
 
 TL;DR; Apart from that, get the repo and do this to deploy a dev environment.
 PS C:\Users\wieastbu\Source\Repos\UKOfficeHours\UKOfficeHours> .\armdeploy\poshdeploy "yo" 
+There are override params in the deploy script to specify AD params if you don't have permissions to autodiscover them 
+
+.\armdeploy\poshdeploy -deployname "lo" -rg "ohlo" -loc "UKSouth" -sub "Internal Subscription" -localtenantoverride  "xxxx88bf-86f1-xxxx-91ab-xxxxxxb47" -localappidoverride "xxxxxxx-5db0-4fe9-a8df-9xxxxxe814c" -localtenantdomainoverride "contoso.com"
 
 Visual Studio Team System is used to trigger and host the build and deploy system, whilst the primary code repo is here.
 <img src="https://dxukprogrammatic.visualstudio.com/_apis/public/build/definitions/fe221f9a-c953-4f87-8184-d1d51aec1f9e/1/badge">
