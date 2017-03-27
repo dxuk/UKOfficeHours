@@ -12,8 +12,6 @@
         var allisvsbound = false;
         var myisvsforfilter;
 
-
-
         // Declare Special Binding Handlers to deal with the datepickers bindings in knockout
         // DatePicker
         ko.bindingHandlers.weekdaydatePicker = {
@@ -217,7 +215,6 @@
                 self.FilterDate('--All--');
                 self.FilterDuration('--All--');
                 self.FilterFutureOrPast('--All--');
-
 
             };
             self.SaveFilters = function() {

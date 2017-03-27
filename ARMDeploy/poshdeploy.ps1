@@ -8,7 +8,7 @@
 
 # Valid environments for our internal usage deployment are "lo","cd","de","ts","pr", but any free combination can in theory be used.
 # "lo" local
-# "cd" continuous delivery
+# "co" continuous delivery
 # "de" development testing
 # "ts" test environment and qa
 # "pr" production / live environment
