@@ -119,7 +119,6 @@ Invoke-RestMethod -Uri $apiwb -Headers @{Authorization=("Basic {0}" -f $base64Au
 Write-Host "Deploying Storage Account Tables" -ForegroundColor Green
 
 # Create the tables inside the storage accounts
-
 ##############
 # bookingslot
 # isv
