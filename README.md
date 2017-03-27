@@ -1,12 +1,12 @@
 # UKOfficeHours
 Home for the source code of the DX UK Office Hours Booking Site
+---------------------------------------------------------------
 
-<<<<<<< HEAD
 Deploys a multi-site app architecture in a resource group, with table storage, a web front end in app service and a functions middle tier
 Login first with Login-AzureRmAccount, or VSTS, then run poshdeploy.ps1
 
 This should run on any machine with the azure sdk installed - 
-Download the repo then - 
+Download the repo then
 cd to <Repo>\UKOfficeHours\UKOfficeHours
 Then run .\armdeploy\poshdeploy -deployname "<two letter environment code>"
 
@@ -35,7 +35,6 @@ Uses Azure Functions for it's API / Middle Tier and is deployed via web deploy t
 Azure Table Storage is used on the back end for data nosql storage.
 
 Visual Studio Team System is used to trigger and host the build and deploy system, whilst the primary code repo is here.
-
 <img src="https://dxukprogrammatic.visualstudio.com/_apis/public/build/definitions/fe221f9a-c953-4f87-8184-d1d51aec1f9e/1/badge">
 
 
