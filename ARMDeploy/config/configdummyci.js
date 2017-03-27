@@ -1,12 +1,12 @@
 // Settings for app to be loaded into the global scope
-// QA Configuration
+// CI / Local Configuration
 // We could make this server agnostic by declaring these server-side but this is a js spa so we will simply switch the config file out at deploy time
 
-var prefix = 'dv'; // Dummy CI Deployment prefix 
-var clientid = ''; // Dummy CI Deployment Azure AD App 
+var prefix = 'dummyci'; // Dummy CI Deployment prefix 
+var clientid = '643c52a1-b206-4f15-b0b8-047e8b6bbe9c'; // Dummy CI Deployment Azure AD App 
 var tenantid = 'microsoft.com'; // Azure AD Tenant
 
-var instance = 'https://login.microsoftonline.com/'; // Azure AD logon endpoint
+var authinstance = 'https://login.microsoftonline.com/'; // Azure AD logon endpoint
 var dateform = "DD/MM/YYYY"; // UK locale
 var timeform = "HH:mm"; // 12h UK time
 

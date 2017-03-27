@@ -11,16 +11,18 @@ param
     $deployname = "dummyci",
     $rg = "oh$deployname",
     $loc = "UKSouth",
-    $sub = "Internal DX OH Subscription",
-    $siteroot = "https://$deployname-ukofficehours.azurewebsites.net",
-    $display = "$deployname-ukofficehours"
+    $sub = "Internal DX OH Subscription"
+    
 
 )
 
+$siteroot = "https://$deployname-ukofficehours.azurewebsites.net"
+$display = "$deployname-ukofficehours"
 Write-Host "Script Running - deploying environment $deployname to rg $rg in subscription $sub" -ForegroundColor yellow
 $templatefile = ((Get-Item -Path ".\" -Verbose).FullName + "\armdeploy\ohbooking.json")
 $tempparamfile = ((Get-Item -Path ".\" -Verbose).FullName + "\armdeploy\ohbookingparams.json")
 $temploc = "test.output.txt"
+
 Add-Type -A System.IO.Compression.FileSystem
 
 Write-Host "Retrieving AD Application $display" -ForegroundColor yellow
@@ -29,7 +31,7 @@ $currentapp = (get-azurermadapplication -IdentifierUri $siteroot)
 if ($currentapp -ne $null) 
 {
     Write-Host "Found App:" $currentapp.ApplicationId
-    
+  
 }
 else
 {
@@ -42,22 +44,22 @@ else
     Write-Host "Created App: " $currentapp.ApplicationId
 }
 
-# Pull the appropriate tenant (from the named subscription) and application
+# Pull the appropriate tenant data (from the named subscription) and application
+# ** This will need to be overwritten if the subscription is backed by a different AD tenant from the application
 $clientid = $currentapp.ApplicationId 
-$tenantid = (Get-AzureRmsubscription -SubscriptionName $sub).TenantId # This will need to be overwritten if the subscription is backed by a different AD tenant from the application
+$tenantid = (Get-AzureRmsubscription -SubscriptionName $sub).TenantId 
 $tenanturi = "https://sts.windows.net/$tenantid/"
+$currentADdomainandtenant = (Get-AzureRmTenant -TenantId (Get-AzureRmSubscription -SubscriptionName $sub).TenantId).Domain
 
 Write-Host "Resource Group Deployment Running" -ForegroundColor yellow
 
 # Trigger the resource group deployment #
 Select-AzureRmSubscription -SubscriptionName $sub
 New-AzureRmResourceGroup -Name $rg -Location $loc -Force
-New-AzureRmResourceGroupDeployment -ResourceGroupName $rg -TemplateFile $templatefile -Force -TemplateParameterFile $tempparamfile -prefix $deployname -AzureAD_TenantURI $tenanturi -AzureAD_ClientID $clientid
+New-AzureRmResourceGroupDeployment -ResourceGroupName $rg -TemplateFile $templatefile -Force -TemplateParameterFile $tempparamfile -prefix $deployname -AzureAD_TenantURI $tenanturi -AzureAD_ClientID $clientid -AzureAD_TenantID $currentADdomainandtenant
 
 Write-Host "Resource Group Deployment Complete" -ForegroundColor Green
 Write-Host "Function App Deployment Running" -ForegroundColor yellow
-
-
 
 # Deploy the function app #
 Remove-Item ((Get-Item -Path ".\" -Verbose).FullName + "\deploy\functions.zip") -ErrorAction ignore
@@ -79,8 +81,18 @@ Write-Host "Function App Deployment Complete" -ForegroundColor Green
 Write-Host "Web App Deployment Running" -ForegroundColor yellow
 
 # Deploy the front end site #
+
+# Copy the correct config file to the root of the app before deploying it
+# Inject the appropriate Tenant And APP ID data into the config
+Copy-Item ((Get-Item -Path ".\" -Verbose).FullName + "\wwwroot\config\config.js" + $deployname + ".js") ((Get-Item -Path ".\" -Verbose).FullName + "\wwwroot\config\config-LOCAL.js") -force
+Copy-Item ((Get-Item -Path ".\" -Verbose).FullName + "\ARMDeploy\config\config" + $deployname + ".js") ((Get-Item -Path ".\" -Verbose).FullName + "\wwwroot\config\config.js") -force
+
 Remove-Item ((Get-Item -Path ".\" -Verbose).FullName + "\deploy\web.zip") -ErrorAction ignore
 [IO.Compression.ZipFile]::CreateFromDirectory(((Get-Item -Path ".\" -Verbose).FullName + "\wwwroot\"),((Get-Item -Path ".\" -Verbose).FullName + "\deploy\web.zip"))
+
+Copy-Item ((Get-Item -Path ".\" -Verbose).FullName + "\wwwroot\config\config-LOCAL.js") ((Get-Item -Path ".\" -Verbose).FullName + "\wwwroot\config\config.js" + $deployname + ".js") -force
+
+
 $site2 = Get-AzureRmWebAppPublishingProfile -Name ($deployname + "-ukofficehours") -ResourceGroup $rg -Format "WebDeploy" -OutputFile $temploc
 $username2 =  ([xml] $site2).publishData.publishProfile[0].userName # The Username
 $password2 =  ([xml] $site2).publishData.publishProfile[0].userPWD  # The Password 

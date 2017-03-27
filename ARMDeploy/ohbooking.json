@@ -8,6 +8,9 @@
         "AzureAD_TenantURI": {
             "type": "string"
         },
+        "AzureAD_TenantID": {
+            "type": "string"
+        },
         "AzureAD_ClientID": {
             "type": "string"
         }
@@ -155,7 +158,8 @@
                         "storageConnection": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('StorageAccount_Data'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('StorageAccount_Data')), '2015-05-01-preview').key1,';')]",
                         "FUNCTIONS_EXTENSION_VERSION": "latest",
                         "AzureAD_ClientID": "[parameters('AzureAD_ClientID')]",
-                        "AzureAD_TenantURI": "[parameters('AzureAD_TenantURI')]"
+                        "AzureAD_TenantURI": "[parameters('AzureAD_TenantURI')]",
+                        "AzureAD_TenantID": "[parameters('AzureAD_TenantID')]"
                     },
                     "tags": {
                         "displayName": "[variables('FunctionApp_Name')]"
