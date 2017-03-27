@@ -13,6 +13,9 @@
         },
         "AzureAD_ClientID": {
             "type": "string"
+        },
+        "sna": {
+            "type": "string"
         }
     },
     "variables": {
