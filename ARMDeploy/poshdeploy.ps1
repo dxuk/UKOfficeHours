@@ -24,7 +24,7 @@ param
     $sub = "",                  #subscription to deploy into
     $localtenantoverride = "",  # azure ad tenant guid to connect application to 
     $localappidoverride = "",   # azure ad app client id to point client app to
-    $localtenantdomaindoverride = "" # azure ad domain name to point client app to.
+    $localtenantdomaindoverride = "microsoft.com" # azure ad domain name to point client app to.
     
 )
 
@@ -43,8 +43,6 @@ $clientid = $localappidoverride
 $tenantid = $localtenantoverride
 $tenanturi = "https://sts.windows.net/$tenantid/"
 $currentADdomainandtenant = $localtenantdomaindoverride
-
-$localtenantdomaindoverride
 
 if ($localappidoverride -eq $null) 
 {
@@ -79,7 +77,12 @@ if ($localappidoverride -eq $null)
 else
 {
 
-    Write-Host "AppID and tenant data overridden"
+    Write-Host "AppID and tenant data overridden with these 4 values"
+
+    $clientid 
+    $tenantid 
+    $tenanturi 
+    $currentADdomainandtenant 
 }
 
 Write-Host "Resource Group Deployment Running" -ForegroundColor yellow
