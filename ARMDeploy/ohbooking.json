@@ -15,7 +15,8 @@
             "type": "string"
         },
         "sna": {
-            "type": "string"
+            "type": "string",
+            "defaultValue": "Office Hours"
         }
     },
     "variables": {
@@ -158,7 +159,8 @@
                         "FUNCTIONS_EXTENSION_VERSION": "latest",
                         "AzureAD_ClientID": "[parameters('AzureAD_ClientID')]",
                         "AzureAD_TenantURI": "[parameters('AzureAD_TenantURI')]",
-                        "AzureAD_TenantID": "[parameters('AzureAD_TenantID')]"
+                        "AzureAD_TenantID": "[parameters('AzureAD_TenantID')]",
+                        "Service_Definition": "[parameters('sna')]"
                     },
                     "tags": {
                         "displayName": "[variables('FunctionApp_Name')]"
