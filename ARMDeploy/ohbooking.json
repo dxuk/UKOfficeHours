@@ -173,15 +173,15 @@
                         "WEBSITE_CONTENTSHARE": "[variables('FunctionApp_Name')]",
                         "storageConnection": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('StorageAccount_Data'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('StorageAccount_Data')), '2015-05-01-preview').key1,';')]",
                         "FUNCTIONS_EXTENSION_VERSION": "latest",
-                        "AzureAD_ClientID": "parameters('AzureAD_ClientID')",
-                        "AzureAD_TenantID": "parameters('AzureAD_TenantID')"
+                        "AzureAD_ClientID": "[parameters('AzureAD_ClientID')]",
+                        "AzureAD_TenantURI": "[parameters('AzureAD_TenantURI')]"
                     },
                     "tags": {
                         "displayName": "[variables('FunctionApp_Name')]"
                     }
                 },
                 {
-                    "name": "cors",
+                    "name": "web",
                     "type": "config",
                     "apiVersion": "2015-08-01",
                     "dependsOn": [
@@ -189,12 +189,14 @@
                         "[resourceId('Microsoft.Web/sites/config', variables('FunctionApp_Name'), 'appsettings')]"
                     ],
                     "properties": {
-                        "allowedOrigins": [
-                            "https://functions.azure.com",
-                            "https://functions-staging.azure.com",
-                            "https://functions-next.azure.com",
-                            "[concat('https://',variables('WebApp_HostName'))]"
-                        ]
+                        "cors": {
+                            "allowedOrigins": [
+                                "https://functions.azure.com",
+                                "https://functions-staging.azure.com",
+                                "https://functions-next.azure.com",
+                                "[concat('https://',variables('WebApp_HostName'))]"
+                            ]
+                        }
                     }
                 },
                 {
@@ -223,22 +225,7 @@
                             "[variables('WebApp_HostName')]"
                         ],
                         "additionalLoginParams": null,
-                        "isAadAutoProvisioned": true,
-                        "googleClientId": null,
-                        "googleClientSecret": null,
-                        "googleOAuthScopes": null,
-                        "facebookAppId": null,
-                        "facebookAppSecret": null,
-                        "facebookOAuthScopes": [
-                            ""
-                        ],
-                        "twitterConsumerKey": null,
-                        "twitterConsumerSecret": null,
-                        "microsoftAccountClientId": null,
-                        "microsoftAccountClientSecret": null,
-                        "microsoftAccountOAuthScopes": [
-                            ""
-                        ]
+                        "isAadAutoProvisioned": false
                     }
                 }
             ],
