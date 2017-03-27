@@ -198,7 +198,8 @@
                         "unauthenticatedClientAction": 1,
                         "tokenStoreEnabled": true,
                         "allowedExternalRedirectUrls": [
-                            "[concat('https://',variables('WebApp_HostName'),'/index.html')]"
+                            "[concat('https://',variables('WebApp_HostName'),'/index.html')]",
+                            "[concat('https://',variables('WebApp_HostName'))]"
                         ],
                         "defaultProvider": 0,
                         "clientId": "[parameters('AzureAD_ClientID')]",
