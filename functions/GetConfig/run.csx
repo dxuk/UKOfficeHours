@@ -9,6 +9,6 @@ public static HttpResponseMessage Run(HttpRequestMessage req, TraceWriter log)
 
 public class myconfig
 {
-    public string clientid = Environment.GetEnvironmentVariable("AzureAD_ClientID")
-    public string tenantid = Environment.GetEnvironmentVariable("AzureAD_TenantID")
+    public string clientid = Environment.GetEnvironmentVariable("AzureAD_ClientID");
+    public string tenantid = Environment.GetEnvironmentVariable("AzureAD_TenantID");
 }
