@@ -51,6 +51,8 @@ Visual Studio Team System is used to trigger and host the build and deploy syste
 
 The starter config of our CD build/deploy looks like this. 
 
+<img src="https://raw.githubusercontent.com/dxuk/UKOfficeHours/master/ARMDeploy/allyouneed.PNG">
+
 
 
 
