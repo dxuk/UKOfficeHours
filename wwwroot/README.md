@@ -18,7 +18,9 @@ Valid environments for our internal usage deployment are "lo","cd","de","ts","pr
 
 Skipping -deployname param will run a dummy ci deployment to a resgroup of "dc" - a dummy ci testing environment.
 
-The script should then take care of everything else apart from setting the Azure AD App Manifest to allow oauth implicit flows, which you will have to do manually in the Azure AD part of the azure portal.
+The script should then take care of everything else apart from setting the Azure AD App Manifest to allow oauth implicit flows, which you will have to do manually in the Azure AD part of the azure portal. Set "oauth2AllowImplicitFlow": true in the application manifest
+
+For local debugging to work, you also probably want to add your local endpoint addresses to the Azure AD endpoints list.
 
 Apart from that, get the repo and do this to deploy a dev environment
 
