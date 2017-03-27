@@ -1,34 +1,15 @@
-# Deploys a multi-site app architecture in a resource group, with table storage, a web front end in app service and a functions middle tier
-# Login first with Login-AzureRmAccount, or VSTS, then run poshdeploy.ps1
-
-# This should run on any machine with the azure sdk installed - 
-# Download the repo then - 
 # cd to <Repo>\UKOfficeHours\UKOfficeHours
 # Then run .\armdeploy\poshdeploy -deployname "<two letter environment code>"
 
-# Valid environments for our internal usage deployment are "lo","cd","de","ts","pr", but any free combination can in theory be used.
-# "lo" local
-# "co" continuous delivery
-# "de" de
-# "pr" production / live environment
-
-# Skipping -deployname param will run a dummy ci deployment to a resgroup of "dc" - a dummy ci testing environment.
-# The script should then take care of everything else apart from setting the Azure AD App Manifest to allow oauth implicit flows, which you will have to do manually.
-
 param
 (
-
     $deployname = "dc",
     $rg = "oh$deployname",
     $loc = "UKSouth",
-    $sub = "",                  #subscription to deploy into
-    $localtenantoverride = "",  # azure ad tenant guid to connect application to 
-    $localappidoverride = "",   # azure ad app client id to point client app to
-    $localtenantdomainoverride = "" # azure ad domain name to point client app to.
-    
+    $sub = ""
 )
 
-$localtenantdomainoverride
+#$localtenantdomainoverride
 
 $siteroot = "https://$deployname-ukofficehours.azurewebsites.net"
 $display = "$deployname-ukofficehours"
@@ -39,13 +20,13 @@ $temploc = "test.output.txt"
 
 Add-Type -A System.IO.Compression.FileSystem
 
-$clientid = $localappidoverride
-$tenantid = $localtenantoverride
-$tenanturi = "https://sts.windows.net/$tenantid/"
-$currentADdomainandtenant = $localtenantdomainoverride
+#$clientid = $localappidoverride
+#$tenantid = $localtenantoverride
+#$tenanturi = "https://sts.windows.net/$tenantid/"
+#$currentADdomainandtenant = $localtenantdomainoverride
 
-if ($localappidoverride -eq $null) 
-{
+#if ($localappidoverride -eq $null) 
+#{
     Write-Host "Retrieving AD Application $display" -ForegroundColor yellow
     $currentapp = (get-azurermadapplication -IdentifierUri $siteroot)
 
@@ -73,17 +54,17 @@ if ($localappidoverride -eq $null)
     $tenanturi = "https://sts.windows.net/$tenantid/"
     $currentADdomainandtenant = (Get-AzureRmTenant -TenantId (Get-AzureRmSubscription -SubscriptionName $sub).TenantId).Domain
 
-}
-else
-{
-
-    Write-Host "AppID and tenant data overridden with these 4 values"
-
-    $clientid 
-    $tenantid 
-    $tenanturi 
-    $currentADdomainandtenant 
-}
+#}
+#else
+#{#
+#
+#    Write-Host "AppID and tenant data overridden with these 4 values"
+#
+#    $clientid 
+#    $tenantid 
+#    $tenanturi 
+#    $currentADdomainandtenant 
+#}
 
 Write-Host "Resource Group Deployment Running" -ForegroundColor yellow
 
@@ -94,7 +75,7 @@ New-AzureRmResourceGroup -Name $rg -Location $loc -Force
 write-host "Deploying with prefix :" + $deployname 
 WRITE-HOST "exec command: New-AzureRmResourceGroupDeployment -ResourceGroupName $rg -TemplateFile $templatefile -Force -TemplateParameterFile $tempparamfile -svprefix $deployname -AzureAD_TenantURI $tenanturi -AzureAD_TenantID $currentADdomainandtenant -AzureAD_ClientID $clientid "
 
-New-AzureRmResourceGroupDeployment -ResourceGroupName $rg -TemplateFile $templatefile -Force -TemplateParameterFile $tempparamfile -svprefix $env:deployname -AzureAD_TenantURI "$tenanturi" -AzureAD_TenantID "$currentADdomainandtenant" -AzureAD_ClientID "$clientid"
+New-AzureRmResourceGroupDeployment -ResourceGroupName $rg -TemplateFile $templatefile -Force -TemplateParameterFile $tempparamfile -svprefix $deployname -AzureAD_TenantURI $tenanturi -AzureAD_TenantID $currentADdomainandtenant -AzureAD_ClientID $clientid
 
 Write-Host "Resource Group Deployment Complete" -ForegroundColor Green
 Write-Host "Function App Deployment Running" -ForegroundColor yellow

@@ -612,7 +612,7 @@
                             // resetisvdata();
 
                             // Success: Clear down old values
-                            var uri = encodeURI(endpoint + "booking.html?StartPanel=bookwithcode&BookingCode=" + result.CurrentCode);
+                            var uri = encodeURI(endpoint + "?StartPanel=bookwithcode&BookingCode=" + result.CurrentCode);
 
                             viewmodel_isvdata.EmailLink = ko.observable('');
                             viewmodel_isvdata.ContactEmail('');
