@@ -1,14 +1,17 @@
 # Deploys a multi-site app architecture in a resource group, with table storage, a web front end in app service and a functions middle tier
 # Login first with Login-AzureRmAccount, or VSTS, then run this.
 
-# On my local pc - cd to C:\Users\wieastbu\Source\Repos\UKOfficeHours\UKOfficeHours
-# Then run with .\armdeploy\poshdeploy -deployname "dv"
-# Skipping -deployname param will run a dummy ci deployment to a resgroup of "dummyci"
+# This should run on any machine with the azure sdk installed - 
+# Download the repo then - 
+# cd to C:\Users\wieastbu\Source\Repos\UKOfficeHours\UKOfficeHours
+# Then run .\armdeploy\poshdeploy -deployname "<two letter environment code>"
+# Valid environments for our internal usage deployment are "dc","ci","dv","qa","pd", but any free combination can in theory be used.
+# Skipping -deployname param will run a dummy ci deployment to a resgroup of "dc" - a dummy ci testing environment.
 
 param
 (
 
-    $deployname = "dummyci",
+    $deployname = "dc",
     $rg = "oh$deployname",
     $loc = "UKSouth",
     $sub = "Internal DX OH Subscription"
