@@ -5,7 +5,14 @@
 # Download the repo then - 
 # cd to C:\Users\wieastbu\Source\Repos\UKOfficeHours\UKOfficeHours
 # Then run .\armdeploy\poshdeploy -deployname "<two letter environment code>"
-# Valid environments for our internal usage deployment are "dc","ci","dv","qa","pd", but any free combination can in theory be used.
+
+# Valid environments for our internal usage deployment are "lo","cd","de","ts","pr", but any free combination can in theory be used.
+# "lo" local
+# "cd" continuous delivery
+# "de" development testing
+# "ts" test environment and qa
+# "pr" production / live environment
+
 # Skipping -deployname param will run a dummy ci deployment to a resgroup of "dc" - a dummy ci testing environment.
 
 param
