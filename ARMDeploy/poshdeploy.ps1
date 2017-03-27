@@ -24,11 +24,11 @@ param
     $sub = "",                  #subscription to deploy into
     $localtenantoverride = "",  # azure ad tenant guid to connect application to 
     $localappidoverride = "",   # azure ad app client id to point client app to
-    $localtenantdomaindoverride = "microsoft.com" # azure ad domain name to point client app to.
+    $localtenantdomainoverride = "" # azure ad domain name to point client app to.
     
 )
 
-$localtenantdomaindoverride
+$localtenantdomainoverride
 
 $siteroot = "https://$deployname-ukofficehours.azurewebsites.net"
 $display = "$deployname-ukofficehours"
@@ -42,7 +42,7 @@ Add-Type -A System.IO.Compression.FileSystem
 $clientid = $localappidoverride
 $tenantid = $localtenantoverride
 $tenanturi = "https://sts.windows.net/$tenantid/"
-$currentADdomainandtenant = $localtenantdomaindoverride
+$currentADdomainandtenant = $localtenantdomainoverride
 
 if ($localappidoverride -eq $null) 
 {
