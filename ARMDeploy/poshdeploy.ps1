@@ -14,7 +14,6 @@
 # "pr" production / live environment
 
 # Skipping -deployname param will run a dummy ci deployment to a resgroup of "dc" - a dummy ci testing environment.
-
 # The script should then take care of everything else apart from setting the Azure AD App Manifest to allow oauth implicit flows, which you will have to do manually.
 
 param
