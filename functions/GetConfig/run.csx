@@ -11,5 +11,5 @@ public class myconfig
 {
     public string ClientId = Environment.GetEnvironmentVariable("AzureAD_ClientID");
     public string TenantId = Environment.GetEnvironmentVariable("AzureAD_TenantID");
-    public string Service_Description = Environment.GetEnvironmentVariable("Service_Description");
+    //public string Service_Description = Environment.GetEnvironmentVariable("Service_Description");
 }
