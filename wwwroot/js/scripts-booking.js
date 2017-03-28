@@ -521,9 +521,9 @@
 
         function wireSlotSubmitFormViaFunction() {
 
-            // loadstarted();
-
             viewmodel_addslot.WriteBookingSlot = function(data) {
+
+                loadstarted();
 
                 self = this;
                 var sender = ko.toJSON(self);
@@ -555,7 +555,7 @@
                             $('#statussendbook').html("Slot Added @ " + viewmodel_addslot.StartTime() + " of duration " + viewmodel_addslot.Duration() + " mins and next slot ready for " + viewmodel_addslot.Break() + " mins post completion.");
 
                             viewmodel_addslot.StartTime(nextStartDateTime);
-                            //loadfinished();
+                            loadfinished();
                             $('#sendslotbtn').prop("disabled", false);
 
                         },
@@ -563,7 +563,7 @@
                         error: function(result) {
 
                             $('#statussendbook').html("Send Failed");
-                            //loadfinished();
+                            loadfinished();
                             $('#sendslotbtn').prop("disabled", false);
                         }
 
