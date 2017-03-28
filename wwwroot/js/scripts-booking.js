@@ -31,8 +31,8 @@
         var clientid = '';
         var tenantid = '';
 
-        // Tech Debt - this should be really done with promises, 
-        // but we just want to ensure that the loading of the config data is loaded before everything
+        // ToDo: Tech Debt - this should be really done with promises, 
+        // But we just want to ensure that the loading of the config data is loaded before everything
         // else renders: Hence the sync forced call. I will review this after go-live.
 
         $.ajax({
