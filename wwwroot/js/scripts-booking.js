@@ -12,7 +12,6 @@
         var allisvsbound = false;
         var myisvsforfilter;
 
-
         var authinstance = 'https://login.microsoftonline.com/'; // Azure AD logon endpoint
         var dateform = "DD/MM/YYYY"; // UK locale
         var timeform = "HH:mm"; // 12h UK time
@@ -625,7 +624,7 @@
 
                             $('#sendlink').attr('href', uri);
                             $('#sendlink').prop("disabled", false);
-                            $('#statussend').html("Code:" + result.CurrentCode + ": Click the 'send' link to redirect and book a slot now for that ISV!");
+                            $('#statussend').html("Code:" + result.CurrentCode + ": Click the 'booking link' link to automatically and book a slot now for that ISV!");
 
                             loadfinished();
                             $('#sendisvbtn').prop("disabled", false);
@@ -776,5 +775,14 @@
         $(document).ready(function() {
             showpanel($.QueryString.StartPanel);
         });
+
+        // Enable the Debug PRE views if you add 'debugview=true' to your querystring
+        if ($.QueryString.debugview = "true") {
+            $("#isvdebug").toggle(true);
+            $("#slotdebug").toggle(true);
+        } else {
+            $("#isvdebug").toggle(false);
+            $("#slotdebug").toggle(false);
+        }
 
     })();
