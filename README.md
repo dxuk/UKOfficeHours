@@ -3,10 +3,12 @@
 
 Home for the source code of the DX UK Office Hours Booking Site
 ---------------------------------------------------------------
+This is a working app, but is also intended to act as a clear sample of how to integrate and deploy a multi-site Azure App Service architecture in a resource group, with table storage used as a back-end nosql database, a web front end in app service and an Azure Functions middle tier. 
 
-Deploys a multi-site app architecture in a resource group, with table storage, a web front end in app service and a functions middle tier
+Azure Active Directory and Azure App Service EasyAuth are used with ADAL.js to take care of OpenID Connect and OAuth Authentication and token handling.
 
-The service is simply a simple example booking system, written as a Knockout / Bootstrap SPA
+The service is simply an simple example booking system, written as a Knockout / Bootstrap SPA
+
 The front end is pure HTML5/js, using knockout for data binding, moment.js for date handling and bootstrap for UI styling.
 It uses Azure Functions for it's API / Middle Tier and is deployed via the KUDU Zip API to Azure app service
 Azure Table Storage is used on the back end for data nosql storage.
