@@ -595,7 +595,6 @@
 
                 authContext.acquireToken(clientid, function(error, token) {
 
-
                     loadstarted();
 
                     loadupdatestatus(30);
@@ -626,7 +625,7 @@
 
                             $('#sendlink').attr('href', uri);
                             $('#sendlink').prop("disabled", false);
-                            // $('#statussend').html("Code:" + result.CurrentCode + ": Click the 'send' link to redirect and book a slot now for that ISV!");
+                            $('#statussend').html("Code:" + result.CurrentCode + ": Click the 'send' link to redirect and book a slot now for that ISV!");
 
                             loadfinished();
                             $('#sendisvbtn').prop("disabled", false);
