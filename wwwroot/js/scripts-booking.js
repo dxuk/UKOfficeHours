@@ -637,6 +637,8 @@
                     });
                 });
 
+                return true;
+
             };
 
             if (isvinit === false) {
