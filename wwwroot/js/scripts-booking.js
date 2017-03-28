@@ -778,7 +778,7 @@
         });
 
         // Enable the Debug PRE views if you add 'debugview=true' to your querystring
-        if ($.QueryString.debugview = "true") {
+        if ($.QueryString.debugview == "true") {
             $("#isvdebug").toggle(true);
             $("#slotdebug").toggle(true);
         } else {
