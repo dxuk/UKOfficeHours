@@ -587,7 +587,6 @@
 
         function wireISVSubmitFormViaFunction() {
 
-            loadstarted();
 
             viewmodel_isvdata.WriteISV = function(data) {
 
@@ -596,7 +595,10 @@
 
                 authContext.acquireToken(clientid, function(error, token) {
 
-                    //loadupdatestatus(30);
+
+                    loadstarted();
+
+                    loadupdatestatus(30);
 
                     $('#sendisvbtn').prop("disabled", true);
 
@@ -635,7 +637,7 @@
                         error: function(result) {
 
                             $('#statussend').html("Failed: " + result.responseText);
-                            //loadfinished();
+                            loadfinished();
                             $('#sendisvbtn').prop("disabled", false);
                         }
 
