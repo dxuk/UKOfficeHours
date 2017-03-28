@@ -77,6 +77,13 @@ public class partnerbusinessevangelist : TableEntity
 }
 public class bookingslot : TableEntity
 {
+    public bookingslot()
+    {
+
+        CreatedDateTime = DateTime.Now; 
+
+    }
+    
     public string TechnicalEvangelist { get; set; }
     public DateTime StartDateTime { get; set; }
     public DateTime EndDateTime { get; set; }
@@ -94,21 +101,8 @@ public class bookingslot : TableEntity
     public string BookingCode { get; set; }
     public string PBE { get; set; }
 
-}
+    public DateTime CreatedDateTime { get; set; }
 
-public class ArticleDTO
-{
-
-    public ArticleHeader Header { get; set; }
-    public List<ArticleDetail> Detail { get; set; }
-
-}
-public class ArticleHeader : TableEntity
-{
-    public string Title { get; set; }
-    public string Abstract { get; set; }
-    public string MenuArea { get; set; }
-    public string Link { get; set; }
 }
 
 public class UserFeatureAuthorisation : TableEntity
@@ -120,14 +114,6 @@ public class UserFeatureAuthorisation : TableEntity
 
 
 
-}
-
-public class ArticleDetail : TableEntity
-{
-    public string Title { get; set; }
-    public string Date { get; set; }
-    public string Narrative { get; set; }
-    public string Link { get; set; }
 }
 
 public class LocalConfig
