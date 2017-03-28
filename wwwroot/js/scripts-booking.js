@@ -12,9 +12,12 @@
         var allisvsbound = false;
         var myisvsforfilter;
 
+
         var authinstance = 'https://login.microsoftonline.com/'; // Azure AD logon endpoint
         var dateform = "DD/MM/YYYY"; // UK locale
         var timeform = "HH:mm"; // 12h UK time
+
+        var today = moment(moment(), dateform).format(dateform);
 
         // Figure out what the current URI is and where to get our config from in the main script
         var namesplitter = "-ukofficehours";
@@ -173,7 +176,7 @@
 
         // Simple viewmodel for adding a slot and posting it to the service
         var viewmodel_addslot = {
-            StartDate: ko.observable(''),
+            StartDate: ko.observable(today),
             StartTime: ko.observable(''),
             Duration: ko.observable(''),
             Break: ko.observable('')
