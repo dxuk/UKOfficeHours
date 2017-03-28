@@ -7,6 +7,7 @@
 
         // Required variables
         var isvinit = false;
+        var slotinit = false;
         var loadedpercent = 0;
         var allbookingslotsbound = false;
         var allisvsbound = false;
@@ -175,7 +176,6 @@
 
         // Simple viewmodel for adding a slot and posting it to the service
         var viewmodel_addslot = {
-            CheckDate: ko.observable((today - StartDate) == 0),
             StartDate: ko.observable(today),
             StartTime: ko.observable(''),
             Duration: ko.observable(''),
@@ -577,10 +577,10 @@
 
             };
 
-            if (isvinit === false) {
+            if (slotinit === false) {
 
                 ko.applyBindings(viewmodel_addslot, document.getElementById("bookingslotForm"));
-                isvinit = true;
+                slotinit = true;
             }
 
         }
