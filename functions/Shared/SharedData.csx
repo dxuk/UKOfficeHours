@@ -1,4 +1,5 @@
-﻿#r "Microsoft.WindowsAzure.Storage"
+﻿
+#r "Microsoft.WindowsAzure.Storage"
 
 using System.Security.Cryptography;
 using Microsoft.WindowsAzure.Storage.Table;
@@ -109,6 +110,18 @@ public class ArticleHeader : TableEntity
     public string MenuArea { get; set; }
     public string Link { get; set; }
 }
+
+public class UserFeatureAuthorisation : TableEntity
+{
+
+    // PartitionKey = UserName
+    // RowKey = Function / Permission
+    public bool Authorised { get; set; }
+
+
+
+}
+
 public class ArticleDetail : TableEntity
 {
     public string Title { get; set; }

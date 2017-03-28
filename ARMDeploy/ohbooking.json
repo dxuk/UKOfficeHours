@@ -160,7 +160,7 @@
                         "AzureAD_ClientID": "[parameters('AzureAD_ClientID')]",
                         "AzureAD_TenantURI": "[parameters('AzureAD_TenantURI')]",
                         "AzureAD_TenantID": "[parameters('AzureAD_TenantID')]",
-                        "Service_Definition": "[parameters('sna')]"
+                        "Service_Description": "[parameters('sna')]"
                     },
                     "tags": {
                         "displayName": "[variables('FunctionApp_Name')]"

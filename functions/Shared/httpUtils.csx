@@ -1,4 +1,6 @@
-﻿#r "Newtonsoft.Json"
+﻿#load "..\Shared\SharedData.csx"
+
+#r "Newtonsoft.Json"
 
 using System.Net;
 using System.Linq;
@@ -65,6 +67,14 @@ public class httpUtils
     public static bool IsAuthenticated()
     {
         return (ClaimsPrincipal.Current.Claims.Count() > 0);
+    }
+
+    public static bool IsAuthorised()
+    {
+        // Override with your authorisation logic, at the moment everyone in your tenant (including guests) can do all application features
+        // Which for our use case is what we need - but you will have to either connect to the AD Graph API, or use a table to query for user permissions.
+        return true;
+
     }
 
     public static void EnsureAuthenticatedOrRedirect()
