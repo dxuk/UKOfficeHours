@@ -453,8 +453,6 @@
 
         }
 
-
-
         // Ajax Binding functions, these call and wire up the viewmodel when needed with the knockout bindings
         function fetchAllBookingSlotsViaFunction() {
 
@@ -584,7 +582,7 @@
 
         function wireISVSubmitFormViaFunction() {
 
-            //loadstarted();
+            loadstarted();
 
             viewmodel_isvdata.WriteISV = function(data) {
 
@@ -610,8 +608,6 @@
 
                             loadupdatestatus(60);
 
-                            // resetisvdata();
-
                             // Success: Clear down old values
                             var uri = encodeURI(endpoint + "?StartPanel=bookwithcode&BookingCode=" + result.CurrentCode);
 
@@ -623,9 +619,9 @@
 
                             $('#sendlink').attr('href', uri);
                             $('#sendlink').prop("disabled", false);
-                            $('#statussend').html("Code:" + result.CurrentCode + ": Click the 'send' link to redirect and book a slot now for that ISV!");
+                            // $('#statussend').html("Code:" + result.CurrentCode + ": Click the 'send' link to redirect and book a slot now for that ISV!");
 
-                            //loadfinished();
+                            loadfinished();
                             $('#sendisvbtn').prop("disabled", false);
 
 
