@@ -432,7 +432,7 @@
         // This viewmodel is used for the 'Add an ISV / get a code' postback
         var viewmodel_isvdata = {
             Name: ko.observable(''),
-            ContactEmail: ko.observable(''),
+            ContactEmail: ko.observable('email@donotuse.com'),
             ContactName: ko.observable(''),
             CurrentCode: ko.observable(''),
             EmailLink: ko.observable('')
@@ -624,7 +624,7 @@
                             var uri = encodeURI(endpoint + "?StartPanel=bookwithcode&BookingCode=" + result.CurrentCode);
 
                             viewmodel_isvdata.EmailLink = ko.observable('');
-                            viewmodel_isvdata.ContactEmail('');
+                            viewmodel_isvdata.ContactEmail(ko.observable('email@donotuse.com'));
                             viewmodel_isvdata.ContactName('');
                             viewmodel_isvdata.Name('');
                             viewmodel_isvdata.CurrentCode('');
