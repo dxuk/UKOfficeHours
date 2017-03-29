@@ -12,12 +12,18 @@
         var allbookingslotsbound = false;
         var allisvsbound = false;
         var myisvsforfilter;
+        var thisvar;
 
         var authinstance = 'https://login.microsoftonline.com/'; // Azure AD logon endpoint
         var dateform = "DD/MM/YYYY"; // UK locale
         var timeform = "HH:mm"; // 12h UK time
 
         var today = moment(moment(), dateform).format(dateform);
+
+        // Make this an if block that can look at the uri and determine if we are local
+        // using window.location.href
+
+
 
         // Figure out what the current URI is and where to get our config from in the main script
         var namesplitter = "-ukofficehours";
