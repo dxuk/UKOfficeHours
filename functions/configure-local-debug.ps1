@@ -20,7 +20,7 @@ $iisExpress = "${env:ProgramFiles(x86)}\IIS Express\iisexpress.exe"
 #
 # TODO - Need to find a way to find a path that IIS Express is happy with
 #
-$physicalPath = "C:\Users\mormond\Repos\UKOfficeHours\wwwroot" #Join-Path $invocationPath "\..\wwwroot"
+$physicalPath = (Get-Item -Path "$invocationPath\..\wwwroot").FullName
 $command = "`"$iisExpress`" /path:`"$physicalPath`""
 if ($invokeCommands) { cmd /c start cmd /k $command }
 
@@ -30,7 +30,7 @@ $config = ConvertFrom-Json "$(get-content $configFilepath)"
 $env:AzureWebJobsStorageConnection = $config.AzureWebJobsStorage
 
 Push-Location
-Set-Location ".\functions"
+Set-Location $invocationPath
 if ($invokeCommands) { cmd /c start cmd /k "func host start" }
 Pop-Location
 
