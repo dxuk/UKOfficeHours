@@ -624,7 +624,7 @@
                             var uri = encodeURI(endpoint + "?StartPanel=bookwithcode&BookingCode=" + result.CurrentCode);
 
                             viewmodel_isvdata.EmailLink = ko.observable('');
-                            viewmodel_isvdata.ContactEmail(ko.observable('email@donotuse.com'));
+                            viewmodel_isvdata.ContactEmail('email@donotuse.com');
                             viewmodel_isvdata.ContactName('');
                             viewmodel_isvdata.Name('');
                             viewmodel_isvdata.CurrentCode('');
