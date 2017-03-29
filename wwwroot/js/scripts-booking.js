@@ -433,7 +433,7 @@
         var viewmodel_isvdata = {
             Name: ko.observable(''),
             ContactEmail: ko.observable('email@donotuse.com'),
-            ContactName: ko.observable(''),
+            ContactName: ko.observable('Anyone'),
             CurrentCode: ko.observable(''),
             EmailLink: ko.observable('')
         };
@@ -625,7 +625,7 @@
 
                             viewmodel_isvdata.EmailLink = ko.observable('');
                             viewmodel_isvdata.ContactEmail('email@donotuse.com');
-                            viewmodel_isvdata.ContactName('');
+                            viewmodel_isvdata.ContactName('Anyone');
                             viewmodel_isvdata.Name('');
                             viewmodel_isvdata.CurrentCode('');
 
