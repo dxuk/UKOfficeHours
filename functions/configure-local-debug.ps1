@@ -17,9 +17,7 @@ if ($invokeCommands) { & ".\AzureStorageEmulator.exe" status }
 Pop-Location
 
 $iisExpress = "${env:ProgramFiles(x86)}\IIS Express\iisexpress.exe"
-#
-# TODO - Need to find a way to find a path that IIS Express is happy with
-#
+# IIS Express not happy with other methods used to generate path - this works
 $physicalPath = (Get-Item -Path "$invocationPath\..\wwwroot").FullName
 $command = "`"$iisExpress`" /path:`"$physicalPath`""
 if ($invokeCommands) { cmd /c start cmd /k $command }
