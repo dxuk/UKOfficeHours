@@ -44,7 +44,6 @@
                         <ul class="nav navbar-nav navbar-right navbar-inverse" id="menuright">
                             <li><a class='btn btn-alert' id="bookwithcodebutton">Use a Booking Code</a></li>
                         </ul>
-
                     </div>
                 </nav>
             </div>
@@ -190,160 +189,161 @@
                                     <span id="statussend"></span>
                                     <a href="" id="sendlink">Booking Link</a>
                                 </div>
-                                <pre id="isvdebug" data-bind="text: ko.toJSON($root, null, 2)"></pre> Please
+                                <pre id="isvdebug" data-bind="text: ko.toJSON($root, null, 2)"></pre>
                                 <div>Please ensure you only enter data that complies with the Microsoft Privacy Statement (Link is above)</div>
-                        </form>
-                        </div>
-                    </div>
-                    <div class="col-md-12" id="bookwithcodesection">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">
-                                    <span>Book a technical session with a code: bookings available for the next 90 days</span>
-                                </h3>
                             </div>
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Start Time</th>
-                                        <th>Duration (mins)</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody data-bind="foreach: $root.loadeddata" id="bindingforBookinglist">
-                                    <tr>
-                                        <td data-bind="text: moment(StartDateTime).format( 'dddd, MMMM Do YYYY')"></td>
-                                        <td data-bind="text: moment(StartDateTime).format( 'LT')"></td>
-                                        <td data-bind="text: Duration"></td>
-                                        <td>
-                                            <a class="btn btn-success" data-toggle="modal" data-target="#myBookingModal" data-bind="click: $root.SetBookingSlot">
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-12" id="bookwithcodesection">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                <span>Book a technical session with a code: bookings available for the next 90 days</span>
+                            </h3>
+                        </div>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Start Time</th>
+                                    <th>Duration (mins)</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody data-bind="foreach: $root.loadeddata" id="bindingforBookinglist">
+                                <tr>
+                                    <td data-bind="text: moment(StartDateTime).format( 'dddd, MMMM Do YYYY')"></td>
+                                    <td data-bind="text: moment(StartDateTime).format( 'LT')"></td>
+                                    <td data-bind="text: Duration"></td>
+                                    <td>
+                                        <a class="btn btn-success" data-toggle="modal" data-target="#myBookingModal" data-bind="click: $root.SetBookingSlot">
                                             Book It!
                                         </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- Modal -->
-                        <div id="myBookingModal" class="modal fade" role="dialog">
-                            <div class="modal-dialog">
-                                <!-- Modal content-->
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">Book with a booking code</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form class="form-horizontal" role="form" data-bind="submit: FireBooking">
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label" for="RowKey">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Modal -->
+                    <div id="myBookingModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Book with a booking code</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="form-horizontal" role="form" data-bind="submit: FireBooking">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="RowKey">
                                                 Booking Session
                                             </label>
-                                                <div class="col-sm-10">
-                                                    <label class="form-control" id="RowKey" data-bind="text: submitdata.VisualSlot"></label>
-                                                </div>
+                                            <div class="col-sm-10">
+                                                <label class="form-control" id="RowKey" data-bind="text: submitdata.VisualSlot"></label>
                                             </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label" for="EnterBookingCode">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="EnterBookingCode">
                                                 Enter a booking code
                                             </label>
-                                                <div class="col-sm-10">
-                                                    <input class="form-control" id="EnterBookingCode" type="text" data-bind="value: submitdata.BookingCode" />
-                                                </div>
-                                                <div class="col-sm-10">
-                                                    <button id="sendbobtn" class="btn btn-success" type="submit">Book it!</button>
-                                                    <button type="button" class="btn btn-alert" data-dismiss="modal">Close</button>
-                                                </div>
+                                            <div class="col-sm-10">
+                                                <input class="form-control" id="EnterBookingCode" type="text" data-bind="value: submitdata.BookingCode" />
                                             </div>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <span id="statusbosend"></span>
-                                    </div>
+                                            <div class="col-sm-10">
+                                                <button id="sendbobtn" class="btn btn-success" type="submit">Book it!</button>
+                                                <button type="button" class="btn btn-alert" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <span id="statusbosend"></span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12" id="addslotssection">
-                        <div class="jumbotron">
-                            <h2 id="contentheader">
-                                <span>Add a slot</span>
-                            </h2>
-                            <form class="form-horizontal" role="form" id="bookingslotForm">
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="StartDate">
+                </div>
+                <div class="col-md-12" id="addslotssection">
+                    <div class="jumbotron">
+                        <h2 id="contentheader">
+                            <span>Add a slot</span>
+                        </h2>
+                        <form class="form-horizontal" role="form" id="bookingslotForm">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="StartDate">
                                     Start Date
                                 </label>
-                                    <div class="col-sm-6">
-                                        <div class='input-group date' id="StartDate" data-bind="weekdaydatePicker: StartDate">
-                                            <input class="form-control" type="text" />
-                                            <span class="input-group-addon">
+                                <div class="col-sm-6">
+                                    <div class='input-group date' id="StartDate" data-bind="weekdaydatePicker: StartDate">
+                                        <input class="form-control" type="text" />
+                                        <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-calendar"></span>
-                                            </span>
-                                        </div>
+                                        </span>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="StartTime">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="StartTime">
                                     Start Time
                                 </label>
-                                    <div class="col-sm-6">
-                                        <div class='input-group date' data-bind="timePicker: StartTime" id='StartTime'>
-                                            <input type='text' class="form-control" />
-                                            <span class="input-group-addon">
+                                <div class="col-sm-6">
+                                    <div class='input-group date' data-bind="timePicker: StartTime" id='StartTime'>
+                                        <input type='text' class="form-control" />
+                                        <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-time"></span>
-                                            </span>
-                                        </div>
+                                        </span>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="Duration">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="Duration">
                                     Session Type
                                 </label>
-                                    <div class="col-sm-6">
-                                        <div class='input-group col-sm-6'>
-                                            <input class="form-control col-sm-1 control-label" id="Duration" data-bind="value: Duration" type="number" />
-                                            <select class="form-control col-sm-2" data-bind="value: Duration">
+                                <div class="col-sm-6">
+                                    <div class='input-group col-sm-6'>
+                                        <input class="form-control col-sm-1 control-label" id="Duration" data-bind="value: Duration" type="number" />
+                                        <select class="form-control col-sm-2" data-bind="value: Duration">
                                             <option value="30">Concierge</option>
                                             <option value="60">Office Hour</option>
                                             <option value="180">ADS or Envisioning Session</option>
                                         </select>
-                                        </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="Break">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="Break">
                                         Leave a break afterwards (in minutes)
                                 </label>
-                                    <div class="col-sm-2">
-                                        <input class="form-control" id="Break" data-bind="value: Break" type="number" value="15" />
-                                    </div>
+                                <div class="col-sm-2">
+                                    <input class="form-control" id="Break" data-bind="value: Break" type="number" value="15" />
                                 </div>
-                                <div class="form-group">
-                                    <div class="col-sm-offset-2 col-sm-10">
-                                        <button id="sendslotbtn" class="btn btn-success" type="button" data-bind="click: WriteBookingSlot">Add Bookable Slot</button>
-                                    </div>
-                                    <div class="col-sm-offset-2 col-sm-10">
-                                        <span id="statussendbook"></span>
-                                    </div>
-                                    <pre id="slotdebug" data-bind="text: ko.toJSON($root, null, 2)"></pre>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button id="sendslotbtn" class="btn btn-success" type="button" data-bind="click: WriteBookingSlot">Add Bookable Slot</button>
                                 </div>
-                            </form>
-                        </div>
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <span id="statussendbook"></span>
+                                </div>
+                                <pre id="slotdebug" data-bind="text: ko.toJSON($root, null, 2)"></pre>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-        <script src="js/jquery.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
-        <script src="js/moment-with-locales.js"></script>
-        <script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
-        <script src="js/fromstackoverflow.js"></script>
-        <script src="js/knockout-mapping-latest.js"></script>
-        <script src="js/adal.js"></script>
-        <script src="js/scripts-booking.js"></script>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
+    <script src="js/moment-with-locales.js"></script>
+    <script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
+    <script src="js/fromstackoverflow.js"></script>
+    <script src="js/knockout-mapping-latest.js"></script>
+    <script src="js/adal.js"></script>
+    <script src="js/scripts-booking.js"></script>
 </body>
 
 </html>
