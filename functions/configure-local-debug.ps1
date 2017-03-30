@@ -12,10 +12,11 @@ Param(
     [bool]$InvokeCommands = $true
 )
 
-$env:AzureWebJobsStorage = "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://127.0.0.1:10000/devstoreaccount1;TableEndpoint=http://127.0.0.1:10002/devstoreaccount1;QueueEndpoint=http://127.0.0.1:10001/devstoreaccount1;"
-
 $invocationPath = Split-Path $MyInvocation.MyCommand.Path
-$configFilepath = "$invocationPath\local-debug-config.json"
+
+function LoadConfig([string]$ConfigFilePath) {
+    return ConvertFrom-Json "$(get-content $ConfigFilepath)"
+}
 
 function LaunchStorageEmulator() {
     Push-Location
@@ -44,6 +45,15 @@ function LaunchFuncExe() {
     }
     Pop-Location
 }
+
+$config = LoadConfig "$invocationPath\..\wwwroot\local-debug-config.json"
+
+$env:AzureWebJobsStorage = $config.AzureWebJobsStorage
+Write-Host $env:AzureWebJobsStorage
+$env:Service_Description = $config.Service_Description
+Write-Host $env:Service_Description
+$env:APPSETTING_WEBSITE_SITE_NAME = $config.WebsiteName
+Write-Host $env:APPSETTING_WEBSITE_SITE_NAME
 
 LaunchStorageEmulator
 LaunchIISExpress
