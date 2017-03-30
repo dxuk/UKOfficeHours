@@ -30,7 +30,7 @@ function LaunchStorageEmulator() {
 function LaunchIISExpress() {
     $iisExpress = "${env:ProgramFiles(x86)}\IIS Express\iisexpress.exe"
     # IIS Express not happy with other methods used to generate path - this works
-    $physicalPath = (Get-Item -Path "$invocationPath\..\wwwroot").FullName
+    $physicalPath = (Get-Item -Path "$invocationPath\wwwroot").FullName
     $command = "`"$iisExpress`" /path:`"$physicalPath`""
     if ($InvokeCommands) {
         cmd /c start cmd /k $command 
@@ -39,21 +39,23 @@ function LaunchIISExpress() {
 
 function LaunchFuncExe() {
     Push-Location
-    Set-Location $invocationPath
+    Set-Location "$invocationPath\functions"
     if ($InvokeCommands) {
         cmd /c start cmd /k "func host start --cors http://localhost:8080" 
     }
     Pop-Location
 }
 
-$config = LoadConfig "$invocationPath\..\wwwroot\local-debug-config.json"
+#Write-Host $invocationPath
+
+$config = LoadConfig "$invocationPath\wwwroot\local-debug-config.json"
 
 $env:AzureWebJobsStorage = $config.AzureWebJobsStorage
-Write-Host $env:AzureWebJobsStorage
+#Write-Host $env:AzureWebJobsStorage
 $env:Service_Description = $config.Service_Description
-Write-Host $env:Service_Description
+#Write-Host $env:Service_Description
 $env:APPSETTING_WEBSITE_SITE_NAME = $config.WebsiteName
-Write-Host $env:APPSETTING_WEBSITE_SITE_NAME
+#Write-Host $env:APPSETTING_WEBSITE_SITE_NAME
 
 LaunchStorageEmulator
 LaunchIISExpress
