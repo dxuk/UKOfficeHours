@@ -7,7 +7,6 @@ using System.Web;
 public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, ICollector<isv> outObj, TraceWriter log)
 {
 
-    // httpUtils.AuthDiags(log); 
     if (!httpUtils.IsAuthenticated()) { return req.CreateResponse(HttpStatusCode.Forbidden, "You have to be signed in!"); };
 
     isv thisISV = await httpUtils.GetTFromJSONRequestBody<isv>(req);
