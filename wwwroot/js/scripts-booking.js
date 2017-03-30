@@ -18,6 +18,7 @@
         var tenantid = '';
         var endpoint = 'http://localhost:8080';
         var rootfnsite = 'http://localhost:7071/';
+        var configDataUrl = '';
 
         var authinstance = 'https://login.microsoftonline.com/'; // Azure AD logon endpoint
         var dateform = "DD/MM/YYYY"; // UK locale
@@ -37,6 +38,7 @@
         if (serverprefixaddress.toLowerCase().startsWith("localhost")) {
             endpoint = 'http://localhost:8080';
             rootfnsite = 'http://localhost:7071/';
+            configDataUrl = '/local-debug-config.json';
         }
         else {
             var prefix = serverprefixaddress.split(namesplitter)[0]
@@ -44,8 +46,11 @@
             endpoint = 'https://' + prefix + '-ukofficehours.azurewebsites.net/';
             rootfnsite = resource + "/";
 
+            configDataUrl = rootfnsite + "api/GetConfig";
+
             console.info("Site Running at:" + endpoint);
             console.info("Server Running at:" + rootfnsite);
+        }
 
             // Pick up server specific settings and load the ad config via a function call from the remote server
 
@@ -56,7 +61,7 @@
 
             $.ajax({
                 method: "GET",
-                url: rootfnsite + "api/GetConfig",
+                url: configDataUrl,
                 success: function(result) {
                     // we have data, update the viewmodel and let knockout take care of the binding
                     clientid = result.ClientId;
@@ -72,7 +77,6 @@
                 },
                 async: false
             });
-        }
 
         // Declare Special Binding Handlers to deal with the datepickers bindings in knockout
         // DatePicker
