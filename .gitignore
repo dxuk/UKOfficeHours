@@ -3,7 +3,8 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
-local-debug-config.json
+wwwroot/local-debug-config.json
+functions/host.json
 
 # User-specific files
 *.suo

@@ -1,4 +1,5 @@
 ﻿#load "..\Shared\SharedData.csx"
+#load "..\Shared\httpUtils.csx"
 using System.Net;
 
 public static HttpResponseMessage Run(HttpRequestMessage req, IQueryable<isv> inTable, TraceWriter log)
