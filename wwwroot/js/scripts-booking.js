@@ -35,7 +35,7 @@
         var namesplitter = "-ukofficehours";
         var serverprefixaddress = window.location.href.split("/")[2].split(".")[0];
 
-        if (serverprefixaddress.toLowerCase().startsWith("localhost")) {
+        if (serverprefixaddress.toLowerCase().substr(0,9) === 'localhost') {
             endpoint = 'http://localhost:8080';
             rootfnsite = 'http://localhost:7071/';
             configDataUrl = '/local-debug-config.json';
