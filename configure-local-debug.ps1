@@ -22,7 +22,7 @@ function LaunchStorageEmulator() {
     Push-Location
     Set-Location -Path "${env:ProgramFiles(x86)}\Microsoft SDKs\Azure\Storage Emulator"
     if ($InvokeCommands) { 
-        $result = & ".\AzureStorageEmulator.exe" status 
+        $result = & ".\AzureStorageEmulator.exe" start 
     }
     Pop-Location
 }
@@ -50,7 +50,7 @@ function LaunchFuncExe() {
 
 $config = LoadConfig "$invocationPath\wwwroot\local-debug-config.json"
 
-$env:AzureWebJobsStorage = $config.AzureWebJobsStorage
+$env:AzureWebJobsStorageConnection = $config.AzureWebJobsStorage
 #Write-Host $env:AzureWebJobsStorage
 $env:Service_Description = $config.Service_Description
 #Write-Host $env:Service_Description
