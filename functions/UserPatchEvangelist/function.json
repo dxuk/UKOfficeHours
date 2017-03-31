@@ -1,0 +1,24 @@
+﻿{
+    "bindings": [{
+            "authLevel": "anonymous",
+            "name": "req",
+            "type": "httpTrigger",
+            "direction": "in"
+        },
+        {
+            "type": "table",
+            "name": "inTable",
+            "tableName": "bookingslot",
+            "connection": "storageConnection",
+            "direction": "in"
+        },
+        {
+            "type": "table",
+            "name": "outObj",
+            "tableName": "bookingslot",
+            "connection": "storageConnection",
+            "direction": "out"
+        }
+    ],
+    "disabled": true
+}
