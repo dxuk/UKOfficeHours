@@ -61,6 +61,8 @@ function LaunchFuncExe() {
 $config = LoadConfig "$invocationPath\wwwroot\local-debug-config.json"
 
 $env:AzureWebJobsStorageConnection = $config.AzureWebJobsStorage
+$env:AzureWebJobsStorage = $config.AzureWebJobsStorage
+
 #Write-Host $env:AzureWebJobsStorage
 $env:Service_Description = $config.Service_Description
 #Write-Host $env:Service_Description
