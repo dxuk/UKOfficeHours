@@ -22,7 +22,15 @@ function LaunchStorageEmulator() {
     Push-Location
     Set-Location -Path "${env:ProgramFiles(x86)}\Microsoft SDKs\Azure\Storage Emulator"
     if ($InvokeCommands) { 
-        $result = & ".\AzureStorageEmulator.exe" status 
+        # Get the current status and only start if it's not running
+        $status = & ".\AzureStorageEmulator.exe" status
+        if ($status[1].Contains('True') -eq $false) {
+            Write-Debug "Starting Azure Storage Emulator..."
+            $result = & ".\AzureStorageEmulator.exe" start
+        } 
+        else {
+            Write-Debug "Azure Storage Emulator already started - skipping..."
+        }
     }
     Pop-Location
 }
@@ -33,6 +41,7 @@ function LaunchIISExpress() {
     $physicalPath = (Get-Item -Path "$invocationPath\wwwroot").FullName
     $command = "`"$iisExpress`" /path:`"$physicalPath`""
     if ($InvokeCommands) {
+        Write-Debug "Starting IIS Express..."
         cmd /c start cmd /k $command 
     }
 }
@@ -41,6 +50,7 @@ function LaunchFuncExe() {
     Push-Location
     Set-Location "$invocationPath\functions"
     if ($InvokeCommands) {
+        Write-Debug "Starting Functions Host..."
         cmd /c start cmd /k "func host start --cors http://localhost:8080" 
     }
     Pop-Location
@@ -50,7 +60,9 @@ function LaunchFuncExe() {
 
 $config = LoadConfig "$invocationPath\wwwroot\local-debug-config.json"
 
+$env:AzureWebJobsStorageConnection = $config.AzureWebJobsStorage
 $env:AzureWebJobsStorage = $config.AzureWebJobsStorage
+
 #Write-Host $env:AzureWebJobsStorage
 $env:Service_Description = $config.Service_Description
 #Write-Host $env:Service_Description
