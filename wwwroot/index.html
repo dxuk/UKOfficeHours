@@ -20,7 +20,7 @@
                     <div class="container">
                         <div class="navbar-header">
                             <a class="navbar-brand navbar" href="https://www.microsoft.com/">
-                                <span><img src="https://assets.onestore.ms/cdnfiles/external/uhf/long/9a49a7e9d8e881327e81b9eb43dabc01de70a9bb/images/microsoft-gray.png" alt="Microsoft" /></span>
+                                <span><img class="logo" src="https://assets.onestore.ms/cdnfiles/external/uhf/long/9a49a7e9d8e881327e81b9eb43dabc01de70a9bb/images/microsoft-gray.png" alt="Microsoft" /></span>
                                 <span id="bannertitle">OH Debug JS</span>
                             </a>
                             <button class=" navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
@@ -67,20 +67,20 @@
                             Last Updated 29th March 2017
                             <h2 id="Context">Context</h2>
                             Office hours is a booking system designed to get ISV customers time with Technical Evangelists booked quickly and simply, with a minimum of interaction or fuss. It's a nice example of architecting a solution based on solely consumption-led services in
-                            Azure and we will be open-sourcing the tool even though it is provided for internal use only. The source code and docs are here https://github.com/dxuk/UKOfficeHours
-
-                            <h2 id="ServiceAddresses">Service Addresses and Location (Where do I look?)</h2>
-                            The test and demo service can be found at https://aka.ms/dxofficehourspreview The production service will be found at https://aka.ms/dxofficehourslive
-                            <h2 id="ServicePrivacy">Service Privacy</h2>
-                            The service requires a minimum amount of customer data to operate (it requires an ISV business name to generate an anonymous code, and optionally a contact name and email address). It is planned to use the email address and contact name ONLY to send out
-                            booking confirmations for the appointments and calendar bookings made during the usage of the service. All usage of data entered into the service will be in accordance with the Microsoft Privacy statement here: https://privacy.microsoft.com/en-gb/privacystatement
+                            Azure and we will be open-sourcing the tool even though it is provided for internal use only. The source code and docs are
+                            <a href="https://github.com/dxuk/UKOfficeHours">here</a>
+                            <h2 id=" ServiceAddresses">Service Addresses and Location (Where do I look?)</h2>
+                            The test and demo service can be found at <a href="https://aka.ms/dxofficehourspreview">https://aka.ms/dxofficehourspreview</a> The production service will be found at
+                            <a href="https://aka.ms/dxofficehourslive">https://aka.ms/dxofficehourslive</a> The service requires a minimum amount of customer data to operate (it requires an ISV business name to generate an anonymous code, and optionally
+                            a contact name and email address). It is planned to use the email address and contact name ONLY to send out booking confirmations for the appointments and calendar bookings made during the usage of the service. All usage of
+                            data entered into the service will be in accordance with the Microsoft Privacy statement (link on the bottom banner of this page).
 
                             <h2 id="UserGuide">User Guide</h2>
                             <h3 id="MakeTimeAvailable">Technical Evangelist - ISV: Make time available for booking</h3>
-                            <ul>
-                                <li>1. Open the Site and login with a valid user id and authentication method</li>
-                                <li>2. Select 'Add New Slot' from the top menu</li>
-                                <li>3. From the 'Add a slot' dialog:</li>
+                            <ol>
+                                <li>Open the Site and login with a valid user id and authentication method</li>
+                                <li>Select 'Add New Slot' from the top menu</li>
+                                <li>From the 'Add a slot' dialog:</li>
                                 <ul>
                                     <li>Click the calendar icon next to the Start Date field and select a date</li>
                                     <li>Click the clock icon next to the Start Time field and select a time to begin your session (Note: Clicking on the text in either the hours or minutes spinners will drill into a selection dialog featuring a better range
@@ -92,50 +92,44 @@
                                     <li>Enter a time to leave for a wrap-up break or buffer in minutes</li>
                                     <li>Click the 'Add Bookable Slot' button </li>
                                 </ul>
-                                <li>4. Note that if successful, a message will be displayed and the start time of the next session will be incremented by the session length + break time you requested.</li>
-                                <li>5. To add subsequent sessions, simply click 'Add Bookable Slot' again as many times as required.</li>
-                            </ul>
+                                <li>Note that if successful, a message will be displayed and the start time of the next session will be incremented by the session length + break time you requested.</li>
+                                <li>To add subsequent sessions, simply click 'Add Bookable Slot' again as many times as required.</li>
+                            </ol>
 
                             <h3 id="IssueCodeAndBookSlot">Partner Business Evangelist - ISV: Register an ISV and book a slot</h3>
 
-                            <ul>
-                                <li>1. Open the Site and login with a valid user id and authentication method
-                                    <li>2. Select 'Get a Code' from the top menu</li>
-                                    <li>3. Enter the Name of the ISV in the ISV Name field (Ideally as it is in DX CRM)</li>
-                                    <li>4. Enter a contact email address for the ISV (this is presently not used, please enter a dummy email address until we pass our privacy audit, then this will be used to trigger a calendar appointment invite with the
-                                        ISV)
-                                    </li>
-                                    <li>5. Please enter the name of the contact into the 'Contact Name' field.</li>
-                                    <li>6. Click the Add ISV button. </li>
-                                    <li><img src="images/image3.png"> </li>
-                                    <li>7. Either record the code in the message and save it for later, or click the Booking Link to book a session right now. </li>
-                                    <li>If you clicked the link, you will be taken to the 'Use a booking code' screen with your code embedded into the link (this will show the next 90 days' worth of possible bookings). </li>
-                                    <li>Simply choose a slot and Click 'Book It' on the appropriate row. (This will pop-up a modal dialog confirming what and when you are booking with the code pre-populated. </li>
-                                    <li> </li>
-                                    <li>Click 'Book It' and you are done! Note that at this stage no customer message is sent.</li>
-                            </ul>
-
+                            <ol>
+                                <li>Open the Site and login with a valid user id and authentication method</li>
+                                <li>Select 'Get a Code' from the top menu</li>
+                                <li>Enter the Name of the ISV in the ISV Name field (Ideally as it is in DX CRM)</li>
+                                <li>Enter a contact email address for the ISV (this is presently not used, please enter a dummy email address until we pass our privacy audit, then this will be used to trigger a calendar appointment invite with the ISV)</li>
+                                <li>Please enter the name of the contact into the 'Contact Name' field.</li>
+                                <li>Click the Add ISV button. </li>
+                                <li><img src="images/image3.png"> </li>
+                                <li>Either record the code in the message and save it for later, or click the Booking Link to book a session right now. </li>
+                                <li>If you clicked the link, you will be taken to the 'Use a booking code' screen with your code embedded into the link (this will show the next 90 days' worth of possible bookings). </li>
+                                <li>Simply choose a slot and Click 'Book It' on the appropriate row. (This will pop-up a modal dialog confirming what and when you are booking with the code pre-populated. </li>
+                                <li>Click 'Book It' and you are done! Note that at this stage no customer message is sent.</li>
+                            </ol>
                             <h3 id="CustomerSelfService">Customer Self Service: Use a booking code</h3>
-
-                            <ul>
-                                <li>1. Open the site and click the 'Use a booking Code' link </li>
-                                <li>2. Simply choose a slot and Click 'Book It' on the appropriate row. </li>
-                                <li>3. This will pop-up a modal dialog confirming what and when you are booking </li>
-                                <li>4. Enter the Microsoft Provided code into the 'Enter a booking code' box </li>
+                            <ol>
+                                <li>Open the site and click the 'Use a booking Code' link </li>
+                                <li>Simply choose a slot and Click 'Book It' on the appropriate row. </li>
+                                <li>This will pop-up a modal dialog confirming what and when you are booking </li>
+                                <li>Enter the Microsoft Provided code into the 'Enter a booking code' box </li>
                                 <li><img src="images/image4.png"> </li>
-                                <li>5. Click 'Book It' and you are done! Note that at this stage no customer confirmation message is sent as we are not capturing an email addresses to communicate with you at this time.
-                            </ul>
+                                <li>Click 'Book It' and you are done! Note that at this stage no customer confirmation message is sent as we are not capturing an email addresses to communicate with you at this time.
+                            </ol>
                             <h3 id="InternalQueryAndFilter">Internal Query and Filter: View and search bookings</h3>
-
-                            <ul>
-                                <li>1. Open the Site and login with a valid user id and authentication method</li>
-                                <li>2. Select the 'View all slots' link</li>
-                                <li>3. To filter the list – click the 'Toggle Filters' button and select the filters you want to use.</li>
-                                <li>4. Filtering ISV by 'None' will allow you to see free sessions </li>
-                                <li>5. Filtering by 'Special' will allow you to see sessions in the future or past </li>
-                                <li>6. Filtering by 'Duration' will allow you to see the type of session </li>
-                                <li>7. Clicking 'Save' filters will save your filter settings using html5 local storage in your browser, the portal will auto-reload your filters in the future when you revisit the page in the same browser.</li>
-                            </ul>
+                            <ol>
+                                <li>Open the Site and login with a valid user id and authentication method</li>
+                                <li>Select the 'View all slots' link</li>
+                                <li>To filter the list – click the 'Toggle Filters' button and select the filters you want to use.</li>
+                                <li>Filtering ISV by 'None' will allow you to see free sessions </li>
+                                <li>Filtering by 'Special' will allow you to see sessions in the future or past </li>
+                                <li>Filtering by 'Duration' will allow you to see the type of session </li>
+                                <li>Clicking 'Save' filters will save your filter settings using html5 local storage in your browser, the portal will auto-reload your filters in the future when you revisit the page in the same browser.</li>
+                            </ol>
                         </div>
                         <div class="col-md-12" id="viewslotssection">
                             <div class="panel panel-primary" id="bindingforBookedlist">

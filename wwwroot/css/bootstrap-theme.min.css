@@ -1,4 +1,4 @@
-img {
+img.logo {
     float: left;
     max-height: 74px;
     max-width: 114px;
@@ -16,7 +16,7 @@ body {
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100% body;
     padding-top: 80px;
-    padding-bottom: 80px;
+    padding-bottom: 60px;
 }
 
 @font-face {
