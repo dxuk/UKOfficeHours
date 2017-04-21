@@ -14,7 +14,9 @@ html {
 body {
     margin: 0;
     -ms-text-size-adjust: 100%;
-    -webkit-text-size-adjust: 100%
+    -webkit-text-size-adjust: 100% body;
+    padding-top: 80px;
+    padding-bottom: 80px;
 }
 
 @font-face {

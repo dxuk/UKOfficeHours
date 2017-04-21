@@ -65,7 +65,7 @@
                 // we have data, update the viewmodel and let knockout take care of the binding
                 clientid = result.ClientId;
                 tenantid = result.TenantId;
-                document.getElementById("bannertitle").text = result.Service_Description;
+                document.getElementById("bannertitle").innerHTML = result.Service_Description;
                 console.info("Service is:" + result.Service_Description);
                 console.info("Client ID is:" + clientid);
                 console.info("Tenant ID is:" + tenantid);;
@@ -729,6 +729,7 @@
 
         // Hide the main panels from display as we won't bind all of them immediately until they are needed.
         $("#viewslotssection").toggle();
+        $("#viewhelpsection").toggle();
         // $("#viewisvssection").toggle();
         $("#addslotssection").toggle();
         $("#addisvsection").toggle();
@@ -739,6 +740,7 @@
 
         // Now add the click handlers to hide and show the relevant panels calling the functions above.
         document.getElementById("viewslotsbutton").onclick = function() { showpanel("viewslots"); };
+        document.getElementById("viewhelpbutton").onclick = function() { showpanel("viewhelp"); };
         // document.getElementById("viewisvsbutton").onclick = function() { showpanel("viewisvs"); };
         document.getElementById("addslotsbutton").onclick = function() { showpanel("addslots"); };
         document.getElementById("addisvbutton").onclick = function() { showpanel("addisv"); };
@@ -781,7 +783,7 @@
 
             // if logged in then show the logged in userID on the title bar 
 
-            document.getElementById("loginorout").className += " btn btn-success";
+            //document.getElementById("loginorout").className += " btn btn-success";
 
             log.innerHTML = "Logout " + authContext.getCachedUser().profile.name;
 

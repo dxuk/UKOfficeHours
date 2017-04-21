@@ -49,10 +49,6 @@ html {
     -ms-text-size-adjust: 100%
 }
 
-body {
-    margin: 0
-}
-
 article,
 aside,
 details,
@@ -1431,7 +1427,9 @@ body {
     font-size: 14px;
     line-height: 1.42857143;
     color: #333;
-    background-color: #fff
+    background-color: #fff;
+    margin: 0px;
+    margin-bottom: 60px;
 }
 
 button,
@@ -3061,7 +3059,7 @@ table th[class*=col-] {
 @media screen and (max-width:767px) {
     .table-responsive {
         width: 100%;
-        margin-bottom: 15px;
+        margin-bottom: 60px;
         overflow-y: hidden;
         -ms-overflow-style: -ms-autohiding-scrollbar;
         border: 1px solid #ddd
@@ -4415,7 +4413,7 @@ tbody.collapse.in {
 .navbar-fixed-bottom .dropdown .dropdown-menu {
     top: auto;
     bottom: 100%;
-    margin-bottom: 1px
+    margin-bottom: 60px
 }
 
 @media (min-width:768px) {
@@ -5056,7 +5054,7 @@ textarea.input-group-sm>.input-group-btn>.btn {
 
 .navbar {
     position: relative;
-    min-height: 50px;
+    min-height: 40px;
     margin-bottom: 20px;
     border: 1px solid transparent
 }
@@ -5113,7 +5111,7 @@ textarea.input-group-sm>.input-group-btn>.btn {
 
 .navbar-fixed-bottom .navbar-collapse,
 .navbar-fixed-top .navbar-collapse {
-    max-height: 340px
+    max-height: 300px
 }
 
 @media (max-device-width:480px) and (orientation:landscape) {
