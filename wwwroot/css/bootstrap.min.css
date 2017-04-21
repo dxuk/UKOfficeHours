@@ -7,8 +7,44 @@
 
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 
+@font-face {
+    font-family: "SegoeUI";
+    src: local("Segoe UI"), local("Segoe"), local("Segoe WP"), url("//i.s-microsoft.com/fonts/segoe-ui/westeuropean/normal/latest.eot?#iefix") format("embedded-opentype"), url("//i.s-microsoft.com/fonts/segoe-ui/westeuropean/normal/latest.woff") format("woff"), url("//i.s-microsoft.com/fonts/segoe-ui/westeuropean/normal/latest.ttf") format("truetype"), url("//i.s-microsoft.com/fonts/segoe-ui/westeuropean/normal/latest.svg#web") format("svg");
+}
+
+@font-face {
+    font-family: "SegoeUI";
+    font-weight: 100;
+    src: local("Segoe UI Light"), local("Segoe WP Light"), url("//i.s-microsoft.com/fonts/segoe-ui/westeuropean/light/latest.eot?#iefix") format("embedded-opentype"), url("//i.s-microsoft.com/fonts/segoe-ui/westeuropean/light/latest.woff") format("woff"), url("//i.s-microsoft.com/fonts/segoe-ui/west-european/light/latest.ttf") format("truetype"), url("//i.s-microsoft.com/fonts/segoe-ui/west-european/light/latest.svg#web") format("svg");
+}
+
+@font-face {
+    font-family: "SegoeUI";
+    font-weight: 200;
+    src: local("Segoe UI Semilight"), local("Segoe WP Light"), url("//i.s-microsoft.com/fonts/segoe-ui/westeuropean/light/latest.eot?#iefix") format("embedded-opentype"), url("//i.s-microsoft.com/fonts/segoe-ui/westeuropean/light/latest.woff") format("woff"), url("//i.s-microsoft.com/fonts/segoe-ui/west-european/light/latest.ttf") format("truetype"), url("//i.s-microsoft.com/fonts/segoe-ui/west-european/light/latest.svg#web") format("svg");
+}
+
+@font-face {
+    font-family: "SegoeUI";
+    font-weight: 500;
+    src: local("Segoe UI"), local("Segoe"), local("Segoe WP"), url("//i.s-microsoft.com/fonts/segoe-ui/westeuropean/normal/latest.eot?#iefix") format("embedded-opentype"), url("//i.s-microsoft.com/fonts/segoe-ui/westeuropean/normal/latest.woff") format("woff"), url("//i.s-microsoft.com/fonts/segoe-ui/westeuropean/normal/latest.ttf") format("truetype"), url("//i.s-microsoft.com/fonts/segoe-ui/westeuropean/normal/latest.svg#web") format("svg");
+}
+
+@font-face {
+    font-family: "SegoeUI";
+    font-weight: 700;
+    src: local("Segoe UI bold"), local("Segoe bold"), local("Segoe WP bold"), url("//i.s-microsoft.com/fonts/segoeui/west-european/bold/latest.eot?#iefix") format("embedded-opentype"), url("//i.s-microsoft.com/fonts/segoeui/west-european/bold/latest.woff") format("woff"), url("//i.s-microsoft.com/fonts/segoe-ui/westeuropean/bold/latest.ttf") format("truetype"), url("//i.s-microsoft.com/fonts/segoe-ui/westeuropean/bold/latest.svg#web") format("svg");
+}
+
+body.theme-main {
+    font-family: SegoeUI, "Segoe UI", Segoe, "Segoe UI", "Helvetica", "Arial", "sans-serif";
+    font-size: 16px;
+    line-height: 20px;
+    background: #333;
+    font-weight: 400;
+}
+
 html {
-    font-family: sans-serif;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%
 }
@@ -1391,7 +1427,7 @@ html {
 }
 
 body {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
     font-size: 14px;
     line-height: 1.42857143;
     color: #333;
@@ -4371,15 +4407,15 @@ tbody.collapse.in {
 .navbar-fixed-bottom .dropdown .caret {
     content: "";
     border-top: 0;
-    border-bottom: 4px dashed;
-    border-bottom: 4px solid\9
+    border-bottom: 3px dashed;
+    border-bottom: 3px solid\9
 }
 
 .dropup .dropdown-menu,
 .navbar-fixed-bottom .dropdown .dropdown-menu {
     top: auto;
     bottom: 100%;
-    margin-bottom: 2px
+    margin-bottom: 1px
 }
 
 @media (min-width:768px) {
@@ -5083,7 +5119,7 @@ textarea.input-group-sm>.input-group-btn>.btn {
 @media (max-device-width:480px) and (orientation:landscape) {
     .navbar-fixed-bottom .navbar-collapse,
     .navbar-fixed-top .navbar-collapse {
-        max-height: 200px
+        max-height: 180px
     }
 }
 
@@ -5139,7 +5175,8 @@ textarea.input-group-sm>.input-group-btn>.btn {
 .navbar-fixed-bottom {
     bottom: 0;
     margin-bottom: 0;
-    border-width: 1px 0 0
+    border-width: 1px 0 0;
+    font-size: 10px;
 }
 
 .navbar-brand {
@@ -7169,7 +7206,7 @@ button.close {
     position: absolute;
     z-index: 1070;
     display: block;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
     font-size: 12px;
     font-style: normal;
     font-weight: 400;
@@ -7303,7 +7340,7 @@ button.close {
     display: none;
     max-width: 276px;
     padding: 1px;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;

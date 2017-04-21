@@ -35,12 +35,11 @@
         var namesplitter = "-ukofficehours";
         var serverprefixaddress = window.location.href.split("/")[2].split(".")[0];
 
-        if (serverprefixaddress.toLowerCase().substr(0,9) === 'localhost') {
+        if (serverprefixaddress.toLowerCase().substr(0, 9) === 'localhost') {
             endpoint = 'http://localhost:8080';
             rootfnsite = 'http://localhost:7071/';
             configDataUrl = '/local-debug-config.json';
-        }
-        else {
+        } else {
             var prefix = serverprefixaddress.split(namesplitter)[0]
             var resource = 'https://' + prefix + 'ukohfn.azurewebsites.net';
             endpoint = 'https://' + prefix + '-ukofficehours.azurewebsites.net/';
@@ -52,31 +51,31 @@
             console.info("Server Running at:" + rootfnsite);
         }
 
-            // Pick up server specific settings and load the ad config via a function call from the remote server
+        // Pick up server specific settings and load the ad config via a function call from the remote server
 
 
-            // ToDo: Tech Debt - this should be really done with promises, 
-            // But we just want to ensure that the loading of the config data is loaded before everything
-            // else renders: Hence the sync forced call. I will review this after go-live.
+        // ToDo: Tech Debt - this should be really done with promises, 
+        // But we just want to ensure that the loading of the config data is loaded before everything
+        // else renders: Hence the sync forced call. I will review this after go-live.
 
-            $.ajax({
-                method: "GET",
-                url: configDataUrl,
-                success: function(result) {
-                    // we have data, update the viewmodel and let knockout take care of the binding
-                    clientid = result.ClientId;
-                    tenantid = result.TenantId;
-                    document.getElementById("bannertitle").text = result.Service_Description;
-                    console.info("Service is:" + result.Service_Description);
-                    console.info("Client ID is:" + clientid);
-                    console.info("Tenant ID is:" + tenantid);;
-                },
-                error: function() {
-                    alert('Failed to load config:');
-                    console.error('Failed to load config:');
-                },
-                async: false
-            });
+        $.ajax({
+            method: "GET",
+            url: configDataUrl,
+            success: function(result) {
+                // we have data, update the viewmodel and let knockout take care of the binding
+                clientid = result.ClientId;
+                tenantid = result.TenantId;
+                document.getElementById("bannertitle").text = result.Service_Description;
+                console.info("Service is:" + result.Service_Description);
+                console.info("Client ID is:" + clientid);
+                console.info("Tenant ID is:" + tenantid);;
+            },
+            error: function() {
+                alert('Failed to load config:');
+                console.error('Failed to load config:');
+            },
+            async: false
+        });
 
         // Declare Special Binding Handlers to deal with the datepickers bindings in knockout
         // DatePicker
@@ -734,8 +733,7 @@
         $("#addslotssection").toggle();
         $("#addisvsection").toggle();
         $("#bookwithcodesection").toggle();
-        var visiblepanel = "welcome";
-
+        var visiblepanel = "help";
 
         loadupdatestatus(30);
 
