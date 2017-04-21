@@ -65,7 +65,7 @@
                 // we have data, update the viewmodel and let knockout take care of the binding
                 clientid = result.ClientId;
                 tenantid = result.TenantId;
-                document.getElementById("bannertitle").innerHTML = result.Service_Description;
+                document.getElementById("bannertitle").text = result.Service_Description;
                 console.info("Service is:" + result.Service_Description);
                 console.info("Client ID is:" + clientid);
                 console.info("Tenant ID is:" + tenantid);;
@@ -679,8 +679,11 @@
         function showpanel(panelOn) {
 
             // Switch off a panel then turn on the new panel.
-            $("#" + visiblepanel + "section").toggle();
-            $("#" + panelOn + "section").toggle();
+            $("#" + visiblepanel + "section").toggle(false);
+            console.log("hiding panel: " + "#" + visiblepanel + "section");
+
+            $("#" + panelOn + "section").toggle(true);
+            console.log("showing panel: " + "#" + panelOn + "section");
 
             visiblepanel = panelOn;
 
@@ -730,18 +733,20 @@
         // Hide the main panels from display as we won't bind all of them immediately until they are needed.
         $("#viewslotssection").toggle();
         $("#viewhelpsection").toggle();
-        // $("#viewisvssection").toggle();
+        $("#viewinfosection").toggle();
         $("#addslotssection").toggle();
         $("#addisvsection").toggle();
         $("#bookwithcodesection").toggle();
-        var visiblepanel = "help";
+
+        var visiblepanel = "DUMMYPANEL";
+
 
         loadupdatestatus(30);
 
         // Now add the click handlers to hide and show the relevant panels calling the functions above.
         document.getElementById("viewslotsbutton").onclick = function() { showpanel("viewslots"); };
         document.getElementById("viewhelpbutton").onclick = function() { showpanel("viewhelp"); };
-        // document.getElementById("viewisvsbutton").onclick = function() { showpanel("viewisvs"); };
+        document.getElementById("viewinfobutton").onclick = function() { showpanel("viewinfo"); };
         document.getElementById("addslotsbutton").onclick = function() { showpanel("addslots"); };
         document.getElementById("addisvbutton").onclick = function() { showpanel("addisv"); };
         document.getElementById("bookwithcodebutton").onclick = function() { showpanel("bookwithcode"); };
@@ -769,7 +774,7 @@
         // If already logged in then show logout box.
         if (!authContext.getCachedUser()) {
 
-            document.getElementById("loginorout").className += " btn btn-alert";
+            //document.getElementById("loginorout").className += " btn btn-alert";
 
             log.html = "logmein";
             log.onclick = function() {
@@ -778,7 +783,9 @@
                 authContext.login();
 
             };
+
             $("#menuleft").toggle();
+
         } else {
 
             // if logged in then show the logged in userID on the title bar 
@@ -795,7 +802,9 @@
 
         // auto-switch to the requested panel on ready()
         $(document).ready(function() {
-            showpanel($.QueryString.StartPanel);
+            if ($.QueryString.StartPanel != undefined) {
+                showpanel($.QueryString.StartPanel);
+            }
         });
 
         // Enable the Debug PRE views if you add 'debugview=true' to your querystring
@@ -806,5 +815,7 @@
             $("#isvdebug").toggle(false);
             $("#slotdebug").toggle(false);
         }
+
+        showpanel("viewinfo");
 
     })();

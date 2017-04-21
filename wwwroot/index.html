@@ -6,6 +6,7 @@
     <title>Microsoft Azure - DX Cloudcelerator Office Hours Booking Site</title>
     <meta name="description" content="We evangelise about Microsoft Azure and we do it in a structured, programmatic way :)">
     <meta name="author" content="Microsoft UK">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css" />
     <link rel="stylesheet" href="css/bootstrap-theme.min.css" />
@@ -32,8 +33,9 @@
                         <div class="navbar-collapse collapse" id="navbar-main">
                             <ul class="nav navbar-nav">
                                 <li class="dropdown">
-                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="Booking">Booking Services<span class="caret"></span></a>
-                                    <ul class="dropdown-menu" aria-labelledby="Booking">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="menuleft">Booking Services<span class="caret"></span></a>
+                                    <ul class="dropdown-menu" aria-labelledby="menuleft">
+                                        <li><a id="viewinfobutton">What Should I use?</a></li>
                                         <li><a id="viewslotsbutton">View All Slots</a></li>
                                         <li><a id="addslotsbutton">Add New Slot</a></li>
                                         <li><a id="addisvbutton">Get a Code for an Appointment</a></li>
@@ -51,354 +53,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div id="progbartop">
-                                <h3 id="loadertext">Loading Data...</h3>
-                                <div class="progress progress-striped active">
-                                    <div class="progress-bar progress-bar-info" id="progbar" style="width: 0%"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12" id="viewhelpsection">
-
-                            <h1>DX UK Office Hours Service Help</h1>
-                            Last Updated 29th March 2017
-                            <h2 id="Context">Context</h2>
-                            Office hours is a booking system designed to get ISV customers time with Technical Evangelists booked quickly and simply, with a minimum of interaction or fuss. It's a nice example of architecting a solution based on solely consumption-led services in
-                            Azure and we will be open-sourcing the tool even though it is provided for internal use only. The source code and docs are
-                            <a href="https://github.com/dxuk/UKOfficeHours">here</a>
-                            <h2 id=" ServiceAddresses">Service Addresses and Location (Where do I look?)</h2>
-                            The test and demo service can be found at <a href="https://aka.ms/dxofficehourspreview">https://aka.ms/dxofficehourspreview</a> The production service will be found at
-                            <a href="https://aka.ms/dxofficehourslive">https://aka.ms/dxofficehourslive</a> The service requires a minimum amount of customer data to operate (it requires an ISV business name to generate an anonymous code, and optionally
-                            a contact name and email address). It is planned to use the email address and contact name ONLY to send out booking confirmations for the appointments and calendar bookings made during the usage of the service. All usage of
-                            data entered into the service will be in accordance with the Microsoft Privacy statement (link on the bottom banner of this page).
-
-                            <h2 id="UserGuide">User Guide</h2>
-                            <h3 id="MakeTimeAvailable">Technical Evangelist - ISV: Make time available for booking</h3>
-                            <ol>
-                                <li>Open the Site and login with a valid user id and authentication method</li>
-                                <li>Select 'Add New Slot' from the top menu</li>
-                                <li>From the 'Add a slot' dialog:</li>
-                                <ul>
-                                    <li>Click the calendar icon next to the Start Date field and select a date</li>
-                                    <li>Click the clock icon next to the Start Time field and select a time to begin your session (Note: Clicking on the text in either the hours or minutes spinners will drill into a selection dialog featuring a better range
-                                        of selection than the spinner itself)</li>
-                                    <li><img src="images/image1.png"></li>
-                                    <li>Next, either enter a length of session in minutes into the session type field, or choose a session type from the dropdown to enter a standard type of session </li>
-                                    </li>
-                                    <li><img src="images/image2.png"></li>
-                                    <li>Enter a time to leave for a wrap-up break or buffer in minutes</li>
-                                    <li>Click the 'Add Bookable Slot' button </li>
-                                </ul>
-                                <li>Note that if successful, a message will be displayed and the start time of the next session will be incremented by the session length + break time you requested.</li>
-                                <li>To add subsequent sessions, simply click 'Add Bookable Slot' again as many times as required.</li>
-                            </ol>
-
-                            <h3 id="IssueCodeAndBookSlot">Partner Business Evangelist - ISV: Register an ISV and book a slot</h3>
-
-                            <ol>
-                                <li>Open the Site and login with a valid user id and authentication method</li>
-                                <li>Select 'Get a Code' from the top menu</li>
-                                <li>Enter the Name of the ISV in the ISV Name field (Ideally as it is in DX CRM)</li>
-                                <li>Enter a contact email address for the ISV (this is presently not used, please enter a dummy email address until we pass our privacy audit, then this will be used to trigger a calendar appointment invite with the ISV)</li>
-                                <li>Please enter the name of the contact into the 'Contact Name' field.</li>
-                                <li>Click the Add ISV button. </li>
-                                <li><img src="images/image3.png"> </li>
-                                <li>Either record the code in the message and save it for later, or click the Booking Link to book a session right now. </li>
-                                <li>If you clicked the link, you will be taken to the 'Use a booking code' screen with your code embedded into the link (this will show the next 90 days' worth of possible bookings). </li>
-                                <li>Simply choose a slot and Click 'Book It' on the appropriate row. (This will pop-up a modal dialog confirming what and when you are booking with the code pre-populated. </li>
-                                <li>Click 'Book It' and you are done! Note that at this stage no customer message is sent.</li>
-                            </ol>
-                            <h3 id="CustomerSelfService">Customer Self Service: Use a booking code</h3>
-                            <ol>
-                                <li>Open the site and click the 'Use a booking Code' link </li>
-                                <li>Simply choose a slot and Click 'Book It' on the appropriate row. </li>
-                                <li>This will pop-up a modal dialog confirming what and when you are booking </li>
-                                <li>Enter the Microsoft Provided code into the 'Enter a booking code' box </li>
-                                <li><img src="images/image4.png"> </li>
-                                <li>Click 'Book It' and you are done! Note that at this stage no customer confirmation message is sent as we are not capturing an email addresses to communicate with you at this time.
-                            </ol>
-                            <h3 id="InternalQueryAndFilter">Internal Query and Filter: View and search bookings</h3>
-                            <ol>
-                                <li>Open the Site and login with a valid user id and authentication method</li>
-                                <li>Select the 'View all slots' link</li>
-                                <li>To filter the list – click the 'Toggle Filters' button and select the filters you want to use.</li>
-                                <li>Filtering ISV by 'None' will allow you to see free sessions </li>
-                                <li>Filtering by 'Special' will allow you to see sessions in the future or past </li>
-                                <li>Filtering by 'Duration' will allow you to see the type of session </li>
-                                <li>Clicking 'Save' filters will save your filter settings using html5 local storage in your browser, the portal will auto-reload your filters in the future when you revisit the page in the same browser.</li>
-                            </ol>
-                        </div>
-                        <div class="col-md-12" id="viewslotssection">
-                            <div class="panel panel-primary" id="bindingforBookedlist">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">
-                                        <span>View and query all sessions </span> <button type="button" class="btn btn-info" id="filters" data-toggle="collapse" data-target="#demo">Toggle Filters</button>
-                                    </h3>
-                                </div>
-                                <div class="panel-body collapse" id="demo">
-                                    <div class="panel panel-info">
-                                        <div class="panel-heading">
-                                            <button id="svsettings" class="btn btn-danger" data-bind="click: ResetFilters">Reset Filters</button>
-                                            <button id="svsettings" class="btn btn-success" data-bind="click: SaveFilters">Save Filters</button>
-                                            <button id="svsettings" class="btn btn-warning" data-bind="click: LoadFilters">Load Filters</button>
-                                            <span id="notify-settings"></span>
-                                        </div>
-                                        <div class="panel-body">
-                                            <div class="form-horizontal" role="form">
-                                                <div class="form-group">
-                                                    <label for="datefilter" class="col-sm-1 control-label">Date</label>
-                                                    <div class="col-sm-2">
-                                                        <select id="datefilter" class="col-sm-2 form-control" data-bind="options: DateList, value: FilterDate"></select>
-                                                    </div>
-                                                    <label for="durationfilter" class="col-sm-1 control-label">Duration</label>
-                                                    <div class="col-sm-2">
-                                                        <select id="durationfilter" class="col-sm-2 form-control" data-bind="options: DurationList, value: FilterDuration"></select>
-                                                    </div>
-                                                    <label for="mnthfilter" class="col-sm-1 control-label">Month</label>
-                                                    <div class="col-sm-2">
-                                                        <select id="mnthfilter" class="col-sm-2 form-control" data-bind="options: PKList, value: FilterPK"></select>
-                                                    </div>
-                                                    <label for="pbefilter" class="col-sm-1 control-label">PBE</label>
-                                                    <div class="col-sm-2">
-                                                        <select id="pbefilter" class="col-sm-2 form-control" data-bind="options: PBEList, value: FilterPBE"></select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="tefilter" class="col-sm-1 control-label">TE</label>
-                                                    <div class="col-sm-2">
-                                                        <select id="tefilter" class="col-sm-2 form-control" data-bind="options: TEList, value: FilterTE"></select>
-                                                    </div>
-                                                    <label for="isvfilter" class="col-sm-1 control-label">ISV</label>
-                                                    <div class="col-sm-2">
-                                                        <select id="isvfilter" class="col-sm-2 form-control" data-bind="options: ISVList, value: FilterISV"></select>
-                                                    </div>
-                                                    <label for="futurefilter" class="col-sm-1 control-label">'Special'</label>
-                                                    <div class="col-sm-2">
-                                                        <select id="futurefilter" class="col-sm-2 form-control" data-bind="value: FilterFutureOrPast">
-                                                    <option value="--All--">--All--</option>
-                                                    <option value="Future">Future</option>
-                                                    <option value="Past">Past</option>
-                                                </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="panel-body">
-                                    <table class="table table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Date</th>
-                                                <th>Start Time</th>
-                                                <th>Duration (mins)</th>
-                                                <th>TE</th>
-                                                <th>PBE</th>
-                                                <th>ISV</th>
-                                                <th>Month</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody data-bind="foreach: $root.filteredItems">
-                                            <tr data-bind="css: { success: BookedToISV==='None' , info: moment().diff(StartDateTime, 'minutes')>= 0 }">
-                                                <td data-bind="text: moment(StartDateTime).format('dddd, MMMM Do YYYY')"></td>
-                                                <td data-bind="text: moment(StartDateTime).format('LT')"></td>
-                                                <td data-bind="text: Duration"></td>
-                                                <td data-bind="text: TechnicalEvangelist"></td>
-                                                <td data-bind="text: PBE"></td>
-                                                <td data-bind="text: BookedToISV"></td>
-                                                <td data-bind="text: PartitionKey"></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12" id="addisvsection">
-                            <div class="jumbotron">
-                                <h2 id="contentheader">
-                                    <span>Add an ISV</span>
-                                </h2>
-                                <form class="form-horizontal" role="form" id="isvForm">
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label" for="Name">
-                                    ISV Name (Required)
-                                </label>
-                                        <div class="col-sm-10">
-                                            <input class="form-control" id="Name" data-bind="value: Name" type="text" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label" for="ContactEmail">
-                                    Contact Email 
-                                </label>
-                                        <div class="col-sm-10">
-                                            <input class="form-control" disabled id="ContactEmail" data-bind="value: ContactEmail" type="email" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label" for="ContactName">
-                                    Contact Name (Optional)
-                                </label>
-                                        <div class="col-sm-10">
-                                            <input class="form-control" id="ContactName" data-bind="value: ContactName" type="text" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-10">
-                                            <button id="sendisvbtn" class="btn btn-success" type="button" data-bind="click: WriteISV">Add ISV</button>
-                                        </div>
-                                        <div class=" col-sm-offset-2 col-sm-10">
-                                            <span id="statussend"></span>
-                                            <a href="" id="sendlink">Booking Link</a>
-                                        </div>
-                                        <pre id="isvdebug" data-bind="text: ko.toJSON($root, null, 2)"></pre>
-                                        <div>Please ensure you only enter data that complies with the Microsoft Privacy Statement (Link is above)</div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="col-md-12" id="bookwithcodesection">
-                            <div class="panel panel-primary">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">
-                                        <span>Book a technical session with a code: bookings available for the next 90 days</span>
-                                    </h3>
-                                </div>
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Date</th>
-                                            <th>Start Time</th>
-                                            <th>Duration (mins)</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody data-bind="foreach: $root.loadeddata" id="bindingforBookinglist">
-                                        <tr>
-                                            <td data-bind="text: moment(StartDateTime).format( 'dddd, MMMM Do YYYY')"></td>
-                                            <td data-bind="text: moment(StartDateTime).format( 'LT')"></td>
-                                            <td data-bind="text: Duration"></td>
-                                            <td>
-                                                <a class="btn btn-success" data-toggle="modal" data-target="#myBookingModal" data-bind="click: $root.SetBookingSlot">
-                                            Book It!
-                                        </a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- Modal -->
-                            <div id="myBookingModal" class="modal fade" role="dialog">
-                                <div class="modal-dialog">
-                                    <!-- Modal content-->
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <h4 class="modal-title">Book with a booking code</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form class="form-horizontal" role="form" data-bind="submit: FireBooking">
-                                                <div class="form-group">
-                                                    <label class="col-sm-2 control-label" for="RowKey">
-                                                Booking Session
-                                            </label>
-                                                    <div class="col-sm-10">
-                                                        <label class="form-control" id="RowKey" data-bind="text: submitdata.VisualSlot"></label>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-sm-2 control-label" for="EnterBookingCode">
-                                                Enter a booking code
-                                            </label>
-                                                    <div class="col-sm-10">
-                                                        <input class="form-control" id="EnterBookingCode" type="text" data-bind="value: submitdata.BookingCode" />
-                                                    </div>
-                                                    <div class="col-sm-10">
-                                                        <button id="sendbobtn" class="btn btn-success" type="submit">Book it!</button>
-                                                        <button type="button" class="btn btn-alert" data-dismiss="modal">Close</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <span id="statusbosend"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12" id="addslotssection">
-                            <div class="jumbotron">
-                                <h2 id="contentheader">
-                                    <span>Add a slot</span>
-                                </h2>
-                                <form class="form-horizontal" role="form" id="bookingslotForm">
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label" for="StartDate">
-                                    Start Date
-                                </label>
-                                        <div class="col-sm-6">
-                                            <div class='input-group date' id="StartDate" data-bind="weekdaydatePicker: StartDate">
-                                                <input class="form-control" type="text" />
-                                                <span class="input-group-addon">
-                                            <span class="glyphicon glyphicon-calendar"></span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label" for="StartTime">
-                                    Start Time
-                                </label>
-                                        <div class="col-sm-6">
-                                            <div class='input-group date' data-bind="timePicker: StartTime" id='StartTime'>
-                                                <input type='text' class="form-control" />
-                                                <span class="input-group-addon">
-                                            <span class="glyphicon glyphicon-time"></span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label" for="Duration">
-                                    Session Type
-                                </label>
-                                        <div class="col-sm-6">
-                                            <div class='input-group col-sm-6'>
-                                                <input class="form-control col-sm-1 control-label" id="Duration" data-bind="value: Duration" type="number" />
-                                                <select class="form-control col-sm-2" data-bind="value: Duration">
-                                            <option value="30">Concierge</option>
-                                            <option value="60">Office Hour</option>
-                                            <option value="180">ADS or Envisioning Session</option>
-                                        </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label" for="Break">
-                                        Leave a break afterwards (in minutes)
-                                </label>
-                                        <div class="col-sm-2">
-                                            <input class="form-control" id="Break" data-bind="value: Break" type="number" value="15" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-10">
-                                            <button id="sendslotbtn" class="btn btn-success" type="button" data-bind="click: WriteBookingSlot">Add Bookable Slot</button>
-                                        </div>
-                                        <div class="col-sm-offset-2 col-sm-10">
-                                            <span id="statussendbook"></span>
-                                        </div>
-                                        <pre id="slotdebug" data-bind="text: ko.toJSON($root, null, 2)"></pre>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="navbar navbar-default navbar-fixed-bottom">
                     <div class="container">
                         <div class="navbar-header">
@@ -406,7 +60,10 @@
                                 <span class="icon-bar"></span>
                             </button>
                         </div>
-                        <div class="navbar-collapse collapse" id="navbar-bottom">
+                        <div class="navbar" id="navbar-bottom">
+                            <ul class="nav navbar-nav navbar-left navbar" id="menubottoml">
+                                <li>Microsoft Internal or Demonstration Use Only</li>
+                            </ul>
                             <ul class="nav navbar-nav navbar-right navbar" id="menubottom">
                                 <li><a id="shellmenu_0" href="https://support.microsoft.com/contactus/?ws=support" ms.title="Contact us" class="nav navbar-nav" data-bi-name="Footer_ContactUs" data-bi-slot="1">Contact us</a></li>
                                 <li><a id="shellmenu_1" href="https://go.microsoft.com/fwlink/?LinkId=521839" ms.title="Privacy &amp; Cookies" class="nav navbar-nav" data-bi-name="Footer_PrivacyandCookies" data-bi-slot="2">Privacy &amp; Cookies </a></li>
@@ -418,16 +75,419 @@
                         </div>
                     </div>
                 </div>
+                <div id="DUMMYPANELsection">dummy panel
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="progbartop">
+                                <h3 id="loadertext">Loading Data...</h3>
+                                <div class="progress progress-striped active">
+                                    <div class="progress-bar progress-bar-info" id="progbar" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div id="viewinfosection">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <div class="panel-title" id="loadertext">
+                                            <h2>Need help moving an ISV to Azure? Then you need Office Hours</h2>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <h3>
+                                            How can we access ISV Technical Evangelist skills to successfully accelerate the onboarding of your ISV into Azure?
+                                        </h3>
+                                        <div>
+                                            <h4>30 minute sessions (Concierge) are suitable for</h4>
+                                            <ul>
+                                                <li>Unblocking a specific quick technical architectural or developer issue (note that this is NOT a production support service)</li>
+                                                <li>Providing light architectural or evaluation guidance</li>
+                                                <li>Signposting the ISV to resources and ISV events where they can resolve their own issues or get more information</li>
+                                                <li>Assisting a PBE to jointly qualify where an ISV can / should move services to Azure and roadmapping how we can help them to do so quickly</li>
+                                                <li>Qualifying and gathering information following a request for an Architectural Design Session</li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h4>60 minute sessions (Office Hours) are suitable for</h4>
+                                            <ul>
+                                                <li>Unblocking a more detailed technical architectural or developer issue (note that this is NOT a production support service)</li>
+                                                <li>Providing more in-depth architectural or evaluation guidance</li>
+                                                <li>Qualifying whether we could help them by using our 1:1 onsite time, or if they should join us for a hackfest</li>
+                                                <li>Qualifying and gathering information following a request for a large Architectural Design Session</li>
+                                                <li>Quick envisioning of which Microsoft Azure services could be used to achieve a specific end</li>
+                                                <li>Sense checking of a document or architecture to achieve a specific aim (Note that this is advisory only, we will not sign off certify, or approve an architecture or document)
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h4>180 minute sessions (Envisioning / ADS Sessions) are suitable for</h4>
+                                            <ul>
+                                                <li>In depth discussion of customer environments where the customer has already expressed a desire to move to azure and requires more detailed design or architectural assistance to get up and running</li>
+                                                <li>Spinning up a new product on Azure which requires an entirely new architectural approach</li>
+                                                <li>Discussion of adapation of a product's architecture to better utilise new / existing Azure services to either increase scalability, resilience or reduce cost</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div id="viewhelpsection">
+                                <h1>DX UK Office Hours Service Help</h1>
+                                Last Updated 29th March 2017
+                                <h2 id="Context">Context</h2>
+                                Office hours is a booking system designed to get ISV customers time with Technical Evangelists booked quickly and simply, with a minimum of interaction or fuss. It's a nice example of architecting a solution based on solely consumption-led services in
+                                Azure and we will be open-sourcing the tool even though it is provided for internal use only. The source code and docs are
+                                <a href="https://github.com/dxuk/UKOfficeHours">here</a>
+                                <h2 id=" ServiceAddresses">Service Addresses and Location (Where do I look?)</h2>
+                                The test and demo service can be found at
+                                <a href="https://aka.ms/dxofficehourspreview">https://aka.ms/dxofficehourspreview</a> The production service will be found at
+                                <a href="https://aka.ms/dxofficehourslive">https://aka.ms/dxofficehourslive</a> The service requires a minimum amount of customer data to operate (it requires an ISV business name to generate an anonymous code, and optionally
+                                a contact name and email address). It is planned to use the email address and contact name ONLY to send out booking confirmations for the appointments and calendar bookings made during the usage of the service. All usage
+                                of data entered into the service will be in accordance with the Microsoft Privacy statement (link on the bottom banner of this page).
+
+                                <h2 id="UserGuide">User Guide</h2>
+                                <h3 id="MakeTimeAvailable">Technical Evangelist - ISV: Make time available for booking</h3>
+                                <ol>
+                                    <li>Open the Site and login with a valid user id and authentication method</li>
+                                    <li>Select 'Add New Slot' from the top menu</li>
+                                    <li>From the 'Add a slot' dialog:</li>
+                                    <ul>
+                                        <li>Click the calendar icon next to the Start Date field and select a date</li>
+                                        <li>Click the clock icon next to the Start Time field and select a time to begin your session (Note: Clicking on the text in either the hours or minutes spinners will drill into a selection dialog featuring a better
+                                            range of selection than the spinner itself)</li>
+                                        <li><img src="images/image1.png" /></li>
+                                        <li>Next, either enter a length of session in minutes into the session type field, or choose a session type from the dropdown to enter a standard type of session </li>
+                                        <li><img src="images/image2.png" /></li>
+                                        <li>Enter a time to leave for a wrap-up break or buffer in minutes</li>
+                                        <li>Click the 'Add Bookable Slot' button </li>
+                                    </ul>
+                                    <li>Note that if successful, a message will be displayed and the start time of the next session will be incremented by the session length + break time you requested.</li>
+                                    <li>To add subsequent sessions, simply click 'Add Bookable Slot' again as many times as required.</li>
+                                </ol>
+
+                                <h3 id="IssueCodeAndBookSlot">Partner Business Evangelist - ISV: Register an ISV and book a slot</h3>
+
+                                <ol>
+                                    <li>Open the Site and login with a valid user id and authentication method</li>
+                                    <li>Select 'Get a Code' from the top menu</li>
+                                    <li>Enter the Name of the ISV in the ISV Name field (Ideally as it is in DX CRM)</li>
+                                    <li>Enter a contact email address for the ISV (this is presently not used, please enter a dummy email address until we pass our privacy audit, then this will be used to trigger a calendar appointment invite with the ISV)
+                                    </li>
+                                    <li>Please enter the name of the contact into the 'Contact Name' field.</li>
+                                    <li>Click the Add ISV button. </li>
+                                    <li><img src="images/image3.png" /> </li>
+                                    <li>Either record the code in the message and save it for later, or click the Booking Link to book a session right now. </li>
+                                    <li>If you clicked the link, you will be taken to the 'Use a booking code' screen with your code embedded into the link (this will show the next 90 days' worth of possible bookings). </li>
+                                    <li>Simply choose a slot and Click 'Book It' on the appropriate row. (This will pop-up a modal dialog confirming what and when you are booking with the code pre-populated. </li>
+                                    <li>Click 'Book It' and you are done! Note that at this stage no customer message is sent.</li>
+                                </ol>
+                                <h3 id="CustomerSelfService">Customer Self Service: Use a booking code</h3>
+                                <ol>
+                                    <li>Open the site and click the 'Use a booking Code' link </li>
+                                    <li>Simply choose a slot and Click 'Book It' on the appropriate row. </li>
+                                    <li>This will pop-up a modal dialog confirming what and when you are booking </li>
+                                    <li>Enter the Microsoft Provided code into the 'Enter a booking code' box </li>
+                                    <li><img src="images/image4.png" /> </li>
+                                    <li>Click 'Book It' and you are done! Note that at this stage no customer confirmation message is sent as we are not capturing an email addresses to communicate with you at this time.
+                                </ol>
+                                <h3 id="InternalQueryAndFilter">Internal Query and Filter: View and search bookings</h3>
+                                <ol>
+                                    <li>Open the Site and login with a valid user id and authentication method</li>
+                                    <li>Select the 'View all slots' link</li>
+                                    <li>To filter the list – click the 'Toggle Filters' button and select the filters you want to use.</li>
+                                    <li>Filtering ISV by 'None' will allow you to see free sessions </li>
+                                    <li>Filtering by 'Special' will allow you to see sessions in the future or past </li>
+                                    <li>Filtering by 'Duration' will allow you to see the type of session </li>
+                                    <li>Clicking 'Save' filters will save your filter settings using html5 local storage in your browser, the portal will auto-reload your filters in the future when you revisit the page in the same browser.</li>
+                                </ol>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div id="viewslotssection">
+                                <div class="panel panel-primary" id="bindingforBookedlist">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">
+                                            <span>View and query all sessions </span> <button type="button" class="btn btn-info" id="filters" data-toggle="collapse" data-target="#demo">Toggle Filters</button>
+                                        </h3>
+                                    </div>
+                                    <div class="panel-body collapse" id="demo">
+                                        <div class="panel panel-info">
+                                            <div class="panel-heading">
+                                                <button id="svsettings" class="btn btn-danger" data-bind="click: ResetFilters">Reset Filters</button>
+                                                <button id="svsettings" class="btn btn-success" data-bind="click: SaveFilters">Save Filters</button>
+                                                <button id="svsettings" class="btn btn-warning" data-bind="click: LoadFilters">Load Filters</button>
+                                                <span id="notify-settings"></span>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="form-horizontal" role="form">
+                                                    <div class="form-group">
+                                                        <label for="datefilter" class="col-sm-1 control-label">Date</label>
+                                                        <div class="col-sm-2">
+                                                            <select id="datefilter" class="col-sm-2 form-control" data-bind="options: DateList, value: FilterDate"></select>
+                                                        </div>
+                                                        <label for="durationfilter" class="col-sm-1 control-label">Duration</label>
+                                                        <div class="col-sm-2">
+                                                            <select id="durationfilter" class="col-sm-2 form-control" data-bind="options: DurationList, value: FilterDuration"></select>
+                                                        </div>
+                                                        <label for="mnthfilter" class="col-sm-1 control-label">Month</label>
+                                                        <div class="col-sm-2">
+                                                            <select id="mnthfilter" class="col-sm-2 form-control" data-bind="options: PKList, value: FilterPK"></select>
+                                                        </div>
+                                                        <label for="pbefilter" class="col-sm-1 control-label">PBE</label>
+                                                        <div class="col-sm-2">
+                                                            <select id="pbefilter" class="col-sm-2 form-control" data-bind="options: PBEList, value: FilterPBE"></select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="tefilter" class="col-sm-1 control-label">TE</label>
+                                                        <div class="col-sm-2">
+                                                            <select id="tefilter" class="col-sm-2 form-control" data-bind="options: TEList, value: FilterTE"></select>
+                                                        </div>
+                                                        <label for="isvfilter" class="col-sm-1 control-label">ISV</label>
+                                                        <div class="col-sm-2">
+                                                            <select id="isvfilter" class="col-sm-2 form-control" data-bind="options: ISVList, value: FilterISV"></select>
+                                                        </div>
+                                                        <label for="futurefilter" class="col-sm-1 control-label">'Special'</label>
+                                                        <div class="col-sm-2">
+                                                            <select id="futurefilter" class="col-sm-2 form-control" data-bind="value: FilterFutureOrPast">
+                                                    <option value="--All--">--All--</option>
+                                                    <option value="Future">Future</option>
+                                                    <option value="Past">Past</option>
+                                                </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Start Time</th>
+                                                    <th>Duration (mins)</th>
+                                                    <th>TE</th>
+                                                    <th>PBE</th>
+                                                    <th>ISV</th>
+                                                    <th>Month</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody data-bind="foreach: $root.filteredItems">
+                                                <tr data-bind="css: { success: BookedToISV==='None' , info: moment().diff(StartDateTime, 'minutes')>= 0 }">
+                                                    <td data-bind="text: moment(StartDateTime).format('dddd, MMMM Do YYYY')"></td>
+                                                    <td data-bind="text: moment(StartDateTime).format('LT')"></td>
+                                                    <td data-bind="text: Duration"></td>
+                                                    <td data-bind="text: TechnicalEvangelist"></td>
+                                                    <td data-bind="text: PBE"></td>
+                                                    <td data-bind="text: BookedToISV"></td>
+                                                    <td data-bind="text: PartitionKey"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" id="addisvsection">
+                                <div class="jumbotron">
+                                    <h2 id="contentheader">
+                                        <span>Add an ISV</span>
+                                    </h2>
+                                    <form class="form-horizontal" role="form" id="isvForm">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="Name">
+                                    ISV Name (Required)
+                                </label>
+                                            <div class="col-sm-10">
+                                                <input class="form-control" id="Name" data-bind="value: Name" type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="ContactEmail">
+                                    Contact Email 
+                                </label>
+                                            <div class="col-sm-10">
+                                                <input class="form-control" disabled id="ContactEmail" data-bind="value: ContactEmail" type="email" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="ContactName">
+                                    Contact Name (Optional)
+                                </label>
+                                            <div class="col-sm-10">
+                                                <input class="form-control" id="ContactName" data-bind="value: ContactName" type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-2 col-sm-10">
+                                                <button id="sendisvbtn" class="btn btn-success" type="button" data-bind="click: WriteISV">Add ISV</button>
+                                            </div>
+                                            <div class=" col-sm-offset-2 col-sm-10">
+                                                <span id="statussend"></span>
+                                                <a href="" id="sendlink">Booking Link</a>
+                                            </div>
+                                            <pre id="isvdebug" data-bind="text: ko.toJSON($root, null, 2)"></pre>
+                                            <div>Please ensure you only enter data that complies with the Microsoft Privacy Statement (Link is above)</div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-12" id="bookwithcodesection">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">
+                                            <span>Book a technical session with a code: bookings available for the next 90 days</span>
+                                        </h3>
+                                    </div>
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Start Time</th>
+                                                <th>Duration (mins)</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody data-bind="foreach: $root.loadeddata" id="bindingforBookinglist">
+                                            <tr>
+                                                <td data-bind="text: moment(StartDateTime).format( 'dddd, MMMM Do YYYY')"></td>
+                                                <td data-bind="text: moment(StartDateTime).format( 'LT')"></td>
+                                                <td data-bind="text: Duration"></td>
+                                                <td>
+                                                    <a class="btn btn-success" data-toggle="modal" data-target="#myBookingModal" data-bind="click: $root.SetBookingSlot">
+                                            Book It!
+                                        </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- Modal -->
+                                <div id="myBookingModal" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Book with a booking code</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form class="form-horizontal" role="form" data-bind="submit: FireBooking">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2 control-label" for="RowKey">
+                                                Booking Session
+                                            </label>
+                                                        <div class="col-sm-10">
+                                                            <label class="form-control" id="RowKey" data-bind="text: submitdata.VisualSlot"></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2 control-label" for="EnterBookingCode">
+                                                Enter a booking code
+                                            </label>
+                                                        <div class="col-sm-10">
+                                                            <input class="form-control" id="EnterBookingCode" type="text" data-bind="value: submitdata.BookingCode" />
+                                                        </div>
+                                                        <div class="col-sm-10">
+                                                            <button id="sendbobtn" class="btn btn-success" type="submit">Book it!</button>
+                                                            <button type="button" class="btn btn-alert" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <span id="statusbosend"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" id="addslotssection">
+                                <div class="jumbotron">
+                                    <h2 id="contentheader">
+                                        <span>Add a slot</span>
+                                    </h2>
+                                    <form class="form-horizontal" role="form" id="bookingslotForm">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="StartDate">
+                                    Start Date
+                                </label>
+                                            <div class="col-sm-6">
+                                                <div class='input-group date' id="StartDate" data-bind="weekdaydatePicker: StartDate">
+                                                    <input class="form-control" type="text" />
+                                                    <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="StartTime">
+                                    Start Time
+                                </label>
+                                            <div class="col-sm-6">
+                                                <div class='input-group date' data-bind="timePicker: StartTime" id='StartTime'>
+                                                    <input type='text' class="form-control" />
+                                                    <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-time"></span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="Duration">
+                                    Session Type
+                                </label>
+                                            <div class="col-sm-6">
+                                                <div class='input-group col-sm-6'>
+                                                    <input class="form-control col-sm-1 control-label" id="Duration" data-bind="value: Duration" type="number" />
+                                                    <select class="form-control col-sm-2" data-bind="value: Duration">
+                                            <option value="30">Concierge</option>
+                                            <option value="60">Office Hour</option>
+                                            <option value="180">ADS or Envisioning Session</option>
+                                        </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="Break">
+                                        Leave a break afterwards (in minutes)
+                                </label>
+                                            <div class="col-sm-2">
+                                                <input class="form-control" id="Break" data-bind="value: Break" type="number" value="15" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-2 col-sm-10">
+                                                <button id="sendslotbtn" class="btn btn-success" type="button" data-bind="click: WriteBookingSlot">Add Bookable Slot</button>
+                                            </div>
+                                            <div class="col-sm-offset-2 col-sm-10">
+                                                <span id="statussendbook"></span>
+                                            </div>
+                                            <pre id="slotdebug" data-bind="text: ko.toJSON($root, null, 2)"></pre>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
-            <script src=" js/jquery.min.js"></script>
-            <script src="js/bootstrap.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
-            <script src="js/moment-with-locales.js"></script>
-            <script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
-            <script src="js/fromstackoverflow.js"></script>
-            <script src="js/knockout-mapping-latest.js"></script>
-            <script src="js/adal.js"></script>
-            <script src="js/scripts-booking.js"></script>
+        </div>
+    </div>
+    <script src=" js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
+    <script src="js/moment-with-locales.js"></script>
+    <script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
+    <script src="js/fromstackoverflow.js"></script>
+    <script src="js/knockout-mapping-latest.js"></script>
+    <script src="js/adal.js"></script>
+    <script src="js/scripts-booking.js"></script>
 </body>
 
 </html>
