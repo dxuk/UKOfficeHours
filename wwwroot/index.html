@@ -13,10 +13,10 @@
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid" id="pagecanvas">
+        <div class="row" id="singlerow">
+            <div class="col-md-12" id="singlegrid">
+                <div class="navbar navbar-default navbar-fixed-top" id="topbar">
                     <div class="container">
                         <div class="navbar-header">
                             <a class="navbar-brand navbar" href="https://www.microsoft.com/" id="bannertitle">
@@ -32,8 +32,8 @@
                         <div class="navbar-collapse collapse" id="navbar-main">
                             <ul class="nav navbar-nav">
                                 <li class="dropdown">
-                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="Booking">Booking Services<span class="caret"></span></a>
-                                    <ul class="dropdown-menu" aria-labelledby="Booking">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="menuleft">Booking Services<span class="caret"></span></a>
+                                    <ul class="dropdown-menu" aria-labelledby="menuleft">
                                         <li><a id="viewslotsbutton">View All Slots</a></li>
                                         <li><a id="addslotsbutton">Add New Slot</a></li>
                                         <li><a id="addisvbutton">Get a Code for an Appointment</a></li>
@@ -47,12 +47,29 @@
                                 <li><a class='nav' id="bookwithcodebutton">Use a Booking Code</a></li>
                                 <li><a href="/help.docx" class='nav'>User Guide</a></li>
                             </ul>
-
                         </div>
                     </div>
                 </div>
-                <span id="GRAPHDATA"></span>
-                <div class="container">
+                <div class="navbar navbar-default navbar-fixed-bottom navbar-inverse" id="topbar2">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <a class="navbar-brand navbar" href="https://www.microsoft.com/" id="bannertitle">
+                                <span><img src="https://assets.onestore.ms/cdnfiles/external/uhf/long/9a49a7e9d8e881327e81b9eb43dabc01de70a9bb/images/microsoft-gray.png" alt="Microsoft" /></span>
+                            </a>
+                        </div>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a id="shellmenu_0" href="https://support.microsoft.com/contactus/?ws=support" ms.title="Contact us" class="nav navbar-nav" data-bi-name="Footer_ContactUs" data-bi-slot="1">Contact us</a></li>
+                            <li><a id="shellmenu_1" href="https://go.microsoft.com/fwlink/?LinkId=521839" ms.title="Privacy &amp; Cookies" class="nav navbar-nav" data-bi-name="Footer_PrivacyandCookies" data-bi-slot="2">Privacy &amp; Cookies </a></li>
+                            <li><a id="shellmenu_2" href="https://go.microsoft.com/fwlink/?LinkID=206977" ms.title="Terms of use" class="nav navbar-nav" data-bi-name="Footer_TermsOfUse" data-bi-slot="3">Terms of use</a></li>
+                            <li><a id="shellmenu_3" href="https://www.microsoft.com/trademarks" ms.title="Trademarks" class="nav navbar-nav" data-bi-name="Trademarks" data-bi-slot="4">Trademarks</a></li>
+                            <li><a id="shellmenu_4" href="https://choice.microsoft.com/" ms.title="About our ads" class="nav navbar-nav" data-bi-name="Footer_AboutAds" data-bi-slot="5">About our ads</a></li>
+                            <li>
+                                <a id="mscomlink" href="www.microsoft.com/en-us" class="nav navbar-nav">© 2017 Microsoft</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="container" id="maintabs">
                     <div class="row">
                         <div class="col-md-12">
                             <div id="progbartop">
@@ -337,34 +354,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <nav class="navbar navbar-default navbar-fixed-bottom navbar-right navbar" role="navigation">
-                            <ul class="nav navbar-nav navbar-right navbar" id="menubottom">
-                                <li><a id="shellmenu_0" href="https://support.microsoft.com/contactus/?ws=support" ms.title="Contact us" class="nav navbar-nav" data-bi-name="Footer_ContactUs" data-bi-slot="1">Contact us</a></li>
-                                <li><a id="shellmenu_1" href="https://go.microsoft.com/fwlink/?LinkId=521839" ms.title="Privacy &amp; Cookies" class="nav navbar-nav" data-bi-name="Footer_PrivacyandCookies" data-bi-slot="2">Privacy &amp; Cookies </a></li>
-                                <li><a id="shellmenu_2" href="https://go.microsoft.com/fwlink/?LinkID=206977" ms.title="Terms of use" class="nav navbar-nav" data-bi-name="Footer_TermsOfUse" data-bi-slot="3">Terms of use</a></li>
-                                <li><a id="shellmenu_3" href="https://www.microsoft.com/trademarks" ms.title="Trademarks" class="nav navbar-nav" data-bi-name="Trademarks" data-bi-slot="4">Trademarks</a></li>
-                                <li><a id="shellmenu_4" href="https://choice.microsoft.com/" ms.title="About our ads" class="nav navbar-nav" data-bi-name="Footer_AboutAds" data-bi-slot="5">About our ads</a></li>
-                                <li><a id="shellmenu_5" href="https://www.microsoft.com/en-ie/eucompliancedoc/default.aspx" ms.title="EU Compliance DoCs" class="nav navbar-nav" data-bi-name="Footer_EUComplianceDoCs" data-bi-slot="6">EU Compliance DoCs</a></li>
-                                <li>
-                                    <a id="mscomlink" href="www.microsoft.com/en-us" class="nav navbar-nav">© 2017 Microsoft</a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                    </span>
-                </div>
-            </div>
-            <script src=" js/jquery.min.js"></script>
-            <script src="js/bootstrap.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
-            <script src="js/moment-with-locales.js"></script>
-            <script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
-            <script src="js/fromstackoverflow.js"></script>
-            <script src="js/knockout-mapping-latest.js"></script>
-            <script src="js/adal.js"></script>
-            <script src="js/scripts-booking.js"></script>
+                <script src=" js/jquery.min.js"></script>
+                <script src="js/bootstrap.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
+                <script src="js/moment-with-locales.js"></script>
+                <script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
+                <script src="js/fromstackoverflow.js"></script>
+                <script src="js/knockout-mapping-latest.js"></script>
+                <script src="js/adal.js"></script>
+                <script src="js/scripts-booking.js"></script>
 </body>
 
 </html>
