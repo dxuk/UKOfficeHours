@@ -1,3 +1,0 @@
-﻿# Calling example of the logic app / flow to send the emails.
-$body = '{"StartDateTime": "2017-04-21T11:00:00",  "EndDateTime": "2017-04-21T12:00:00",  "AttendeeTE": "william.eastbury@microsoft.com",  "AttendeePBE": "davidgri@microsoft.com",  "AttendeeISVContact": "william.eastbury@outlook.com",  "AttendeeISVName": "Test ISV",  "Topic": "Office hours booking: Discuss the Calendar REST API", "Skype Meeting ID": "skype.com/sdfsadfsdf"}'
-curl -Body $body -Method Post -Uri "privateuri" 
