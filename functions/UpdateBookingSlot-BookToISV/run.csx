@@ -6,7 +6,7 @@
 using System.Net;
 using Microsoft.WindowsAzure.Storage.Table;
 
-public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, CloudTable tblbk, CloudTable tblisv, TraceWriter log)
+public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, CloudTable tblbk, CloudTable tblisv, CloudTable tblte, IAsyncCollector<CompleteAppointmentDTO> outputSbMsg, TraceWriter log)
 {
     if (!httpUtils.IsAuthenticated()) { return req.CreateResponse(HttpStatusCode.Forbidden, "You have to be signed in!"); };
 
@@ -62,13 +62,46 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, CloudT
 
             log.Info($"Saved slot PK:{bsout.PartitionKey} RK:{bsout.RowKey} BCode:{bsout.BookingCode} BISVName:{bsout.BookedToISV}");
 
+            // Compile and Write the mail record away to the ServiceBus if this is enabled for this TE (if the TE master record is populated);
+
+            // Find the TE master data record 
+            technicalevangelist chkte = (from te in tblte.CreateQuery<technicalevangelist>() select te).Where(e => e.RowKey == bsout.TechnicalEvangelist && e.PartitionKey == "ALL").FirstOrDefault();
+            if (chkte != null)
+            {
+                log.Info($"Found TE : {chkte.TEName}");
+                // Build the DTO ready for sending
+
+                CompleteAppointmentDTO co = new CompleteAppointmentDTO() 
+                {
+                    MailID = bsout.MailID,
+                    StartDate = bsout.StartDateTime,
+                    EndDate = bsout.EndDateTime,
+                    Duration = bsout.Duration,
+                    TEMail = bsout.TechnicalEvangelist,
+                    TEName = chkte.TEName,
+                    TESkypeData = chkte.SkypeLink, 
+                    PBEMail = bs.PBE,
+                    ISVMail = queryisv.ContactEmail,
+                    ISVName = queryisv.Name,
+                    ISVContact = queryisv.ContactName 
+                };
+
+                // Write it away to queue the email invite async from the TE's flow
+                await outputSbMsg.AddAsync(co);
+                log.Info($"Output successful");
+            }
+            else
+            {
+                log.Info($"No TE Configuration  found for {bsout.TechnicalEvangelist}, SKIPPING email INVITE");
+            }
+
             return req.CreateResponse(HttpStatusCode.OK, bsout);
 
         }
         else
         {
 
-            // This slot is already booked ! Error ! 
+            // This slot is already booked ! Error !
             return req.CreateResponse(HttpStatusCode.Conflict);
 
         }

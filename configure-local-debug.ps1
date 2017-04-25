@@ -62,6 +62,7 @@ $config = LoadConfig "$invocationPath\wwwroot\local-debug-config.json"
 
 $env:AzureWebJobsStorageConnection = $config.AzureWebJobsStorage
 $env:AzureWebJobsStorage = $config.AzureWebJobsStorage
+$env:AzureWebJobsMailer = $config.AzureWebJobsMailer
 
 #Write-Host $env:AzureWebJobsStorage
 $env:Service_Description = $config.Service_Description

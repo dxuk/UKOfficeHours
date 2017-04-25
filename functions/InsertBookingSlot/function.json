@@ -21,6 +21,14 @@
       "tableName": "bookingslot",
       "connection": "storageConnection",
       "direction": "out"
+    },
+    {
+      "type": "serviceBus",
+      "name": "outputSbMsg",
+      "topicName": "mailnotifications",
+      "connection": "Mailer",
+      "accessRights_": "Send",
+      "direction": "out"
     }
   ],
   "disabled": false

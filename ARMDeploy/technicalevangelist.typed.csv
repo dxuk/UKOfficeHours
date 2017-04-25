@@ -1,0 +1,2 @@
+PartitionKey,RowKey,Timestamp,SkypeLink,SkypeLink@type,TEName,TEName@type
+ALL,wieastbu@microsoft.com,2017-04-25T13:38:44.099Z,<hr/> <a href='https://join.microsoft.com/meet/wieastbu/XSWDIW9S'>Join Skype Meeting</a> </br>Trouble Joining? </br> <a href='https://join.microsoft.com/meet/wieastbu/XSWDIW9S?sl=1'>Try Skype Web App</a> </br><a href='tel:+441189093000'>Join by phone (Conference ID: 726935563)</a>,Edm.String,Will Eastbury,Edm.String

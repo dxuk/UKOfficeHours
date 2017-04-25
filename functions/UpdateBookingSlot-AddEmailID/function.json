@@ -1,0 +1,21 @@
+﻿{
+  "bindings": [
+    {
+      "name": "myQueueItem",
+      "type": "serviceBusTrigger",
+      "direction": "in",
+      "queueName": "mailidresponses",
+      "connection": "Mailer",
+      "accessRights": "Listen"
+    },
+    {
+      "type": "table",
+      "name": "tblbk",
+      "tableName": "bookingslot",
+      "take": 1,
+      "connection": "storageConnection",
+      "direction": "in"
+    }
+  ],
+  "disabled": false
+}

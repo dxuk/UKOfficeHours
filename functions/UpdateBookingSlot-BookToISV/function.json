@@ -29,6 +29,22 @@
       "take": 1,
       "connection": "storageConnection",
       "direction": "in"
+    },
+    {
+      "type": "table",
+      "name": "tblte",
+      "tableName": "technicalevangelist",
+      "take": 1,
+      "connection": "storageConnection",
+      "direction": "in"
+    },
+    {
+      "type": "serviceBus",
+      "name": "outputSbMsg",
+      "topicName": "mailupdates",
+      "connection": "Mailer",
+      "accessRights_": "Send",
+      "direction": "out"
     }
   ],
   "disabled": false

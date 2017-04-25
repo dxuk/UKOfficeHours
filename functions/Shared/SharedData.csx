@@ -66,13 +66,13 @@ public class technicalevangelist : TableEntity
     // RowKey is the User's Alias
     // PartitionKey is a static 'ALL' value
 
-    public string SkypeLink { get; set; }
-    public string TEName { get; set; }
+    public string SkypeLink {get; set;}
+    public string TEName {get; set;}
 
 }
 public class partnerbusinessevangelist : TableEntity
 {
-    public string SkypeID { get; set; }
+    public string SkypeID {get; set;}
 
 }
 public class bookingslot : TableEntity
@@ -84,9 +84,12 @@ public class bookingslot : TableEntity
 
     }
     
-    public string TechnicalEvangelist { get; set; }
-    public DateTime StartDateTime { get; set; }
-    public DateTime EndDateTime { get; set; }
+    public string TechnicalEvangelist {get; set;}
+    public DateTime StartDateTime {get; set;}
+    public DateTime EndDateTime {get; set;}
+
+    public string MailID {get;set;}
+
     public int Duration
     {
         get
@@ -104,6 +107,29 @@ public class bookingslot : TableEntity
     public DateTime CreatedDateTime { get; set; }
 
 }
+
+
+public class CompleteAppointmentDTO
+{
+    public string MailID {get;set;}
+
+    public DateTime StartDate {get;set;}
+    public DateTime EndDate {get;set;}
+    
+    public int Duration {get;set;} 
+    
+    public string TEMail {get;set;}
+    public string TEName {get;set;}
+    public string TESkypeData {get;set;}    
+
+    public string PBEMail {get;set;}
+
+    public string ISVMail {get;set;}
+    public string ISVName {get;set;}
+    public string ISVContact {get;set;}
+        
+}
+
 
 public class UserFeatureAuthorisation : TableEntity
 {

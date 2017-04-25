@@ -21,6 +21,7 @@
     },
     "variables": {
         "StorageAccount_Data": "[concat(parameters('svprefix'),'ukohstoragedata')]",
+        "ServiceBus_Namespace": "[concat(parameters('svprefix'),'ukohsbns')]",
         "StorageAccount_Functions": "[concat(parameters('svprefix'),'ukohstoragefn')]",
         "AppServicePlan_FrontEnd": "[concat(parameters('svprefix'),'-ukohwebasp')]",
         "AppServicePlan_Functions": "[concat(parameters('svprefix'),'-ukohfnasp')]",
@@ -29,9 +30,57 @@
         "FunctionApp_Name": "[concat(parameters('svprefix'),'ukohfn')]",
         "CDN_ProfileName": "[concat(parameters('svprefix'),'-ukofficehours')]",
         "CDN_Endpoint_Name": "[concat(parameters('svprefix'),'-ukofficehours','/', parameters('svprefix'),'-ukofficehours')]",
-        "AppInsightsComponentName": "[concat(parameters('svprefix'),'-ukofficehours')]"
+        "AppInsightsComponentName": "[concat(parameters('svprefix'),'-ukofficehours')]",
+        "serviceBusNamespaceName": "[concat(parameters('svprefix'),'-ukohsbns')]",
+        "serviceBusTopicNotificationsName": "mailnotifications",
+        "serviceBusTopicUpdatesName": "mailupdates",
+        "serviceBusQueueNotificationResponsesName": "mailidresponses"
+      },
+     "resources": [
+         {
+      "apiVersion":"2015-08-01",
+      "name": "[variables('serviceBusNamespaceName')]",
+      "type": "Microsoft.ServiceBus/namespaces",
+      "location": "[resourceGroup().location]",
+      "properties": {
+      },
+      "resources": [
+        {
+            "apiVersion": "2015-08-01",
+            "name": "[variables('serviceBusTopicNotificationsName')]",
+            "type": "topics",
+            "dependsOn": [
+                "[concat('Microsoft.ServiceBus/namespaces/', variables('serviceBusNamespaceName'))]"
+            ],
+            "properties": {
+                "path": "[variables('serviceBusTopicNotificationsName')]"
+            }
+        },
+         {
+            "apiVersion": "2015-08-01",
+            "name": "[variables('serviceBusTopicUpdatesName')]",
+            "type": "topics",
+            "dependsOn": [
+                "[concat('Microsoft.ServiceBus/namespaces/', variables('serviceBusNamespaceName'))]"
+            ],
+            "properties": {
+                "path": "[parameters('serviceBusTopicUpdatesName')]"
+            }
+        },
+         {
+            "apiVersion": "2015-08-01",
+            "name": "[variables('serviceBusQueueNotificationResponsesName)]",
+            "type": "queues",
+            "dependsOn": [
+                "[concat('Microsoft.ServiceBus/namespaces/', variables('serviceBusNamespaceName'))]"
+            ],
+            "properties": {
+                "path": "[variables(serviceBusQueueNotificationResponsesName)]"
+            }
+        }
+      ]
     },
-    "resources": [{
+    {
             "type": "Microsoft.Cdn/profiles",
             "sku": {
                 "name": "Standard_Verizon"
@@ -156,6 +205,7 @@
                         "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('StorageAccount_Functions'), ';AccountKey=', listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('StorageAccount_Functions')), '2015-05-01-preview').key1, ';')]",
                         "WEBSITE_CONTENTSHARE": "[variables('FunctionApp_Name')]",
                         "storageConnection": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('StorageAccount_Data'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('StorageAccount_Data')), '2015-05-01-preview').key1,';')]",
+                        "Mailer": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('StorageAccount_Data'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('StorageAccount_Data')), '2015-05-01-preview').key1,';')]",
                         "FUNCTIONS_EXTENSION_VERSION": "latest",
                         "AzureAD_ClientID": "[parameters('AzureAD_ClientID')]",
                         "AzureAD_TenantURI": "[parameters('AzureAD_TenantURI')]",
