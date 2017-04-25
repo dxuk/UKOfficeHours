@@ -254,10 +254,10 @@
                                                         <label for="futurefilter" class="col-sm-1 control-label">'Special'</label>
                                                         <div class="col-sm-2">
                                                             <select id="futurefilter" class="col-sm-2 form-control" data-bind="value: FilterFutureOrPast">
-                                                    <option value="--All--">--All--</option>
-                                                    <option value="Future">Future</option>
-                                                    <option value="Past">Past</option>
-                                                </select>
+                                                                <option value="--All--">--All--</option>
+                                                                <option value="Future">Future</option>
+                                                                <option value="Past">Past</option>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -300,24 +300,24 @@
                                     <form class="form-horizontal" role="form" id="isvForm">
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label" for="Name">
-                                    ISV Name (Required)
-                                </label>
+                                                ISV Name (Required)
+                                            </label>
                                             <div class="col-sm-10">
                                                 <input class="form-control" id="Name" data-bind="value: Name" type="text" />
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label" for="ContactEmail">
-                                    Contact Email 
-                                </label>
+                                                Contact Email (Optional, but we need this to email the invite and joining instructions for the call)
+                                            </label>
                                             <div class="col-sm-10">
                                                 <input class="form-control" disabled id="ContactEmail" data-bind="value: ContactEmail" type="email" />
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label" for="ContactName">
-                                    Contact Name (Optional)
-                                </label>
+                                                Contact Name (Optional, but we need this to email the invite and joining instructions for the call)
+                                            </label>
                                             <div class="col-sm-10">
                                                 <input class="form-control" id="ContactName" data-bind="value: ContactName" type="text" />
                                             </div>
@@ -329,9 +329,9 @@
                                             <div class=" col-sm-offset-2 col-sm-10">
                                                 <span id="statussend"></span>
                                                 <a href="" id="sendlink">Booking Link</a>
+                                                <div>Data entered into this form will only be used for the purposes of scheduling and informing you about the call that you schedule.</div>
                                             </div>
                                             <pre id="isvdebug" data-bind="text: ko.toJSON($root, null, 2)"></pre>
-                                            <div>Please ensure you only enter data that complies with the Microsoft Privacy Statement (Link is above)</div>
                                         </div>
                                     </form>
                                 </div>
