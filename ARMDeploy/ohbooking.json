@@ -34,7 +34,9 @@
         "serviceBusNamespaceName": "[concat(parameters('svprefix'),'-ukohsbns')]",
         "serviceBusTopicNotificationsName": "mailnotifications",
         "serviceBusTopicUpdatesName": "mailupdates",
-        "serviceBusQueueNotificationResponsesName": "mailidresponses"
+        "serviceBusQueueNotificationResponsesName": "mailidresponses",
+        "defaultSASKeyName": "RootManageSharedAccessKey",
+        "authRuleResourceId": "[resourceId('Microsoft.ServiceBus/namespaces/authorizationRules', variables('serviceBusNamespaceName'), variables('defaultSASKeyName'))]" 
       },
      "resources": [
       {
@@ -66,7 +68,7 @@
                     "[concat('Microsoft.ServiceBus/namespaces/', variables('serviceBusNamespaceName'))]"
                 ],
                 "properties": {
-                    "path": "[parameters('serviceBusTopicUpdatesName')]"
+                    "path": "[variables('serviceBusTopicUpdatesName')]"
                 }
             },
             {
@@ -208,7 +210,7 @@
                         "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('StorageAccount_Functions'), ';AccountKey=', listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('StorageAccount_Functions')), '2015-05-01-preview').key1, ';')]",
                         "WEBSITE_CONTENTSHARE": "[variables('FunctionApp_Name')]",
                         "storageConnection": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('StorageAccount_Data'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('StorageAccount_Data')), '2015-05-01-preview').key1,';')]",
-                        "Mailer": "[listKeys(resourceId(concat('Microsoft.ServiceBus/namespaces/',variables('serviceBusNamespaceName'),'2015-08-01')).primaryConnectionString]",
+                        "Mailer": "[listKeys(variables('authRuleResourceId'),'2015-08-01').primaryConnectionString]",
                         "FUNCTIONS_EXTENSION_VERSION": "latest",
                         "AzureAD_ClientID": "[parameters('AzureAD_ClientID')]",
                         "AzureAD_TenantURI": "[parameters('AzureAD_TenantURI')]",
