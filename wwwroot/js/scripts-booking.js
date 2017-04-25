@@ -446,8 +446,8 @@
         // This viewmodel is used for the 'Add an ISV / get a code' postback
         var viewmodel_isvdata = {
             Name: ko.observable(''),
-            ContactEmail: ko.observable('email@donotuse.com'),
-            ContactName: ko.observable('Anyone'),
+            ContactEmail: ko.observable(''),
+            ContactName: ko.observable(''),
             CurrentCode: ko.observable(''),
             EmailLink: ko.observable('')
         };
