@@ -1,4 +1,5 @@
 ﻿#load "..\Shared\httpUtils.csx"
+#load "..\Shared\SharedData.csx"
 
 using Microsoft.WindowsAzure.Storage.Table;
 using System.Net;
