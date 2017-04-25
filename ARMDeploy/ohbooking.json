@@ -49,6 +49,7 @@
                 "apiVersion": "2015-08-01",
                 "name": "[variables('serviceBusTopicNotificationsName')]",
                 "type": "topics",
+                "location": "[resourceGroup().location]",
                 "dependsOn": [
                     "[concat('Microsoft.ServiceBus/namespaces/', variables('serviceBusNamespaceName'))]"
                 ],
@@ -60,6 +61,7 @@
                 "apiVersion": "2015-08-01",
                 "name": "[variables('serviceBusTopicUpdatesName')]",
                 "type": "topics",
+                "location": "[resourceGroup().location]",
                 "dependsOn": [
                     "[concat('Microsoft.ServiceBus/namespaces/', variables('serviceBusNamespaceName'))]"
                 ],
@@ -69,8 +71,9 @@
             },
             {
                 "apiVersion": "2015-08-01",
-                "name": "[variables('serviceBusQueueNotificationResponsesName)]",
+                "name": "[variables('serviceBusQueueNotificationResponsesName')]",
                 "type": "queues",
+                "location": "[resourceGroup().location]",
                 "dependsOn": [
                     "[concat('Microsoft.ServiceBus/namespaces/', variables('serviceBusNamespaceName'))]"
                 ],
