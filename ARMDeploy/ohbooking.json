@@ -75,7 +75,7 @@
                     "[concat('Microsoft.ServiceBus/namespaces/', variables('serviceBusNamespaceName'))]"
                 ],
                 "properties": {
-                    "path": "[variables(serviceBusQueueNotificationResponsesName')]"
+                    "path": "[variables('serviceBusQueueNotificationResponsesName')]"
                 }
             }
         ]
