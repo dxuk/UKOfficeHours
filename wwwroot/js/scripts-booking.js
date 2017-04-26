@@ -36,16 +36,24 @@
         var serverprefixaddress = window.location.href.split("/")[2].split(".")[0];
 
         if (serverprefixaddress.toLowerCase().substr(0, 9) === 'localhost') {
+            // Served locally from IIS Express / Func.exe for local debug
             endpoint = 'http://localhost:8080';
             rootfnsite = 'http://localhost:7071/';
             configDataUrl = '/local-debug-config.json';
         } else {
+            // Served from a server out in azure in the real world
             var prefix = serverprefixaddress.split(namesplitter)[0]
             var resource = 'https://' + prefix + 'ukohfn.azurewebsites.net';
             endpoint = 'https://' + prefix + '-ukofficehours.azurewebsites.net/';
             rootfnsite = resource + "/";
 
             configDataUrl = rootfnsite + "api/GetConfig";
+
+            // If we loaded the production (non local) site via http then the service won't work correctly, so redirect to https
+            if (window.location.href.split("/")[0].toLowerCase() == 'http')
+            {
+                window.location = endpoint; 
+            }
 
             console.info("Site Running at:" + endpoint);
             console.info("Server Running at:" + rootfnsite);
@@ -638,14 +646,14 @@
                             var uri = encodeURI(endpoint + "?StartPanel=bookwithcode&BookingCode=" + result.CurrentCode);
 
                             viewmodel_isvdata.EmailLink = ko.observable('');
-                            viewmodel_isvdata.ContactEmail('email@donotuse.com');
+                            viewmodel_isvdata.ContactEmail('email@nomail.com');
                             viewmodel_isvdata.ContactName('Anyone');
                             viewmodel_isvdata.Name('');
                             viewmodel_isvdata.CurrentCode('');
 
                             $('#sendlink').attr('href', uri);
                             $('#sendlink').prop("disabled", false);
-                            $('#statussend').html("Code:" + result.CurrentCode + ": Click the 'booking link' link to automatically and book a slot now for that ISV!");
+                            $('#statussend').html("Code:" + result.CurrentCode + ": Click the 'booking link' link to automatically book a slot now for that ISV!");
 
                             loadfinished();
                             $('#sendisvbtn').prop("disabled", false);

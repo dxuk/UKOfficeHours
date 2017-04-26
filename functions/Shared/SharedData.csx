@@ -31,7 +31,6 @@ public class isv : TableEntity
 
             string hash = GetSHA512Hash(Hash, source);
 
-
             CurrentCode = hash.ToUpper().Substring(0, 8);
 
         }
