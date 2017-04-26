@@ -52,7 +52,7 @@
             // If we loaded the production (non local) site via http then the service won't work correctly, so redirect to https
             if (window.location.href.split("/")[0].toLowerCase() == 'http')
             {
-                window.location = endpoint; 
+                window.location.assign(endpoint); 
             }
 
             console.info("Site Running at:" + endpoint);
