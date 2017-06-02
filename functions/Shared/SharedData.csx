@@ -155,14 +155,3 @@ public class UserFeatureAuthorisation : TableEntity
     public bool Authorised { get; set; }
 
 }
-
-public class LocalConfig
-{
-
-    public string ClientId = Environment.GetEnvironmentVariable("AzureAD_ClientID");
-    public string TenantId = Environment.GetEnvironmentVariable("AzureAD_TenantID");
-    public string Service_Description = Environment.GetEnvironmentVariable("Service_Description");
-    public string MySite = Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME");
-    public string MyHost = Environment.GetEnvironmentVariable("WEBSITE_HOSTNAME");
-
-}
