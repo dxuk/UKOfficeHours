@@ -61,9 +61,6 @@
                             </button>
                         </div>
                         <div class="navbar" id="navbar-bottom">
-                            <ul class="nav navbar-nav navbar-left navbar" id="menubottoml">
-                                <li>Microsoft Internal or Demonstration Use Only</li>
-                            </ul>
                             <ul class="nav navbar-nav navbar-right navbar" id="menubottom">
                                 <li><a id="shellmenu_0" href="https://support.microsoft.com/contactus/?ws=support" ms.title="Contact us" class="nav navbar-nav" data-bi-name="Footer_ContactUs" data-bi-slot="1">Contact us</a></li>
                                 <li><a id="shellmenu_1" href="https://go.microsoft.com/fwlink/?LinkId=521839" ms.title="Privacy &amp; Cookies" class="nav navbar-nav" data-bi-name="Footer_PrivacyandCookies" data-bi-slot="2">Privacy &amp; Cookies </a></li>
@@ -127,13 +124,13 @@
                                                 <li>In depth discussion of customer environments where the customer has already expressed a desire to move to azure and requires more detailed design or architectural assistance to get up and running</li>
                                                 <li>Spinning up a new product on Azure which requires an entirely new architectural approach</li>
                                                 <li>Discussion of adapation of a product's architecture to better utilise new / existing Azure services to either increase scalability, resilience or reduce cost</li>
+                                                <li>These ADS sessions typically follow a call, when both ISV and TE agree it makes sense to meet and go deeper. They should not usually be offered to ISVs without a pre-qualification call. If an ISV does directly request an ADS, please schedule a concierge call to qualify it and ensure that expectations, outcomes and objectives are clear.</li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-md-12">
                             <div id="viewhelpsection">
                                 <h1>DX UK Office Hours Service Help</h1>
@@ -329,14 +326,14 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
+                                            <div>Microsoft respects your privacy. Please read our Privacy and Cookies statement <a href="https://go.microsoft.com/fwlink/?LinkId=521839">here</a>. Data entered into this form will only be used for the purposes of scheduling and informing you about the call that you schedule.</div>
                                             <div class="col-sm-offset-2 col-sm-10">
                                                 <button id="sendisvbtn" class="btn btn-success" type="button" data-bind="click: WriteISV">Add ISV</button>
                                             </div>
                                             <div class=" col-sm-offset-2 col-sm-10">
                                                 <span id="statussend"></span>
                                                 <a href="" id="sendlink">Booking Link</a>
-                                                <div>Data entered into this form will only be used for the purposes of scheduling and informing you about the call that you schedule.</div>
-                                            </div>
+                                                                                           </div>
                                             <pre id="isvdebug" data-bind="text: ko.toJSON($root, null, 2)"></pre>
                                         </div>
                                     </form>
@@ -420,8 +417,8 @@
                                     <form class="form-horizontal" role="form" id="bookingslotForm">
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label" for="StartDate">
-                                    Start Date
-                                </label>
+                                                Start Date
+                                            </label>
                                             <div class="col-sm-6">
                                                 <div class='input-group date' id="StartDate" data-bind="weekdaydatePicker: StartDate">
                                                     <input class="form-control" type="text" />
@@ -433,8 +430,8 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label" for="StartTime">
-                                    Start Time
-                                </label>
+                                        Start Time
+                                        </label>
                                             <div class="col-sm-6">
                                                 <div class='input-group date' data-bind="timePicker: StartTime" id='StartTime'>
                                                     <input type='text' class="form-control" />

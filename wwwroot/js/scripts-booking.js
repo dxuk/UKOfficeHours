@@ -50,7 +50,7 @@
             configDataUrl = rootfnsite + "api/GetConfig";
 
             // If we loaded the production (non local) site via http then the service won't work correctly, so redirect to https
-            if (window.location.href.split("/")[0].toLowerCase() == 'http')
+            if (window.location.href.split("/")[0].toLowerCase() == 'http:')
             {
                 window.location.assign(endpoint); 
             }

@@ -1,4 +1,5 @@
 ﻿#load "..\Shared\httpUtils.csx"
+#load "..\Shared\SharedData.csx"
 
 using Microsoft.WindowsAzure.Storage.Table;
 using System.Net;
@@ -18,7 +19,7 @@ public static void Run(TimerInfo myTimer, CloudTable outObj, IQueryable<bookings
         log.Info("The ISV for slot " + loopBookingSlot.BookingCode + " is found " + thisISV.Name);
     
         var operation = TableOperation.Delete(thisISV);
-        outObj.ExecuteAsync(operation);
+        outObj.ExecuteAsync(operation, EncryptUtils.GetPolicy());
 
         log.Info("The ISV record for slot " + loopBookingSlot.BookingCode + " has been deleted");
 

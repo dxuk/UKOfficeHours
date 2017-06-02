@@ -1,15 +1,33 @@
-﻿
-#r "Microsoft.WindowsAzure.Storage"
+﻿#r "Microsoft.WindowsAzure.Storage"
+#r "Microsoft.Azure.KeyVault"
 
 using System.Security.Cryptography;
 using Microsoft.WindowsAzure.Storage.Table;
+using Microsoft.Azure.KeyVault;
 using System.Text;
 using System.Net;
 using System.Linq;
+
+public class EncryptUtils
+{
+    public static TableEncryptionPolicy GetPolicy()
+    {
+        var rsacsp = new RSACryptoServiceProvider(2048);
+       
+        TableRequestOptions options = new TableRequestOptions();
+        options.EncryptionPolicy = new TableEncryptionPolicy(new RsaKey("private:thiskey12", rsacsp), null);
+        return options;
+        
+    }
+}
+
 public class isv : TableEntity
 {
+    [EncryptProperty]
     public string Name { get; set; }
+    [EncryptProperty]
     public string ContactName { get; set; }
+    [EncryptProperty]
     public string ContactEmail { get; set; }
     public string CurrentCode { get; set; }
     public string AddUniqueAlphaNumCodeAndSave()
@@ -64,7 +82,7 @@ public class technicalevangelist : TableEntity
 
     // RowKey is the User's Alias
     // PartitionKey is a static 'ALL' value
-
+    [EncryptProperty]
     public string SkypeLink {get; set;}
     public string TEName {get; set;}
 
@@ -129,15 +147,12 @@ public class CompleteAppointmentDTO
         
 }
 
-
 public class UserFeatureAuthorisation : TableEntity
 {
 
     // PartitionKey = UserName
     // RowKey = Function / Permission
     public bool Authorised { get; set; }
-
-
 
 }
 
