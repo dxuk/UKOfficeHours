@@ -48,17 +48,27 @@
             rootfnsite = resource + "/";
 
             configDataUrl = rootfnsite + "api/GetConfig";
-
+            var loadme = false;
             // If we loaded the production (non local) site via http then the service won't work correctly, so redirect to https
             if (window.location.href.split("/")[0].toLowerCase() == 'http:')
             {
                 window.location.assign(endpoint); 
+                loadme = false;
+                console.info("Redirecting to " + endpoint);
+            }
+            else
+            {
+                
+                loadme = true;
+                console.info("Site Running at:" + endpoint);
+                console.info("Server Running at:" + rootfnsite);
             }
 
-            console.info("Site Running at:" + endpoint);
-            console.info("Server Running at:" + rootfnsite);
+            
         }
 
+        if (loadme ==true)
+        {
         // Pick up server specific settings and load the ad config via a function call from the remote server
 
 
@@ -197,7 +207,7 @@
                 format: 'HH:mm'
             });
         });
-
+        };
         // *************************
         // * Viewmodel Definitions *
         // *************************
@@ -732,98 +742,102 @@
                     break;
             }
         }
+    
+        if (loadme == true)
+        {
 
-        $("#progbartop").toggle();
+            $("#progbartop").toggle();
 
-        // Startup code
-        loadstarted();
+            // Startup code
+            loadstarted();
 
-        // Hide the main panels from display as we won't bind all of them immediately until they are needed.
-        $("#viewslotssection").toggle();
-        $("#viewhelpsection").toggle();
-        $("#viewinfosection").toggle();
-        $("#addslotssection").toggle();
-        $("#addisvsection").toggle();
-        $("#bookwithcodesection").toggle();
+            // Hide the main panels from display as we won't bind all of them immediately until they are needed.
+            $("#viewslotssection").toggle();
+            $("#viewhelpsection").toggle();
+            $("#viewinfosection").toggle();
+            $("#addslotssection").toggle();
+            $("#addisvsection").toggle();
+            $("#bookwithcodesection").toggle();
 
-        var visiblepanel = "DUMMYPANEL";
+            var visiblepanel = "DUMMYPANEL";
 
 
-        loadupdatestatus(30);
+            loadupdatestatus(30);
 
-        // Now add the click handlers to hide and show the relevant panels calling the functions above.
-        document.getElementById("viewslotsbutton").onclick = function() { showpanel("viewslots"); };
-        document.getElementById("viewhelpbutton").onclick = function() { showpanel("viewhelp"); };
-        document.getElementById("viewinfobutton").onclick = function() { showpanel("viewinfo"); };
-        document.getElementById("addslotsbutton").onclick = function() { showpanel("addslots"); };
-        document.getElementById("addisvbutton").onclick = function() { showpanel("addisv"); };
-        document.getElementById("bookwithcodebutton").onclick = function() { showpanel("bookwithcode"); };
+            // Now add the click handlers to hide and show the relevant panels calling the functions above.
+            document.getElementById("viewslotsbutton").onclick = function() { showpanel("viewslots"); };
+            document.getElementById("viewhelpbutton").onclick = function() { showpanel("viewhelp"); };
+            document.getElementById("viewinfobutton").onclick = function() { showpanel("viewinfo"); };
+            document.getElementById("addslotsbutton").onclick = function() { showpanel("addslots"); };
+            document.getElementById("addisvbutton").onclick = function() { showpanel("addisv"); };
+            document.getElementById("bookwithcodebutton").onclick = function() { showpanel("bookwithcode"); };
 
-        // Security and ADAL integration
-        // ClientID etc is declared in config.js
+            // Security and ADAL integration
+            // ClientID etc is declared in config.js
 
-        // AuthN stuff for the Security config using adal.js
-        var authContext = new AuthenticationContext({
-            instance: authinstance,
-            tenant: tenantid,
-            clientId: clientid,
-            postLogoutRedirectUri: window.location.origin,
-            cacheLocation: 'localStorage'
-        });
+            // AuthN stuff for the Security config using adal.js
+            var authContext = new AuthenticationContext({
+                instance: authinstance,
+                tenant: tenantid,
+                clientId: clientid,
+                postLogoutRedirectUri: window.location.origin,
+                cacheLocation: 'localStorage'
+            });
 
-        // Check For & Handle Redirect From AAD After Login 
-        var isCallback = authContext.isCallback(window.location.hash);
-        authContext.handleWindowCallback();
+            // Check For & Handle Redirect From AAD After Login 
+            var isCallback = authContext.isCallback(window.location.hash);
+            authContext.handleWindowCallback();
 
-        loadupdatestatus(30);
+            loadupdatestatus(30);
 
-        var log = document.getElementById("loginorout");
+            var log = document.getElementById("loginorout");
 
-        // If already logged in then show logout box.
-        if (!authContext.getCachedUser()) {
+            // If already logged in then show logout box.
+            if (!authContext.getCachedUser()) {
 
-            //document.getElementById("loginorout").className += " btn btn-alert";
+                //document.getElementById("loginorout").className += " btn btn-alert";
 
-            log.html = "logmein";
-            log.onclick = function() {
+                log.html = "logmein";
+                log.onclick = function() {
 
-                authContext.config.redirectUri = window.location.href;
-                authContext.login();
+                    authContext.config.redirectUri = window.location.href;
+                    authContext.login();
 
-            };
+                };
 
-            $("#menuleft").toggle();
+                $("#menuleft").toggle();
 
-        } else {
+            } else {
 
-            // if logged in then show the logged in userID on the title bar 
+                // if logged in then show the logged in userID on the title bar 
 
-            //document.getElementById("loginorout").className += " btn btn-success";
+                //document.getElementById("loginorout").className += " btn btn-success";
 
-            log.innerHTML = "Logout " + authContext.getCachedUser().profile.name;
+                log.innerHTML = "Logout " + authContext.getCachedUser().profile.name;
 
-            log.onclick = function() { authContext.logOut(); };
+                log.onclick = function() { authContext.logOut(); };
 
-        }
-
-        loadfinished();
-
-        // auto-switch to the requested panel on ready()
-        $(document).ready(function() {
-            if ($.QueryString.StartPanel != undefined) {
-                showpanel($.QueryString.StartPanel);
             }
-        });
 
-        // Enable the Debug PRE views if you add 'debugview=true' to your querystring
-        if ($.QueryString.debugview == "true") {
-            $("#isvdebug").toggle(true);
-            $("#slotdebug").toggle(true);
-        } else {
-            $("#isvdebug").toggle(false);
-            $("#slotdebug").toggle(false);
+            loadfinished();
+
+            // auto-switch to the requested panel on ready()
+            $(document).ready(function() {
+                if ($.QueryString.StartPanel != undefined) {
+                    showpanel($.QueryString.StartPanel);
+                }
+            });
+
+            // Enable the Debug PRE views if you add 'debugview=true' to your querystring
+            if ($.QueryString.debugview == "true") {
+                $("#isvdebug").toggle(true);
+                $("#slotdebug").toggle(true);
+            } else {
+                $("#isvdebug").toggle(false);
+                $("#slotdebug").toggle(false);
+            }
+
+            showpanel("viewinfo");
         }
-
-        showpanel("viewinfo");
-
+        
     })();
