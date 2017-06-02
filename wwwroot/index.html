@@ -310,31 +310,35 @@
                                             <div class="col-sm-10">
                                                 <input class="form-control" disabled id="ContactEmail" data-bind="value: ContactEmail" type="email" />
                                             </div>
-                                            <div class="col-sm-10">
-                                                    (Optional, but we need this to email the invite and joining instructions for the call)
-                                            </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label" for="ContactName">
-                                                Contact Name 
+                                                Contact Name)
                                             </label>
                                             <div class="col-sm-10">
                                                 <input class="form-control" disabled id="ContactName" data-bind="value: ContactName" type="text" />
                                             </div>
-                                            <div class="col-sm-10">
-                                                    (Optional, but we need this to email the invite and joining instructions for the call)
+                                        </div>
+                                        <div class="form-group">
+                                             <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <div>Microsoft respects your privacy. Please read our Privacy and Cookies statement <a href="https://go.microsoft.com/fwlink/?LinkId=521839">here</a>.</div>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div>Please note that the Contact Email and Contact Name are <b>optional fields </b>, but in order for us to send you an email invite to the call - we need them to be populated. Data entered into this form will only be used for the purposes of scheduling and tracking the call that you request. This will result in a calendar appointment being sent to you, in this case your entered name and email address will be automatically added to an outlook invite inside a Microsoft Technical Evangelist's calendar. After the appointment is complete, we will remove the contact name and email address from this system - however, it will remain in the Technical Evangelist's calendar invite (and sent items folder) for any required follow-up communications and actions.</div>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <div>Microsoft respects your privacy. Please read our Privacy and Cookies statement <a href="https://go.microsoft.com/fwlink/?LinkId=521839">here</a>. Data entered into this form will only be used for the purposes of scheduling and informing you about the call that you schedule.</div>
                                             <div class="col-sm-offset-2 col-sm-10">
                                                 <button id="sendisvbtn" class="btn btn-success" type="button" data-bind="click: WriteISV">Add ISV</button>
                                             </div>
                                             <div class=" col-sm-offset-2 col-sm-10">
                                                 <span id="statussend"></span>
                                                 <a href="" id="sendlink">Booking Link</a>
-                                                                                           </div>
+                                            </div>
                                             <pre id="isvdebug" data-bind="text: ko.toJSON($root, null, 2)"></pre>
+
+
                                         </div>
                                     </form>
                                 </div>
