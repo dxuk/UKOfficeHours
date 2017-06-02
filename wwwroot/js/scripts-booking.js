@@ -49,6 +49,7 @@
 
             configDataUrl = rootfnsite + "api/GetConfig";
             var loadme = false;
+
             // If we loaded the production (non local) site via http then the service won't work correctly, so redirect to https
             if (window.location.href.split("/")[0].toLowerCase() == 'http:')
             {
@@ -80,6 +81,7 @@
             method: "GET",
             url: configDataUrl,
             success: function(result) {
+
                 // we have data, update the viewmodel and let knockout take care of the binding
                 clientid = result.ClientId;
                 tenantid = result.TenantId;
@@ -90,7 +92,7 @@
             },
             error: function() {
                 alert('Failed to load config:');
-                console.error('Failed to load config:');
+                console.error('Failed to load config FROM ' + configDataUrl);
             },
             async: false
         });
@@ -839,5 +841,5 @@
 
             showpanel("viewinfo");
         }
-        
+
     })();
