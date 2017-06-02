@@ -91,7 +91,7 @@
                 console.info("Tenant ID is:" + tenantid);;
             },
             error: function() {
-                alert('Failed to load config:');
+                alert('Failed to load config from: ' + configDataUrl);
                 console.error('Failed to load config FROM ' + configDataUrl);
             },
             async: false
