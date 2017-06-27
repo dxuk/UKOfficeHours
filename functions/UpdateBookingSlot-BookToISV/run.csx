@@ -27,7 +27,7 @@ using Microsoft.WindowsAzure.Storage.Table.Queryable;
 
 public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, CloudTable tblbk, CloudTable tblisv, CloudTable tblte, IAsyncCollector<CompleteAppointmentDTO> outputSbMsg, TraceWriter log)
 {
-    if (!httpUtils.IsAuthenticated()) { return req.CreateResponse(HttpStatusCode.Forbidden, "You have to be signed in!"); };
+    // if (!httpUtils.IsAuthenticated()) { return req.CreateResponse(HttpStatusCode.Forbidden, "You have to be signed in!"); };
 
     log.Info($"Incoming: {await httpUtils.GetRequestBodyAsString(req)}");
 
@@ -41,7 +41,7 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, CloudT
     log.Info($"Loaded slot PK:{bs.PartitionKey} RK:{bs.RowKey} BCode:{bs.BookingCode} BISVName:{bs.BookedToISV}");
 
     // ToDo: This is horribly inefficient consider there being over 100,000 isv's, for example this will be a NASTY speed lookup 
-    // but we'll take it for now as we only have a few hundred registered ISVs present in one region.
+    // but we'll take it for now as we only have a few registered ISVs present in one region.
 
     // What we SHOULD do here is either use the CosmosDB Table storage API to get an automatic Index
     // Or we should create a new table where the RowKey is the Code and lookup in that.
