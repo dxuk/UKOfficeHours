@@ -39,7 +39,7 @@ public static HttpResponseMessage Run(HttpRequestMessage req, IQueryable<booking
         // Don't show ADS' to customers to book directly 
         bslist = (from slot in inTable select slot)
                 .Where(e => 
-                            e.Duration <= 60 && 
+                            e.Duration < 120 && 
                             e.StartDateTime >= DateTime.Now &&
                             e.StartDateTime <= outdate &&
                             e.BookedToISV == "None")
