@@ -533,18 +533,25 @@
                 // Get the main page content if we are not on the first page and render the stuff to the DOM
                 authContext.acquireToken(clientid, function(error, token) {
 
-                    $.getJSON(rootfnsite + "api/GetBookingSlot", function(data) {
+                    $.ajax({
+                        method: "GET",
+                        url: rootfnsite + "api/GetBookingSlot",
+                        headers: {
+                            'authorization': 'bearer ' + token
+                        },
+                        success: function(data) {
+                           
+                            viewmodel_viewslots.loadeddata = data;
 
-                        viewmodel_viewslots.loadeddata = data;
+                            loadupdatestatus(50);
 
-                        loadupdatestatus(50);
+                            ko.applyBindings(viewmodel_viewslots, document.getElementById("bindingforBookinglist"));
+                            ko.applyBindings(viewmodel_viewslots, document.getElementById("myBookingModal"));
 
-                        ko.applyBindings(viewmodel_viewslots, document.getElementById("bindingforBookinglist"));
-                        ko.applyBindings(viewmodel_viewslots, document.getElementById("myBookingModal"));
-
-                        loadfinished();
-
+                            loadfinished();
+                        }
                     });
+
                 });
 
             } else {

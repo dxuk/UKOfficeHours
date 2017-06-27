@@ -33,6 +33,7 @@ public static HttpResponseMessage Run(HttpRequestMessage req, IQueryable<booking
                             e.BookedToISV == "None")
                 .ToList()
                 .OrderBy(e => e.StartDateTime);
+                log.Info(bslist.Count().ToString());
     }
     else
     {
@@ -45,6 +46,7 @@ public static HttpResponseMessage Run(HttpRequestMessage req, IQueryable<booking
                             e.BookedToISV == "None")
                 .ToList()
                 .OrderBy(e => e.StartDateTime);
+                log.Info(bslist.Count().ToString());
 
     }
         
