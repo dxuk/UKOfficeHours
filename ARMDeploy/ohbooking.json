@@ -8,7 +8,7 @@
         "AzureAD_TenantURI": {
             "type": "string"
         },
-         "AzureAD_guid": {
+        "AzureAD_guid": {
             "type": "string"
         },
         "AzureAD_TenantID": {

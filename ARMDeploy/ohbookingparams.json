@@ -6,7 +6,25 @@
             "value": "dummyprefix"
         },
         "sna": {
-            "value": "Office Hours Service "
+            "value": "Office Hours Service"
+        },
+        "AzureAD_TenantURI": {
+            "value":  "overrideme"
+        },
+        "AzureAD_guid": {
+            "value":  "overrideme"
+        },
+        "AzureAD_TenantID": {
+            "value":  "overrideme"
+        },
+        "AzureAD_ClientID": {
+            "value":  "overrideme"
+        },
+        "KVKeyID": {
+            "value":  "overrideme"
+        },
+        "KVKey": {
+            "value":  "overrideme"
         }
     }
 }
