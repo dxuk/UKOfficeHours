@@ -11,6 +11,9 @@
         "AzureAD_guid": {
             "type": "string"
         },
+        "KV_ObjID": {
+            "type": "string"
+        },
         "AzureAD_TenantID": {
             "type": "string"
         },
@@ -60,7 +63,28 @@
                     "name": "standard"
                 },
                 "tenantId": "[parameters('AzureAD_guid')]",
-                "accessPolicies": [],
+                "accessPolicies": [
+                    {
+                        "tenantId": "[parameters('AzureAD_guid')]",
+                        "objectId": "[parameters('KV_ObjID')]",
+                        "permissions": {
+                            "keys": [
+                                "decrypt",
+                                "encrypt",
+                                "get",
+                                "sign",
+                                "unwrapKey",
+                                "verify",
+                                "wrapKey"
+                            ],
+                            "secrets": [
+                                "get",
+                                "list",
+                                "set"
+                            ]
+                        }
+                    }
+                ],
                 "enabledForDeployment": false
             },
             "dependsOn": []

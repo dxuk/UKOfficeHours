@@ -25,6 +25,9 @@
         },
         "KVKey": {
             "value":  "overrideme"
+        },
+        "KV_ObjID": {
+            "value":  "overrideme"
         }
     }
 }
