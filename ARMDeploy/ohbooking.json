@@ -106,7 +106,8 @@
                     "[concat('Microsoft.ServiceBus/namespaces/', variables('serviceBusNamespaceName'))]"
                 ],
                 "properties": {
-                    "path": "[variables('serviceBusTopicNotificationsName')]"
+                    "path": "[variables('serviceBusTopicNotificationsName')]",
+                    "defaultMessageTimeToLive": "1.00:00:00"
                 }
             },
             {
@@ -118,7 +119,8 @@
                     "[concat('Microsoft.ServiceBus/namespaces/', variables('serviceBusNamespaceName'))]"
                 ],
                 "properties": {
-                    "path": "[variables('serviceBusTopicUpdatesName')]"
+                    "path": "[variables('serviceBusTopicUpdatesName')]",
+                    "defaultMessageTimeToLive": "1.00:00:00"
                 }
             },
             {
@@ -130,7 +132,8 @@
                     "[concat('Microsoft.ServiceBus/namespaces/', variables('serviceBusNamespaceName'))]"
                 ],
                 "properties": {
-                    "path": "[variables('serviceBusQueueNotificationResponsesName')]"
+                    "path": "[variables('serviceBusQueueNotificationResponsesName')]",
+                    "defaultMessageTimeToLive": "1.00:00:00"
                 }
             }
         ]
