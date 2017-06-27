@@ -8,6 +8,9 @@
         "AzureAD_TenantURI": {
             "type": "string"
         },
+         "AzureAD_guid": {
+            "type": "string"
+        },
         "AzureAD_TenantID": {
             "type": "string"
         },
@@ -50,7 +53,7 @@
                     "family": "A",
                     "name": "standard"
                 },
-                "tenantId": "[parameters('AzureAD_TenantID')]",
+                "tenantId": "[parameters('AzureAD_guid')]",
                 "accessPolicies": [],
                 "enabledForDeployment": false
             },
