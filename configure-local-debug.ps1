@@ -64,6 +64,12 @@ $env:AzureWebJobsStorageConnection = $config.AzureWebJobsStorage
 $env:AzureWebJobsStorage = $config.AzureWebJobsStorage
 $env:AzureWebJobsMailer = $config.AzureWebJobsMailer
 
+// KeyVault Auth
+$env:KVClientId = $config.KVClientId
+$env:KVKey = $config.KVKey 
+$env:KVUri = $config.KVUri
+$env:KVKeyID = $config.KVKeyID
+
 #Write-Host $env:AzureWebJobsStorage
 $env:Service_Description = $config.Service_Description
 #Write-Host $env:Service_Description

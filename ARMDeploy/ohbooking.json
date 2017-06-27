@@ -20,6 +20,8 @@
         }
     },
     "variables": {
+        "KeyVault_Name": "[concat(parameters('svprefix'),'ukohkeyvault')]",
+        "KeyVault_URI": "[concat('https://',parameters('svprefix'),'ukohkeyvault','.vault.azure.net/')]",
         "StorageAccount_Data": "[concat(parameters('svprefix'),'ukohstoragedata')]",
         "StorageAccount_Functions": "[concat(parameters('svprefix'),'ukohstoragefn')]",
         "AppServicePlan_FrontEnd": "[concat(parameters('svprefix'),'-ukohwebasp')]",
@@ -36,7 +38,25 @@
         "authRuleResourceId": "[resourceId('Microsoft.ServiceBus/namespaces/authorizationRules', variables('serviceBusNamespaceName'), variables('defaultSASKeyName'))]" 
       },
      "resources": [
-      {
+         {
+            "type": "Microsoft.KeyVault/vaults",
+            "name": "[variables('KeyVault_Name')]",
+            "apiVersion": "2015-06-01",
+            "location": "uksouth",
+            "tags": {},
+            "scale": null,
+            "properties": {
+                "sku": {
+                    "family": "A",
+                    "name": "standard"
+                },
+                "tenantId": "[parameters('AzureAD_TenantID')]",
+                "accessPolicies": [],
+                "enabledForDeployment": false
+            },
+            "dependsOn": []
+        },
+        {
         "apiVersion":"2015-08-01",
         "name": "[variables('serviceBusNamespaceName')]",
         "type": "Microsoft.ServiceBus/namespaces",
@@ -197,7 +217,11 @@
                         "AzureAD_ClientID": "[parameters('AzureAD_ClientID')]",
                         "AzureAD_TenantURI": "[parameters('AzureAD_TenantURI')]",
                         "AzureAD_TenantID": "[parameters('AzureAD_TenantID')]",
-                        "Service_Description": "[parameters('sna')]"
+                        "Service_Description": "[parameters('sna')]",
+                        "KVClientId":"[parameters('AzureAD_ClientID')]",
+                        "KVUri":"[variables('KeyVault_URI')]",
+                        "KVKey": null,
+                        "KVKeyID": null
                     },
                     "tags": {
                         "displayName": "[variables('FunctionApp_Name')]"

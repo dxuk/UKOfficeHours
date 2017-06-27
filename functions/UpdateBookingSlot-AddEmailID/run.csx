@@ -1,13 +1,21 @@
-﻿#load "..\Shared\SharedData.csx"
-#load "..\Shared\httpUtils.csx"
-#r "Newtonsoft.Json"
+﻿#load "..\Shared\httpUtils.csx"
+
 #r "Microsoft.WindowsAzure.Storage"
 
-using System.Net;
-using Microsoft.WindowsAzure.Storage.Table;
 using System;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using Microsoft.WindowsAzure.Storage.Table;
+using Microsoft.WindowsAzure.Storage.Auth;
+using Microsoft.WindowsAzure.Storage;
+using System.Security.Cryptography.X509Certificates;
+using System.Security.Cryptography;
+using System.Configuration;
+using System.Text;
+using System.Linq;
+using System.Net;
+using System.IO;
+using Newtonsoft.Json; 
 
 public static void Run(string myQueueItem, CloudTable tblbk, TraceWriter log)
 {
@@ -32,3 +40,35 @@ public class UpdateDTO
     public string EventID {get;set;}
 
 }   
+public class bookingslot : TableEntity
+{
+    public bookingslot()
+    {
+
+        CreatedDateTime = DateTime.Now; 
+
+    }
+    
+    public string TechnicalEvangelist {get; set;}
+    public DateTime StartDateTime {get; set;}
+    public DateTime EndDateTime {get; set;}
+
+    public string MailID {get;set;}
+
+    public int Duration
+    {
+        get
+        {
+            TimeSpan ts = EndDateTime - StartDateTime;
+            return ts.Minutes + (ts.Hours * 60);
+        }
+        set { }
+    }
+
+    public string BookedToISV { get; set; }
+    public string BookingCode { get; set; }
+    public string PBE { get; set; }
+
+    public DateTime CreatedDateTime { get; set; }
+
+}

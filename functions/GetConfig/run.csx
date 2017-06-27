@@ -17,5 +17,6 @@ public class LocalConfig
     public string Service_Description = Environment.GetEnvironmentVariable("Service_Description");
     public string MySite = Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME");
     public string MyHost = Environment.GetEnvironmentVariable("WEBSITE_HOSTNAME");
+    public string KeyVaultKeyName = Environment.GetEnvironmentVariable("KeyVaultKeyName");
 
 }

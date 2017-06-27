@@ -1,6 +1,4 @@
-﻿#load "..\Shared\SharedData.csx"
-
-#r "Newtonsoft.Json"
+﻿#r "Newtonsoft.Json"
 
 using System.Net;
 using System.Linq;

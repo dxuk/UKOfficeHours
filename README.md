@@ -59,7 +59,14 @@ The starter config of our CD build/deploy looks like this.
 <img src="https://raw.githubusercontent.com/dxuk/UKOfficeHours/master/ARMDeploy/allyouneed.PNG">
 
 
-
-
-
 To use another CI/CD tool (Why?)- simply comment out the stages you don't need in poshdeploy.ps1 and host the scripts somewhere else.
+
+27/06/2017 = Implementing the Extensions for Storage Client Side Encryption - this will use a keyvault for client side encryption if you are storing PII in your service (email address and name are PII).
+-------------------------------------------------------------------------------------------
+
+But you will now have to create the AD Service Principal Key and the Keyvault key manually
+
+Open the portal and head to your application registration, then create a new key
+Once that is done you can set the access policy for your Vault
+
+>> Set-AzureRmKeyVaultAccessPolicy -VaultName $vn -ServicePrincipalName $sp -PermissionsToKeys All

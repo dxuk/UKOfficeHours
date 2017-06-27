@@ -1,6 +1,16 @@
     // IIFE to protect the global scope and internal variables.
     (function() {
 
+        // Framekiller
+
+        if (self == top) {
+            document.documentElement.style.display = 'block'; 
+        } else {
+            top.location = self.location; 
+        }
+
+
+
         // **************************************
         // * Dimension Variables, setting calcs *
         // **************************************
@@ -13,6 +23,7 @@
         var allisvsbound = false;
         var myisvsforfilter;
         var thisvar;
+        var loadme = true;
 
         var clientid = '';
         var tenantid = '';
@@ -29,8 +40,6 @@
         // Make this an if block that can look at the uri and determine if we are local
         // using window.location.href
 
-
-
         // Figure out what the current URI is and where to get our config from in the main script
         var namesplitter = "-ukofficehours";
         var serverprefixaddress = window.location.href.split("/")[2].split(".")[0];
@@ -40,7 +49,8 @@
             endpoint = 'http://localhost:8080';
             rootfnsite = 'http://localhost:7071/';
             configDataUrl = '/local-debug-config.json';
-        } else {
+        } 
+         else {
             // Served from a server out in azure in the real world
             var prefix = serverprefixaddress.split(namesplitter)[0]
             var resource = 'https://' + prefix + 'ukohfn.azurewebsites.net';
@@ -48,7 +58,7 @@
             rootfnsite = resource + "/";
 
             configDataUrl = rootfnsite + "api/GetConfig";
-            var loadme = false;
+            loadme = false;
 
             // If we loaded the production (non local) site via http then the service won't work correctly, so redirect to https
             if (window.location.href.split("/")[0].toLowerCase() == 'http:')
@@ -68,14 +78,13 @@
             
         }
 
-        if (loadme ==true)
+        if (loadme == true)
         {
         // Pick up server specific settings and load the ad config via a function call from the remote server
 
-
         // ToDo: Tech Debt - this should be really done with promises, 
         // But we just want to ensure that the loading of the config data is loaded before everything
-        // else renders: Hence the sync forced call. I will review this after go-live.
+        // else renders: Hence the sync forced call. I will review this after go-live. ** WE **
 
         $.ajax({
             method: "GET",
