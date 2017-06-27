@@ -9,8 +9,6 @@
             top.location = self.location; 
         }
 
-
-
         // **************************************
         // * Dimension Variables, setting calcs *
         // **************************************
@@ -48,9 +46,9 @@
             // Served locally from IIS Express / Func.exe for local debug
             endpoint = 'http://localhost:8080';
             rootfnsite = 'http://localhost:7071/';
-            configDataUrl = '/local-debug-config.json';
-        } 
-         else {
+            configDataUrl = '/local-debug-config.json'
+
+        } else {
             // Served from a server out in azure in the real world
             var prefix = serverprefixaddress.split(namesplitter)[0]
             var resource = 'https://' + prefix + 'ukohfn.azurewebsites.net';
@@ -442,9 +440,9 @@
 
                         },
 
-                        error: function(result) {
-
-                            $('#statusbosend').html("Failed: " + result.responseText);
+                       error: function (jqXHR, errMsg, textStatus) {
+                                           
+                            $('#statusbosend').html("Failed" + textStatus + ":" + errMsg );
                             document.getElementById("statusbosend").className += "bg-danger";
                             loadfinished();
 
@@ -611,14 +609,15 @@
                             $('#sendslotbtn').prop("disabled", false);
 
                         },
-
-                        error: function(result) {
-
-                            $('#statussendbook').html("Send Failed");
+                        error: function (jqXHR, errMsg, textStatus) {
+                                           
+                            $('#statussendbook').html("Failed" + textStatus + ":" + errMsg );
+                            document.getElementById("#statussendbook").className += "bg-danger";
                             loadfinished();
                             $('#sendslotbtn').prop("disabled", false);
-                        }
 
+                        }
+                       
                     });
                 });
 
@@ -636,13 +635,19 @@
 
         function wireISVSubmitFormViaFunction() {
 
-
             viewmodel_isvdata.WriteISV = function(data) {
 
                 self = this;
+
                 var sender = ko.toJSON(self);
 
-                authContext.acquireToken(clientid, function(error, token) {
+                $('#statussend').removeClass('text-danger');
+                $('#isvnamelabel').removeClass('text-danger');
+                $('#continuecheck').removeClass('text-danger');
+
+                if (viewmodel_isvdata.Name() !== '' && ((document.getElementById('isvconsent').checked) || (document.getElementById('msisvconsent').checked))) {
+
+                    authContext.acquireToken(clientid, function(error, token) {
 
                     loadstarted();
 
@@ -673,25 +678,50 @@
                             viewmodel_isvdata.CurrentCode('');
 
                             $('#sendlink').attr('href', uri);
+                            $('#sendlink').removeClass('hidden');
+                            $('#sendlink').addClass('btn-success');
                             $('#sendlink').prop("disabled", false);
-                            $('#statussend').html("Code:" + result.CurrentCode + ": Click the 'booking link' link to automatically book a slot now for that ISV!");
+                            $('#statussend').html("Code: " + result.CurrentCode);
 
                             loadfinished();
                             $('#sendisvbtn').prop("disabled", false);
-
 
                         },
 
-                        error: function(result) {
-
-                            $('#statussend').html("Failed: " + result.responseText);
+                        error: function (jqXHR, errMsg, textStatus) {
+                                           
+                            $('#statussend').html("Failed " + jqXHRint.status + ":" + errMsg );
                             loadfinished();
+                            $('#sendlink').addClass('hidden');
+                            $('#sendlink').removeClass('btn-success');
                             $('#sendisvbtn').prop("disabled", false);
-                        }
 
+                        }
+                       
                     });
                 });
+            }
+            else
+            {
+                var validstring = "";
 
+                if (viewmodel_isvdata.Name() === '') {
+                    validstring = "Field 'ISV Name' is required. ";
+                    $('#isvnamelabel').addClass('text-danger');
+                    ;
+                }
+
+                if (!(document.getElementById('isvconsent').checked || document.getElementById('msisvconsent').checked)) 
+                {
+                    validstring = validstring + "You must acknowledge the privacy statement";                                
+                    $('#statussend').addClass('text-danger');
+                    $('#continuecheck').addClass('text-danger')
+                }
+
+                $('#statussend').html(validstring);
+
+            };
+            
                 return false;
 
             };

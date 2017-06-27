@@ -1,4 +1,5 @@
-﻿#r "Microsoft.WindowsAzure.Storage"
+﻿#load "..\Shared\httpUtils.csx"
+#r "Microsoft.WindowsAzure.Storage"
 
 using System;
 using System.Threading.Tasks;
@@ -19,20 +20,34 @@ public static HttpResponseMessage Run(HttpRequestMessage req, IQueryable<booking
 {
 
     DateTime outdate = DateTime.Now.AddDays(90);
+    IOrderedEnumerable<bookingslot> bslist;
 
-    IOrderedEnumerable<bookingslot> bslist = 
-         (from slot in inTable select slot)
-         .Where(e => 
-                    e.StartDateTime >= DateTime.Now &&
-                    e.StartDateTime <= outdate &&
-                    e.BookedToISV == "None")
-        .ToList()
-        .OrderBy(e => e.StartDateTime);
+    if (httpUtils.IsAuthenticated())
+    {
+        // Logged in employees can book anything not already booked
+        bslist = (from slot in inTable select slot)
+                .Where(e => 
+
+                            e.StartDateTime >= DateTime.Now &&
+                            e.StartDateTime <= outdate &&
+                            e.BookedToISV == "None")
+                .ToList()
+                .OrderBy(e => e.StartDateTime);
+    }
+    else
+    {
+        // Don't show ADS' to customers to book directly 
+        bslist = (from slot in inTable select slot)
+                .Where(e => 
+                            e.Duration <= 60 && 
+                            e.StartDateTime >= DateTime.Now &&
+                            e.StartDateTime <= outdate &&
+                            e.BookedToISV == "None")
+                .ToList()
+                .OrderBy(e => e.StartDateTime);
+
+    }
         
-    log.Info($"Found {bslist.Count().ToString()}");
-    log.Info($"{outdate.ToString()}");
-    log.Info($"{DateTime.Now.ToString()}");
-    
     // Return all entries in the BookingSlot Table
     return req.CreateResponse(HttpStatusCode.OK, bslist);
     
