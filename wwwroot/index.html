@@ -326,12 +326,13 @@
                                                 </div>
                                                 <div class="panel-body">
                                                     <div>Please note that the Contact Email and Contact Name are <b>optional fields </b>, but in order for us to send you an email invite to the call - we need them to be populated. Data entered into this form will only be used for the purposes of scheduling and tracking the call that you request. This will result in a calendar appointment being sent to you, in this case your entered name and email address will be automatically added to an outlook invite inside a Microsoft Technical Evangelist's calendar. After the appointment is complete, we will remove the contact name and email address from this system - however, it will remain in the Technical Evangelist's calendar invite (and sent items folder) for any required follow-up communications and actions.</div>
-                                                    <div>To continue, you must check one of the following boxes below to acknowledge our privacy statement. 
+                                                </div> 
+                                                <div class="panel-footer">
+                                                    <div><b>To continue, you must check one of the following boxes below to acknowledge our privacy statement.</b>
                                                     <div><input type="checkbox" name="ISVConsent" value=""><b>I am a software development partner or customer of Microsoft</b>, and I agree for Microsoft to add my details (including the PII fields of Name and Email address) to this system for the purposes of booking an appointment and executing follow-up emails in relation to that appointment, I have read and understood the information in the box above and I explicitly consent to my data being used in this way.</div>
                                                     <div><input type="checkbox" name="MSISVConsent" value=""><b>I am a Microsoft Employee entering data on behalf of an ISV customer</b> that has agreed for us add them to this system for the purposes of booking an appointment and executing follow-up emails in relation to that appointment, I have explained the information in the box above to them and they have explicitly consented to their data being used in this way.</div>
                                                     </div>
-                                            </div>
-                                                 
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -343,8 +344,6 @@
                                                 <a href="" id="sendlink">Booking Link</a>
                                             </div>
                                             <pre id="isvdebug" data-bind="text: ko.toJSON($root, null, 2)"></pre>
-
-
                                         </div>
                                     </form>
                                 </div>

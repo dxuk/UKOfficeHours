@@ -222,9 +222,7 @@
                         "AzureAD_TenantID": "[parameters('AzureAD_TenantID')]",
                         "Service_Description": "[parameters('sna')]",
                         "KVClientId":"[parameters('AzureAD_ClientID')]",
-                        "KVUri":"[variables('KeyVault_URI')]",
-                        "KVKey": null,
-                        "KVKeyID": null
+                        "KVUri":"[variables('KeyVault_URI')]"
                     },
                     "tags": {
                         "displayName": "[variables('FunctionApp_Name')]"
