@@ -17,6 +17,12 @@
         "AzureAD_ClientID": {
             "type": "string"
         },
+        "KVKeyID": {
+            "type": "string"
+        },
+        "KVKey": {
+            "type": "string"
+        },
         "sna": {
             "type": "string",
             "defaultValue": "Office Hours Service"
@@ -222,6 +228,8 @@
                         "AzureAD_TenantID": "[parameters('AzureAD_TenantID')]",
                         "Service_Description": "[parameters('sna')]",
                         "KVClientId":"[parameters('AzureAD_ClientID')]",
+                        "KVKey":"[parameters('KVKey')]",
+                        "KVKeyID":"[parameters('KVKeyID')]",
                         "KVUri":"[variables('KeyVault_URI')]"
                     },
                     "tags": {

@@ -27,7 +27,7 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, CloudT
 { 
  
     if (!httpUtils.IsAuthenticated()) { return req.CreateResponse(HttpStatusCode.Forbidden, "You have to be signed in!"); };
-    log.Info(Environment.GetEnvironmentVariable("KVKeyID"));
+    
     isv thisISV = await httpUtils.GetTFromJSONRequestBody<isv>(req);
 
     thisISV.RowKey = thisISV.Name;
@@ -50,6 +50,7 @@ public static TableRequestOptions GetEncryptionPolicy()
             AuthenticationResult result = await ctx.AcquireTokenAsync(resource, credential);
             return result.AccessToken;}
     );
+    
     IKey cloudKey1 = cloudResolver.ResolveKeyAsync(Environment.GetEnvironmentVariable("KVKeyID"), CancellationToken.None).GetAwaiter().GetResult(); 
     TableEncryptionPolicy encryptionPolicy = new TableEncryptionPolicy(cloudKey1, cloudResolver);
     TableRequestOptions rqOptions = new TableRequestOptions() { EncryptionPolicy = encryptionPolicy };
