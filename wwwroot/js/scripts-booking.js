@@ -368,16 +368,16 @@
                     case 'Past':
                         return moment().diff(filteredItem, 'minutes') >= 0;
                     case 'Within 1 wk':
-                        return (moment().diff(filteredItem, 'weeks') < 1) && (moment().diff(filteredItem, 'minutes') < 0) ;
+                        return moment().diff(filteredItem, 'minutes') < 10080;
                     case 'Within 2 wks':
-                        return (moment().diff(filteredItem, 'weeks') < 2) && (moment().diff(filteredItem, 'minutes') < 0);
+                        return moment().diff(filteredItem, 'minutes') < 20160; 
                     case 'Within 3 wks':
-                        return (moment().diff(filteredItem, 'weeks') < 3) && (moment().diff(filteredItem, 'minutes') < 0);
+                        return moment().diff(filteredItem, 'minutes') < 30240;
                     case 'Within 4 wks':
-                        return (moment().diff(filteredItem, 'weeks') < 4) && (moment().diff(filteredItem, 'minutes') < 0);
+                        return moment().diff(filteredItem, 'minutes') < 40320; 
                 }
             };
-
+ 
             // Calculate which rows to show across all filters
             self.filteredItems = ko.computed(function() {
 
