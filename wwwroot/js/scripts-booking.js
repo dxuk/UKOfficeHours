@@ -286,7 +286,7 @@
                 list.push('--All--');
                 return ko.utils.arrayGetDistinctValues(list.sort()).sort();
             });
-            self.FutureOrPastList = ['--All--', 'Future', 'Past'];
+            self.FutureOrPastList = ['--All--', 'Future', 'Past', 'Within 1 wk', 'Within 2 wks','Within 3 wks','Within 4 wks','Free Slots in Future'];
 
             // Bind the filter values themselves
             self.FilterTE = ko.observable(localStorage.getItem("FilterTE") || '--All--');
@@ -367,6 +367,14 @@
                         return moment().diff(filteredItem, 'minutes') < 0;
                     case 'Past':
                         return moment().diff(filteredItem, 'minutes') >= 0;
+                    case 'Within 1 wk':
+                        return moment().diff(filteredItem, 'weeks') < 1;
+                    case 'Within 2 wks':
+                        return moment().diff(filteredItem, 'weeks') < 2;
+                    case 'Within 3 wks':
+                        return moment().diff(filteredItem, 'weeks') < 3;
+                    case 'Within 4 wks':
+                        return moment().diff(filteredItem, 'weeks') < 4;
                 }
             };
 
