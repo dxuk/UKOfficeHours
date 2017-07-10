@@ -440,45 +440,37 @@
                             loadupdatestatus(70);
                             // Now the booking was successful, the code is no longer valid, so clear it. 
                             self.submitdata.BookingCode('');
-                            if (jqXHR.statusCode == 200)
-                            {
-                                $('#statusbosend').html("OK, You're booked in!");
-                            }
-                            else 
-                            {
-                                if (jqXHR.statusCode == 409)
-                                {
-                                     $('#statusbosend').html("Error: that booking code has already been used, please create another.");
-                                }
-                                else 
-                                {
-                                    if (jqXHR.statusCode == 404)
-                                    {
-                                        $('#statusbosend').html("Error: I can't locate that booking code, is it valid?");
-                                    }
-                                }
-                            }
+                          
+                            $('#statusbosend').html("OK, You're booked in!");
                             document.getElementById("statusbosend").className += "bg-success";
                             $('#sendbobtn').prop("disabled", false);
                             loadfinished();
                         },
                        error: function (jqXHR, errMsg, textStatus) {
-
-                            $('#statusbosend').html("Error:" + errMsg);
+                            if (jqXHR.status == 409)
+                                {
+                                     $('#statusbosend').html("Error: that booking code has already been used, please create another.");
+                                }
+                                else 
+                                {
+                                    if (jqXHR.status == 404)
+                                    {
+                                        $('#statusbosend').html("Error: I can't locate that booking code, is it valid?");
+                                    }
+                                    else
+                                    { 
+                                        $('#statusbosend').html("Error:" + errMsg);
+                                    }
+                                }
                             document.getElementById("statusbosend").className += "bg-danger";
                             loadfinished();
-
                         }
-
                     });
-
                 });
             },
-
             // This function sets up the booking slot object with the record that was clicked from the grid via the knockout binding
             // and it then pops up the modal dialog.
             SetBookingSlot: function(bookingslot) {
-
                 // Set up the modal form data bindings to receive the selected row values
                 viewmodel_viewslots.submitdata.RowKey(bookingslot.RowKey);
                 viewmodel_viewslots.submitdata.PartitionKey(bookingslot.PartitionKey);
