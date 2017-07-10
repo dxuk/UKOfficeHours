@@ -56,6 +56,8 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, CloudT
 
     isv queryisv = (from isv in tblisv.CreateQuery<isv>() select isv).Where(e => e.CurrentCode == bsjs.BookingCode).WithOptions(GetTableRequestOptionsWithEncryptionPolicy()).FirstOrDefault();
     
+
+
     if (queryisv != null)
     {
         log.Info($"Located ISV:{queryisv.Name} Code: {queryisv.CurrentCode}");  
@@ -68,9 +70,21 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, CloudT
         return req.CreateResponse(HttpStatusCode.NotFound, $"No ISV found with code: {bsjs.BookingCode}");
 
     }
+
     // Check the code has not already been used on an existing booking
 
     bookingslot chkslt = (from slot in tblbk.CreateQuery<bookingslot>() select slot).Where(e => e.BookingCode == bsjs.BookingCode).FirstOrDefault();
+
+    if (chkslt != null)
+
+    {
+
+        log.Info($"Found existing booking for that code: {bsjs.BookingCode}"); 
+
+        // Todo: Clean up UX and check this clientside too
+        return req.CreateResponse(HttpStatusCode.Conflict, $"That code has already been used once! {bsjs.BookingCode}");
+
+    }
 
         // Update bs object with new values if not already booked.  
         if (bs.BookedToISV == "None")

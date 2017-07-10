@@ -449,7 +449,7 @@
                        error: function (jqXHR, errMsg, textStatus) {
                             if (jqXHR.status == 409)
                                 {
-                                     $('#statusbosend').html("Error: that booking code has already been used, please create another.");
+                                     $('#statusbosend').html("Error: either that booking code has already been used or that slot has already been booked, please create another.");
                                 }
                                 else 
                                 {
