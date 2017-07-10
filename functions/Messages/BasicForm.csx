@@ -15,9 +15,6 @@ public class BasicForm
 
     [Prompt("What is the context of the session {||}")]
     public string SessionContext { get; set; }
-
-    [Prompt("Any links to share?")]
-    public List<String> LinkList { get; set; }
  
     public static IForm<BasicForm> BuildForm()
     {
