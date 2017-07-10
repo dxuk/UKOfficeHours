@@ -1,0 +1,131 @@
+{
+    "$schema": "https://statics.teams.microsoft.com/sdk/v1.0/manifest/MicrosoftTeams.schema.json",
+    "manifestVersion": "1.0",
+    "version": "1.0.0",
+    "id": "%APP_GUID%",
+    "packageName": "com.samples.sampleapp",
+    "developer": {
+        "name": "Microsoft",
+        "websiteUrl": "https://www.microsoft.com",
+        "privacyUrl": "https://www.microsoft.com/privacy",
+        "termsOfUseUrl": "https://www.microsoft.com/termsofuse"
+    },
+    "name": {
+        "short": "Internal Office Hours Bot",
+        "full": "Internal Office Hours Bot for Microsoft Teams"
+    },
+    "description": {
+        "short": "Internal Office Hours Bot",
+        "full": "This is an example of a connected bot, interacting with a customer booking experience and Dynamics CRM data"
+    },
+    "icons": {
+        "outline": "contoso20x20.png",
+        "color": "contoso96x96.png"
+    },
+    "accentColor": "#60A18E",
+    "staticTabs": [
+        {
+            "entityId": "mytasks",
+            "name": "My Tasks",
+            "contentUrl": "https://teamsnodesample.azurewebsites.net/tabs/index",
+            "websiteUrl": "https://teamsnodesample.azurewebsites.net/tabs/index",
+            "scopes": [
+                "personal"
+            ]
+        },
+        {
+            "entityId": "info",
+            "name": "Info",
+            "contentUrl": "https://teamsnodesample.azurewebsites.net/tabs/about",
+            "websiteUrl": "https://teamsnodesample.azurewebsites.net/tabs/about",
+            "scopes": [
+                "personal"
+            ]
+        }
+    ],
+    "configurableTabs": [
+        {
+            "configurationUrl": "https://teamsnodesample.azurewebsites.net/tabs/configure",
+            "canUpdateConfiguration": true,
+            "scopes": [
+                "team"
+            ]
+        }
+    ],
+    "bots": [
+        {
+            "botId": "%BOT_FRAMEWORK_ID%",
+            "isNotificationOnly": false,
+            "scopes": [
+                "team",
+                "personal"
+            ],
+            "commandLists": [
+                {
+                    "scopes": [
+                        "team",
+                        "personal"
+                    ],
+                    "commands": [
+                        {
+                            "title": "help",
+                            "description": "Find out what I can do"
+                        },
+                        {
+                            "title": "create",
+                            "description": "Create a brand new task, just give me a title"
+                        },
+                        {
+                            "title": "find",
+                            "description": "I can help you find a task, just give me a title"
+                        },
+                        {
+                            "title": "link",
+                            "description": "Create a link to a tab, just give me the tab name"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "connectors": [
+        {
+            "connectorId": "%CONNECTOR_ID%",
+            "scopes": [
+                "team"
+            ]
+        }
+    ],
+    "composeExtensions": [
+        {
+            "botId": "%BOT_FRAMEWORK_ID%",
+            "scopes": [
+                "personal",
+                "team"
+            ],
+            "commands": [
+                {
+                    "id": "searchCmd",
+                    "title": "Search tasks",
+                    "description": "Search tasks",
+                    "initialRun": true,
+                    "parameters": [
+                        {
+                            "name": "search",
+                            "title": "search",
+                            "description": "search taks"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "permissions": [
+        "identity",
+        "messageTeamMembers"
+    ],
+    "validDomains": [
+        "teamsnodesample.azurewebsites.net",
+        "*.teamsnodesample.azurewebsites.net"
+    ]
+}
