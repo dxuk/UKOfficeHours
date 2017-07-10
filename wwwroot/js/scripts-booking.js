@@ -440,26 +440,31 @@
                             loadupdatestatus(70);
                             // Now the booking was successful, the code is no longer valid, so clear it. 
                             self.submitdata.BookingCode('');
-
-                            $('#statusbosend').html("OK, You're booked in!");
+                            if (jqXHR.statusCode == 200)
+                            {
+                                $('#statusbosend').html("OK, You're booked in!");
+                            }
+                            else 
+                            {
+                                if (jqXHR.statusCode == 409)
+                                {
+                                     $('#statusbosend').html("Error: that booking code has already been used, please create another.");
+                                }
+                                else 
+                                {
+                                    if (jqXHR.statusCode == 404)
+                                    {
+                                        $('#statusbosend').html("Error: I can't locate that booking code, is it valid?");
+                                    }
+                                }
+                            }
                             document.getElementById("statusbosend").className += "bg-success";
                             $('#sendbobtn').prop("disabled", false);
                             loadfinished();
-
                         },
-
                        error: function (jqXHR, errMsg, textStatus) {
-                            if (jqXHR.statusCode == 409)
-                            {
-                                 $('#statusbosend').html("Error: that booking code has already been used, please create another.");
-                            }
-                            
-                            else {
-                                if (jqXHR.statusCode == 404)
-                                 {
-                                     $('#statusbosend').html("Error: I can't locate that booking code, is it valid?");
-                                 }
-                            }
+
+                            $('#statusbosend').html("Error:" + errMsg);
                             document.getElementById("statusbosend").className += "bg-danger";
                             loadfinished();
 

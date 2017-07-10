@@ -36,7 +36,7 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, CloudT
     if (thisISV.CurrentCode == "" || thisISV.CurrentCode == null) 
     {
 
-        log.Info("ISV is a new one, generating code")
+        log.Info("ISV is a new one, generating code"); 
         thisISV.AddUniqueAlphaNumCodeAndSave();
 
     }
