@@ -19,16 +19,18 @@ using Microsoft.Azure;
 using Microsoft.Azure.KeyVault; 
 using Microsoft.Azure.KeyVault.Core; 
 using System.Text;
+using System.Web;
+using System.Web.Http;
 using System.Linq;
 using System.Net;
 using System.IO;
 using Newtonsoft.Json; 
 using Microsoft.WindowsAzure.Storage.Table.Queryable;
-
+ 
 public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, CloudTable tblbk, CloudTable tblisv, CloudTable tblte, IAsyncCollector<CompleteAppointmentDTO> outputSbMsg, TraceWriter log)
 {
     // if (!httpUtils.IsAuthenticated()) { return req.CreateResponse(HttpStatusCode.Forbidden, "You have to be signed in!"); };
-
+  
     log.Info($"Incoming: {await httpUtils.GetRequestBodyAsString(req)}");
 
     bookingslot bsjs = await httpUtils.GetTFromJSONRequestBody<bookingslot>(req);
@@ -53,30 +55,23 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, CloudT
     // B: retrieve the ISV name. 
 
     isv queryisv = (from isv in tblisv.CreateQuery<isv>() select isv).Where(e => e.CurrentCode == bsjs.BookingCode).WithOptions(GetTableRequestOptionsWithEncryptionPolicy()).FirstOrDefault();
-        if (queryisv != null)
+    
+    if (queryisv != null)
     {
         log.Info($"Located ISV:{queryisv.Name} Code: {queryisv.CurrentCode}");  
     }
     else
     {
+        log.Info($"No ISV found with code, returning 404: {bsjs.BookingCode}"); 
 
         // Todo: Clean up UX and check this clientside too
-        throw new HttpException(404, $"No ISV found with code: {bsjs.BookingCode}");
+        return req.CreateResponse(HttpStatusCode.NotFound, $"No ISV found with code: {bsjs.BookingCode}");
 
     }
     // Check the code has not already been used on an existing booking
 
     bookingslot chkslt = (from slot in tblbk.CreateQuery<bookingslot>() select slot).Where(e => e.BookingCode == bsjs.BookingCode).FirstOrDefault();
 
-    if (chkslt != null)
-    {
-
-        // Todo: Clean up UX and check this clientside too
-        throw new HttpException(409, $"That code has already been used ! ({bsjs.BookingCode})");
-
-    }
-    else
-    {
         // Update bs object with new values if not already booked.  
         if (bs.BookedToISV == "None")
         {
@@ -130,13 +125,13 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, CloudT
         }
         else
         {
-
+            log.Info($"Slot not available, returning 409 conflict : {bsjs.BookingCode}"); 
             // This slot is already booked ! Error !
             return req.CreateResponse(HttpStatusCode.Conflict);
 
         }
     }
-}
+
 public class technicalevangelist : TableEntity
 {
 

@@ -455,9 +455,9 @@
                             }
                             
                             else {
-                                if (jqXHR.statusCode == 400)
+                                if (jqXHR.statusCode == 404)
                                  {
-                                     $('#statusbosend').html("Error: something in your request was invalid, did you enter a valid booking code?");
+                                     $('#statusbosend').html("Error: I can't locate that booking code, is it valid?");
                                  }
                             }
                             document.getElementById("statusbosend").className += "bg-danger";
@@ -635,7 +635,7 @@
                         },
                         error: function (jqXHR, errMsg, textStatus) {
                                            
-                            $('#statussendbook').html("Failed:" + jqXHR.statusCode + " - " + textStatus);
+                            $('#statussendbook').html("Failed: " + jqXHR.statusCode + " - " + textStatus);
                             document.getElementById("#statussendbook").className += "bg-danger";
                             loadfinished();
                             $('#sendslotbtn').prop("disabled", false);

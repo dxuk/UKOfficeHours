@@ -33,7 +33,13 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, CloudT
     thisISV.RowKey = thisISV.Name;
     thisISV.PartitionKey = httpUtils.GetCurrentUserEmailFromClaims();
 
-    if (thisISV.CurrentCode == "" || thisISV.CurrentCode == null) {thisISV.AddUniqueAlphaNumCodeAndSave();}
+    if (thisISV.CurrentCode == "" || thisISV.CurrentCode == null) 
+    {
+
+        log.Info("ISV is a new one, generating code")
+        thisISV.AddUniqueAlphaNumCodeAndSave();
+
+    }
 
     TableOperation operationadd = TableOperation.Insert(thisISV);
     outObj.Execute(operationadd, GetEncryptionPolicy());
