@@ -53,8 +53,17 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, CloudT
     // B: retrieve the ISV name. 
 
     isv queryisv = (from isv in tblisv.CreateQuery<isv>() select isv).Where(e => e.CurrentCode == bsjs.BookingCode).WithOptions(GetTableRequestOptionsWithEncryptionPolicy()).FirstOrDefault();
-    log.Info($"Located ISV:{queryisv.Name} Code: {queryisv.CurrentCode}");
+        if (queryisv != null)
+    {
+        log.Info($"Located ISV:{queryisv.Name} Code: {queryisv.CurrentCode}");  
+    }
+    else
+    {
 
+        // Todo: Clean up UX and check this clientside too
+        throw new HttpException(404, $"No ISV found with code: {bsjs.BookingCode}");
+
+    }
     // Check the code has not already been used on an existing booking
 
     bookingslot chkslt = (from slot in tblbk.CreateQuery<bookingslot>() select slot).Where(e => e.BookingCode == bsjs.BookingCode).FirstOrDefault();
@@ -63,7 +72,7 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, CloudT
     {
 
         // Todo: Clean up UX and check this clientside too
-        throw new InvalidOperationException("That code has already been used ! ");
+        throw new HttpException(409, $"That code has already been used ! ({bsjs.BookingCode})");
 
     }
     else
@@ -113,7 +122,7 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, CloudT
             }
             else
             {
-                log.Info($"No TE Configuration  found for {bsout.TechnicalEvangelist}, SKIPPING email INVITE");
+                log.Info($"No TE Configuration found for {bsout.TechnicalEvangelist}, SKIPPING email INVITE");
             }
 
             return req.CreateResponse(HttpStatusCode.OK, bsout);
