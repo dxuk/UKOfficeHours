@@ -51,12 +51,14 @@ function LaunchFuncExe() {
     Set-Location "$invocationPath\functions"
     if ($InvokeCommands) {
         Write-Debug "Starting Functions Host..."
-        cmd /c start cmd /k "func host start --cors http://localhost:8080" 
+        cmd /c start cmd /k "${env:APPDATA}\npm\func host start --cors http://localhost:8080"
     }
     Pop-Location
 }
 
 #Write-Host $invocationPath
+
+$env:Path += "${env:APPDATA}\npm;${env:ProgramFiles}\nodejs"
 
 $config = LoadConfig "$invocationPath\wwwroot\local-debug-config.json"
 
@@ -64,7 +66,7 @@ $env:AzureWebJobsStorageConnection = $config.AzureWebJobsStorage
 $env:AzureWebJobsStorage = $config.AzureWebJobsStorage
 $env:AzureWebJobsMailer = $config.AzureWebJobsMailer
 
-// KeyVault Auth
+#KeyVault Auth
 $env:KVClientId = $config.KVClientId
 $env:KVKey = $config.KVKey 
 $env:KVUri = $config.KVUri
