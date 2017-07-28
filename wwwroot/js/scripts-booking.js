@@ -368,13 +368,13 @@
                     case 'Past':
                         return moment().diff(filteredItem, 'minutes') >= 0;
                     case 'Within 1 wk':
-                        return moment().diff(filteredItem, 'days', true) < 7;
+                        return moment().diff(filteredItem, 'days', true) > -7;
                     case 'Within 2 wks':
-                        return moment().diff(filteredItem, 'days', true) < 14; 
+                        return moment().diff(filteredItem, 'days', true) > -14; 
                     case 'Within 3 wks':
-                        return moment().diff(filteredItem, 'days', true) < 21;
+                        return moment().diff(filteredItem, 'days', true) > -21;
                     case 'Within 4 wks':
-                        return moment().diff(filteredItem, 'days', true) < 28; 
+                        return moment().diff(filteredItem, 'days', true) > -28; 
                 }
             };
  
