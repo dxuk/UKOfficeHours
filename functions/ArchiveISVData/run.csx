@@ -14,26 +14,48 @@ using System.Linq;
 using System.Net;
 using System.IO;
 
-public static void Run(TimerInfo myTimer, IQueryable<bookingslot> inTable, IQueryable<isv> isvTable,  CloudTable outObj, TraceWriter log)
+public static void Run(TimerInfo myTimer, IQueryable<bookingslot> inTable, IQueryable<isv> isvTable,  CloudTable outObj, CloudTable outputBookingSlots, TraceWriter log)
 {
  
-    List<bookingslot> thisBS = (from slot in inTable select slot).Where(e => e.StartDateTime < DateTime.Now && e.BookedToISV != "None").ToList();
-
+    List<bookingslot> thisBS = (from slot in inTable select slot).Where(e => e.StartDateTime < DateTime.Now && e.BookedToISV != "None" && e.BookingCode != "Archived").ToList();
+    
+    bookingslot outerBookingSlot = null;  
+    
     foreach(bookingslot loopBookingSlot in thisBS)
     {
-       log.Info("The ISV for slot " + loopBookingSlot.BookingCode + " needs to be cleared as it is no longer required.");
-      
-       isv thisISV = (from isvs in isvTable select isvs).Where(e => e.PartitionKey == loopBookingSlot.PBE && e.RowKey == loopBookingSlot.BookedToISV && e.CurrentCode == loopBookingSlot.BookingCode).First(); 
+       log.Warning("The ISV for slot " + loopBookingSlot.BookingCode + "(" + loopBookingSlot.BookedToISV + ") needs to be cleared as it is no longer required.");
+       
+       try
+       {    
+              outerBookingSlot = loopBookingSlot; 
 
-       log.Info("The ISV for slot " + loopBookingSlot.BookingCode + " is found " + thisISV.Name);
-    
-       var operation = TableOperation.Delete(thisISV);
-       outObj.ExecuteAsync(operation);
+              isv thisISV = (from isvs in isvTable select isvs).Where(e => e.PartitionKey == loopBookingSlot.PBE && e.RowKey == loopBookingSlot.BookedToISV && e.CurrentCode == loopBookingSlot.BookingCode).First(); 
+       
+              var operation = TableOperation.Delete(thisISV);
+              outObj.ExecuteAsync(operation);
+              
+              log.Info("The ISV record for slot " + loopBookingSlot.BookingCode + " has been deleted");                           
+              
+       }
+       catch (Exception ex) 
+       {
 
-       log.Info("The ISV record for slot " + loopBookingSlot.BookingCode + " has been deleted");
-     
+            log.Error("Error looking up an ISV record for slot" + loopBookingSlot.BookingCode + " (" + loopBookingSlot.BookedToISV + ") :" + ex.InnerException.Message);
+       
+       }
+       finally
+       {
+
+              log.Warning("The Booking Slot record for slot " + outerBookingSlot.BookingCode + " needs to be updated to remove the booking code.");
+
+              outerBookingSlot.BookingCode = "Archived";
+              
+              var operationbooking = TableOperation.Merge(outerBookingSlot);
+              outputBookingSlots.ExecuteAsync(operationbooking);
+
+              log.Info("The Booking Slot record for slot " + outerBookingSlot.BookingCode + " has been updated to remove the booking code.");
+       }
     }
-    
 }
  
 public class bookingslot : TableEntity
@@ -68,6 +90,7 @@ public class bookingslot : TableEntity
     public DateTime CreatedDateTime { get; set; }
 
 }
+
 public class isv : TableEntity
 {
     [EncryptProperty]

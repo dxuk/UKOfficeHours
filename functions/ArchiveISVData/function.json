@@ -1,31 +1,39 @@
 ﻿{
-    "bindings": [{
-            "name": "myTimer",
-            "type": "timerTrigger",
-            "direction": "in",
-            "schedule": "0 */30 * * * *"
-        },
-        {
-            "type": "table",
-            "name": "inTable",
-            "tableName": "bookingslot",
-            "connection": "storageConnection",
-            "direction": "in"
-        },
-        {
-            "type": "table",
-            "name": "isvTable",
-            "tableName": "isv",
-            "connection": "storageConnection",
-            "direction": "in"
-        },
-        {
-            "type": "table",
-            "name": "outObj",
-            "tableName": "isv",
-            "connection": "storageConnection",
-            "direction": "out"
-        }
+    "bindings": [
+      {
+        "name": "myTimer",
+        "type": "timerTrigger",
+        "direction": "in",
+        "schedule": "0 */30 * * * *"
+      },
+      {
+        "type": "table",
+        "name": "inTable",
+        "tableName": "bookingslot",
+        "connection": "storageConnection",
+        "direction": "in"
+      },
+      {
+        "type": "table",
+        "name": "isvTable",
+        "tableName": "isv",
+        "connection": "storageConnection",
+        "direction": "in"
+      },
+      {
+        "type": "table",
+        "name": "outObj",
+        "tableName": "isv",
+        "connection": "storageConnection",
+        "direction": "out"
+      },
+      {
+        "type": "table",
+        "name": "outputBookingSlots",
+        "tableName": "bookingslot",
+        "connection": "storageConnection",
+        "direction": "out"
+      }
     ],
     "disabled": false
-}
+  }
