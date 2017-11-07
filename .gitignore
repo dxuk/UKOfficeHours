@@ -5,6 +5,7 @@
 
 wwwroot/local-debug-config.json
 functions/host.json
+functions/data
 
 # User-specific files
 *.suo
