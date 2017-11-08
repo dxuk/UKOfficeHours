@@ -1,4 +1,5 @@
 ﻿#load "..\Shared\httpUtils.csx"
+#load "..\Domain\BookingSlot.csx"
 
 #r "Microsoft.ServiceBus"
 #r "Microsoft.WindowsAzure.Storage"
@@ -41,38 +42,4 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, IAsync
     await outputSbMsg.AddAsync(thisBS);
 
     return req.CreateResponse(HttpStatusCode.OK, thisBS);
-
-}
-
-public class bookingslot : TableEntity
-{
-    public bookingslot()
-    {
-
-        CreatedDateTime = DateTime.Now; 
-
-    }
-    
-    public string TechnicalEvangelist {get; set;}
-    public DateTime StartDateTime {get; set;}
-    public DateTime EndDateTime {get; set;}
-
-    public string MailID {get;set;}
-
-    public int Duration
-    {
-        get
-        {
-            TimeSpan ts = EndDateTime - StartDateTime;
-            return ts.Minutes + (ts.Hours * 60);
-        }
-        set { }
-    }
-
-    public string BookedToISV { get; set; }
-    public string BookingCode { get; set; }
-    public string PBE { get; set; }
-
-    public DateTime CreatedDateTime { get; set; }
-
 }

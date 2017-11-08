@@ -301,14 +301,14 @@
                                     <form class="form-horizontal" role="form" id="isvForm">
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label" id="isvnamelabel" for="Name">
-                                                Partner Name (Required)
+                                                Partner Name
                                             </label>
                                             <div class="col-sm-10">
                                                 <input class="form-control" id="Name" data-bind="value: Name" type="text" />
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label" for="ContactEmail">
+                                            <label class="col-sm-2 control-label" id="partneremaillabel" for="ContactEmail">
                                                 Contact Email 
                                             </label>
                                             <div class="col-sm-10">
@@ -316,11 +316,25 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label" for="ContactName">
+                                            <label class="col-sm-2 control-label" id="contactnamelabel" for="ContactName">
                                                 Contact Name
                                             </label>
                                             <div class="col-sm-10">
                                                 <input class="form-control" id="ContactName" data-bind="value: ContactName" type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="ContactTopic">
+                                                Topic
+                                            </label>
+                                            <div class="col-sm-10">
+                                                <select class="form-control col-sm-2" data-bind="value: ContactTopic" id="ContactTopic">
+                                                        <option value="General">General</option>
+                                                        <option value="AppInfra">Applications and Infrastructure</option>
+                                                        <option value="DataAI">Data and AI</option>
+                                                        <option value="ModernWorkplace">Modern Workplace</option>
+                                                        <option value="BusApps">Business Applications</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -329,7 +343,7 @@
                                                     <div>Microsoft respects your privacy. Please read our Privacy and Cookies statement <a href="https://go.microsoft.com/fwlink/?LinkId=521839">here</a>.</div>
                                                 </div>
                                                 <div class="panel-body">
-                                                    <div>Please note that the Contact Email and Contact Name are <b>optional fields </b>, but in order for us to send you an email invite to the call - we need them to be populated. Data entered into this form will only be used for the purposes of scheduling and tracking the call that you request. This will result in a calendar appointment being sent to you, in this case your entered name and email address will be automatically added to an outlook invite inside a Microsoft staff members calendar. After the appointment is complete, we will remove the contact name and email address from this system - however, it will remain in the Microsoft staffs calendar invite (and sent items folder) for any required follow-up communications and actions.</div>
+                                                    <div>In order for us to send you an email invite to the call - we need your email address. Data entered into this form will only be used for the purposes of scheduling and tracking the call that you request. This will result in a calendar appointment being sent to you, in this case your entered name and email address will be automatically added to an outlook invite inside a Microsoft staff members calendar. After the appointment is complete, we will remove the contact name and email address from this system - however, it will remain in the Microsoft staffs calendar invite (and sent items folder) for any required follow-up communications and actions.</div>
                                                 </div> 
                                                 <div class="panel-footer">
                                                     <div id="continuecheck"><b>To continue, you must check one of the following boxes below to acknowledge our privacy statement.</b>
@@ -468,10 +482,17 @@
                                                 <div class='input-group col-sm-6'>
                                                     <input class="form-control col-sm-1 control-label" id="Duration" data-bind="value: Duration" type="number" />
                                                     <select class="form-control col-sm-2" data-bind="value: Duration">
-                                            <option value="30">Concierge</option>
-                                            <option value="60">Office Hour</option>
-                                            <option value="180">ADS or Envisioning Session</option>
-                                        </select>
+                                                        <option value="30">Concierge</option>
+                                                        <option value="60">Office Hour</option>
+                                                        <option value="180">ADS or Envisioning Session</option>
+                                                    </select>
+                                                    <select class="form-control col-sm-2" data-bind="value: Topic" id="Topic">
+                                                        <option value="General">General</option>
+                                                        <option value="AppInfra">Applications and Infrastructure</option>
+                                                        <option value="DataAI">Data and AI</option>
+                                                        <option value="ModernWorkplace">Modern Workplace</option>
+                                                        <option value="BusApps">Business Applications</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
