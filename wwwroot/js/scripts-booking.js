@@ -325,7 +325,7 @@
 
                 // Fetch the filters and apply them from html5 localStorage
 
-                self.FilterFutureOrPast(localStorage.getItem("FilterFutureOrPast") || '--All--');
+                self.FilterFutureOrPast(localStorage.getItem("FilterFutureOrPast") || 'Future');
                 self.FilterDuration(localStorage.getItem("FilterDuration") || '--All--');
                 self.FilterISV(localStorage.getItem("FilterISV") || '--All--');
                 self.FilterTE(localStorage.getItem("FilterTE") || '--All--');
