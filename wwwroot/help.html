@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <xmp theme="bootstrap" style="display:none;">
-    #DX UK Office Hours Service ##### Last Updated 29th March 2017 ## Contents * [Context](#Context) * [Service Addresses and Location (Where do I look?)](#ServiceAddresses) * [Service Privacy](#ServicePrivacy) * [User Guide](#UserGuide) 1. [Technical Evangelist
-    - ISV: Make time available for booking](#MakeTimeAvailable) 2. [Partner Business Evangelist - ISV: Book time with an ISV](#BookTimeWithISV) 3. [Customer Self Service: Use a booking code](#CustomerSelfService) 4. [Internal Query and Filter: View and
+    #Commercial Partner Office Hours Service ##### Last Updated 29th March 2017 ## Contents * [Context](#Context) * [Service Addresses and Location (Where do I look?)](#ServiceAddresses) * [Service Privacy](#ServicePrivacy) * [User Guide](#UserGuide) 1. [Technical resource
+    : Make time available for booking](#MakeTimeAvailable) 2. [Partner Development Manager: Book time with a Partner](#BookTimeWithISV) 3. [Customer Self Service: Use a booking code](#CustomerSelfService) 4. [Internal Query and Filter: View and
     search bookings](#InternalQueryAndFilter)
 
 
     <h2 id="Context">Context</h2>
 
-    Office hours is a booking system designed to get ISV customers time with Technical Evangelists booked quickly and simply, with a minimum of interaction or fuss. It's a nice example of architecting a solution based on solely consumption-led services in
+    Office hours is a booking system designed to get a Partner time with technical resources booked quickly and simply, with a minimum of interaction or fuss. It's a nice example of architecting a solution based on solely consumption-led services in
     Azure and we will be open-sourcing the tool even though it is provided for internal use only. The source code and docs are here https://github.com/dxuk/UKOfficeHours
 
     <h2 id="ServiceAddresses">Service Addresses and Location (Where do I look?)</h2>
@@ -17,13 +17,13 @@
 
     <h2 id="ServicePrivacy">Service Privacy</h2>
 
-    The service requires a minimum amount of customer data to operate (it requires an ISV business name to generate an anonymous code, and optionally a contact name and email address). It is planned to use the email address and contact name ONLY to send out
+    The service requires a minimum amount of customer data to operate (it requires a Partner business name to generate an anonymous code, and optionally a contact name and email address). It is planned to use the email address and contact name ONLY to send out
     booking confirmations for the appointments and calendar bookings made during the usage of the service. **All usage of data entered into the service will be in accordance with the Microsoft Privacy statement here: https://privacy.microsoft.com/en-gb/privacystatement
     **
 
     <h2 id="UserGuide">User Guide</h2>
 
-    <h3 id="MakeTimeAvailable">Technical Evangelist - ISV: Make time available for booking</h3>
+    <h3 id="MakeTimeAvailable">Technical resource: Make time available for booking</h3>
 
     1. Open the Site and login with a valid user id and authentication method 2. Select 'Add New Slot' from the top menu 3. From the 'Add a slot' dialog * Click the calendar icon next to the Start Date field and select a date * Click the clock icon next to
     the Start Time field and select a time to begin your session (Note: Clicking on the text in either the hours or minutes spinners will drill into a selection dialog featuring a better range of selection than the spinner itself). #####ie Click here
@@ -31,11 +31,11 @@
     of session * Concierge = 30m, Office hours = 60m, ADS = 180m * Enter a time to leave for a wrap-up break or buffer in minutes * Click the 'Add Bookable Slot' button 4. Note that if successful, a message will be displayed and the start time of the
     next session will be incremented by the session length + break time you requested. 5. To add subsequent sessions, simply click 'Add Bookable Slot' again as many times as required.
 
-    <h3 id="BookTimeWithISV">Partner Business Evangelist - ISV: Book time with an ISV</h3>
+    <h3 id="BookTimeWithISV">Partner Development Manager: Book time with a Partner</h3>
 
-    1. Open the Site and login with a valid user id and authentication method 2. Select 'Get a Code' from the top menu 3. Enter the Name of the ISV in the ISV Name field (Ideally as it is in DX CRM) 4. Enter a contact email address for the ISV (this is presently
-    not used, please enter a dummy email address until we pass our privacy audit, then this will be used to trigger a calendar appointment invite with the ISV) 5. Please enter the name of the contact into the 'Contact Name' field. 6. Click the Add ISV
-    button. ![alt text](images/image3.png "Add ISV") 7. Either record the code in the message and save it for later, or click the Booking Link to book a session right now. * If you clicked the link, you will be taken to the 'Use a booking code' screen
+    1. Open the Site and login with a valid user id and authentication method 2. Select 'Get a Code' from the top menu 3. Enter the Name of the Partner in the Partner Name field (Ideally as it is in OCP CRM) 4. Enter a contact email address for the Partner
+    then this will be used to trigger a calendar appointment invite with the Partner) 5. Please enter the name of the contact into the 'Contact Name' field. 6. Click the Add Partner
+    button. ![alt text](images/image3.png "Add Partner") 7. Either record the code in the message and save it for later, or click the Booking Link to book a session right now. * If you clicked the link, you will be taken to the 'Use a booking code' screen
     with your code embedded into the link (this will show the next 90 days' worth of possible bookings). * Simply choose a slot and Click 'Book It' on the appropriate row. * This will pop-up a modal dialog confirming what and when you are booking with
     the code pre-populated. ![alt text](images/image4.png "Booking Code") * Click 'Book It' and you are done! Note that at this stage no customer message is sent.
 
@@ -47,7 +47,7 @@
 
     <h3 id="InternalQueryAndFilter">Internal Query and Filter: View and search bookings</h3>
 
-    1. Open the Site and login with a valid user id and authentication method 2. Select the 'View all slots' link 3. To filter the list – click the 'Toggle Filters' button and select the filters you want to use. 4. Filtering ISV by 'None' will allow you to
+    1. Open the Site and login with a valid user id and authentication method 2. Select the 'View all slots' link 3. To filter the list – click the 'Toggle Filters' button and select the filters you want to use. 4. Filtering Partner by 'None' will allow you to
     see free sessions 5. Filtering by 'Special' will allow you to see sessions in the future or past 6. Filtering by 'Duration' will allow you to see the type of session 7. Clicking 'Save' filters will save your filter settings using html5 local storage
     in your browser, the portal will auto-reload your filters in the future when you revisit the page in the same browser.
 
