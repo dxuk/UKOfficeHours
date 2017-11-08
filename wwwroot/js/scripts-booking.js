@@ -244,30 +244,32 @@
 
             self.DeleteSlot = function(item) {
 
-                var sender = ko.toJSON(item);
-                                                
-                authContext.acquireToken(clientid, function(error, token) {
+                var response = window.confirm("Are you sure you want to delete this slot?");
 
-                $.ajax({
+                if (response === true) {
 
-                    method: "POST",
-                    contentType: "application/json",
-                    url: rootfnsite + "api/DeleteBookingSlot",
-                    data: sender,
-                    headers: {
-                        'authorization': 'bearer ' + token
-                    },
-                    success: function(result) {
-                        self.loadeddata.remove(item);
+                    var sender = ko.toJSON(item);
+                                                    
+                    authContext.acquireToken(clientid, function(error, token) {
 
-                    },
-                    error: function (jqXHR, errMsg, textStatus) {
-                                        
-                    }                    
+                    $.ajax({
+
+                        method: "POST",
+                        contentType: "application/json",
+                        url: rootfnsite + "api/DeleteBookingSlot",
+                        data: sender,
+                        headers: {
+                            'authorization': 'bearer ' + token
+                        },
+                        success: function(result) {
+                            self.loadeddata.remove(item);
+                        },
+                        error: function (jqXHR, errMsg, textStatus) {
+                                            
+                        }                    
+                    });
                 });
-
-
-            });
+            }
         }
 
             // Client side filtering code 
