@@ -360,21 +360,24 @@
 
             // Helper Method to filter forward or back depending on value passed in
             self.SearchForMatchInArrayAgainstDateHelper = function(filterSelection, filteredItem) {
+
+                var isInTheFuture = moment().diff(filteredItem, 'minutes') < 0;
+
                 switch (filterSelection) {
                     case '--All--':
                         return true;
                     case 'Future':
-                        return moment().diff(filteredItem, 'minutes') < 0;
+                        return isInTheFuture;
                     case 'Past':
                         return moment().diff(filteredItem, 'minutes') >= 0;
                     case 'Within 1 wk':
-                        return moment().diff(filteredItem, 'days', true) > -7;
+                        return isInTheFuture && moment().diff(filteredItem, 'days', true) > -7;
                     case 'Within 2 wks':
-                        return moment().diff(filteredItem, 'days', true) > -14; 
+                        return isInTheFuture && moment().diff(filteredItem, 'days', true) > -14; 
                     case 'Within 3 wks':
-                        return moment().diff(filteredItem, 'days', true) > -21;
+                        return isInTheFuture && moment().diff(filteredItem, 'days', true) > -21;
                     case 'Within 4 wks':
-                        return moment().diff(filteredItem, 'days', true) > -28; 
+                        return isInTheFuture && moment().diff(filteredItem, 'days', true) > -28; 
                 }
             };
  
