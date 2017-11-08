@@ -226,7 +226,8 @@
             StartDate: ko.observable(today),
             StartTime: ko.observable(''),
             Duration: ko.observable(''),
-            Break: ko.observable('')
+            Break: ko.observable(''),
+            Topic: ko.observable('')
         };
         viewmodel_addslot.StartDateTime = ko.computed(function() {
             return moment(viewmodel_addslot.StartDate() + " " + viewmodel_addslot.StartTime(), "DD/MM/YYYY HH:mm");
@@ -526,6 +527,7 @@
             ContactEmail: ko.observable(''),
             ContactName: ko.observable(''),
             CurrentCode: ko.observable(''),
+            ContactTopic: ko.observable(''),
             EmailLink: ko.observable('')
         };
 
@@ -766,8 +768,18 @@
                 var validstring = "";
 
                 if (viewmodel_isvdata.Name() === '') {
-                    validstring = "Field 'ISV Name' is required. ";
+                    validstring = "Field 'Partner Name' is required. ";
                     $('#isvnamelabel').addClass('text-danger');
+                    ;
+                }
+                if (viewmodel_isvdata.ContactEmail() === '') {
+                    validstring = "Field 'Partner Email' is required. ";
+                    $('#partneremaillabel').addClass('text-danger');
+                    ;
+                }
+                if (viewmodel_isvdata.ContactName() === '') {
+                    validstring = "Field 'Contact Name' is required. ";
+                    $('#contactnamelabel').addClass('text-danger');
                     ;
                 }
 
