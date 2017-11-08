@@ -242,9 +242,33 @@
 
             self.loadeddata = ko.observableArray(null);
 
-            self.DeleteSlot = function(id) {
-                alert("Hello " + id.PartitionKey + id.RowKey);
-            };
+            self.DeleteSlot = function(item) {
+
+                var sender = ko.toJSON(item);
+                                                
+                authContext.acquireToken(clientid, function(error, token) {
+
+                $.ajax({
+
+                    method: "POST",
+                    contentType: "application/json",
+                    url: rootfnsite + "api/DeleteBookingSlot",
+                    data: sender,
+                    headers: {
+                        'authorization': 'bearer ' + token
+                    },
+                    success: function(result) {
+                        self.loadeddata.remove(item);
+
+                    },
+                    error: function (jqXHR, errMsg, textStatus) {
+                                        
+                    }                    
+                });
+
+
+            });
+        }
 
             // Client side filtering code 
             // Build the lists of unique entries
@@ -543,6 +567,9 @@
                 loadfinished();
 
             }
+            else {
+                ko.applyBindings(myslotsforfilter);
+            }
 
         }
 
@@ -625,6 +652,8 @@
                             'authorization': 'bearer ' + token
                         },
                         success: function(result) {
+
+                            viewmodel_viewallslots.loadeddata.remove(self);
 
                             loadupdatestatus(60);
 
