@@ -511,6 +511,7 @@
                 // Set up the modal form data bindings to receive the selected row values
                 viewmodel_viewslots.submitdata.RowKey(bookingslot.RowKey);
                 viewmodel_viewslots.submitdata.PartitionKey(bookingslot.PartitionKey);
+                viewmodel_viewslots.submitdata.Topic(bookingslot.Topic);
                 viewmodel_viewslots.submitdata.VisualSlot(moment(bookingslot.StartDateTime).format("DD MMM YYYY @ HH:mm") + "(" + bookingslot.Duration + "m)");
 
                 $('#sendbobtn').prop("disabled", false);
@@ -624,11 +625,8 @@
                         loadfinished();
 
                     });
-
                 });
-
             }
-
         }
 
         function wireSlotSubmitFormViaFunction() {
