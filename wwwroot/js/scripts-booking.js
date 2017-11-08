@@ -242,6 +242,10 @@
 
             self.loadeddata = ko.observableArray(null);
 
+            self.DeleteSlot = function(id) {
+                alert("Hello " + id.PartitionKey + id.RowKey);
+            };
+
             // Client side filtering code 
             // Build the lists of unique entries
             self.TEList = ko.computed(function() {
@@ -339,6 +343,9 @@
 
             // Get an AD token and attach it to the AJAX request to the fn app
             authContext.acquireToken(clientid, function(error, token) {
+
+                self.Username = authContext.getCachedUser().userName;
+
                 $.ajax({
                     method: "GET",
                     url: rootfnsite + "api/GetAllBookingSlots",
@@ -881,6 +888,8 @@
                 log.innerHTML = "Logout " + authContext.getCachedUser().profile.name;
 
                 log.onclick = function() { authContext.logOut(); };
+
+                var user = authContext.getCachedUser().userName;
 
             }
 
