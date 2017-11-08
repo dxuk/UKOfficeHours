@@ -385,6 +385,7 @@
                                                 <th>Date</th>
                                                 <th>Start Time</th>
                                                 <th>Duration (mins)</th>
+                                                <th>Topic</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -393,6 +394,7 @@
                                                 <td data-bind="text: moment(StartDateTime).format( 'dddd, MMMM Do YYYY')"></td>
                                                 <td data-bind="text: moment(StartDateTime).format( 'LT')"></td>
                                                 <td data-bind="text: Duration"></td>
+                                                <td data-bind="text: Topic"></td>
                                                 <td>
                                                     <a class="btn btn-success" data-toggle="modal" data-target="#myBookingModal" data-bind="click: $root.SetBookingSlot">
                                             Book It!
