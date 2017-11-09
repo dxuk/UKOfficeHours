@@ -1,4 +1,5 @@
 ﻿#load "..\Shared\httpUtils.csx"
+#load "..\Domain\BookingSlot.csx"
 #load "..\Domain\isv.csx"
 
 #r "Microsoft.WindowsAzure.Storage"
@@ -32,22 +33,21 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, CloudT
     
     isv thisISV = await httpUtils.GetTFromJSONRequestBody<isv>(req);
 
-    thisISV.RowKey = thisISV.Name;
-    thisISV.PartitionKey = httpUtils.GetCurrentUserEmailFromClaims();
-
     if (thisISV.CurrentCode == "" || thisISV.CurrentCode == null) 
     {
 
         log.Info("ISV is a new one, generating code"); 
         thisISV.AddUniqueAlphaNumCodeAndSave();
-
     }
+
+    thisISV.RowKey = $"{thisISV.Name}_{thisISV.CurrentCode}";
+    thisISV.PartitionKey = httpUtils.GetCurrentUserEmailFromClaims();
+    //thisISV.Createdby = httpUtils.GetCurrentUserEmailFromClaims();
 
     TableOperation operationadd = TableOperation.Insert(thisISV);
     outObj.Execute(operationadd, GetEncryptionPolicy());
 
     return req.CreateResponse(HttpStatusCode.OK, thisISV);
-
 }
 
 public static TableRequestOptions GetEncryptionPolicy()
@@ -64,4 +64,3 @@ public static TableRequestOptions GetEncryptionPolicy()
     TableRequestOptions rqOptions = new TableRequestOptions() { EncryptionPolicy = encryptionPolicy };
     return rqOptions; 
 } 
-

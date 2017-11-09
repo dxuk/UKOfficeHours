@@ -1,6 +1,7 @@
 ﻿#load "..\Shared\httpUtils.csx"
 #load "..\Domain\BookingSlot.csx"
 #load "..\Domain\isv.csx"
+#load "..\Domain\TechnicalEvangelist.csx"
 
 #r "Microsoft.ServiceBus"
 #r "Microsoft.WindowsAzure.Storage"
@@ -147,17 +148,6 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, CloudT
 
         }
     }
-
-public class technicalevangelist : TableEntity
-{
-
-    // RowKey is the User's Alias
-    // PartitionKey is a static 'ALL' value
-    [EncryptProperty]
-    public string SkypeLink {get; set;}
-    public string TEName {get; set;}
-
-}
 
 public static TableRequestOptions GetTableRequestOptionsWithEncryptionPolicy()
 {

@@ -32,7 +32,7 @@ public static void Run(TimerInfo myTimer, IQueryable<bookingslot> inTable, IQuer
        {    
               outerBookingSlot = loopBookingSlot; 
 
-              isv thisISV = (from isvs in isvTable select isvs).Where(e => e.PartitionKey == loopBookingSlot.PBE && e.RowKey == loopBookingSlot.BookedToISV && e.CurrentCode == loopBookingSlot.BookingCode).First(); 
+              isv thisISV = (from isvs in isvTable select isvs).Where(e => e.PartitionKey == loopBookingSlot.PBE && e.RowKey.StartsWith(loopBookingSlot.BookedToISV) && e.CurrentCode == loopBookingSlot.BookingCode).First(); 
        
               var operation = TableOperation.Delete(thisISV);
               outObj.ExecuteAsync(operation);

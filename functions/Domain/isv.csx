@@ -7,8 +7,6 @@ using Microsoft.WindowsAzure.Storage.Table;
 public class isv : TableEntity
 {
     [EncryptProperty]
-    public string Createdby { get; set; }
-    [EncryptProperty]
     public string Name { get; set; }
     [EncryptProperty]
     public string ContactName { get; set; }
