@@ -287,6 +287,7 @@
                                                     <td data-bind="text: PBE"></td>
                                                     <td data-bind="text: BookedToISV"></td>
                                                     <td data-bind="text: PartitionKey"></td>
+                                                    <td><button id="deleteslot" class="btn btn-danger" type="button" data-bind="click: $root.DeleteSlot, visible: TechnicalEvangelist === $root.Username && BookedToISV === 'None'">Remove</button></td>
                                                 </tr>
                                             </tbody>
                                         </table>

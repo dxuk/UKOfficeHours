@@ -242,6 +242,36 @@
 
             self.loadeddata = ko.observableArray(null);
 
+            self.DeleteSlot = function(item) {
+
+                var response = window.confirm("Are you sure you want to delete this slot?");
+
+                if (response === true) {
+
+                    var sender = ko.toJSON(item);
+                                                    
+                    authContext.acquireToken(clientid, function(error, token) {
+
+                    $.ajax({
+
+                        method: "POST",
+                        contentType: "application/json",
+                        url: rootfnsite + "api/DeleteBookingSlot",
+                        data: sender,
+                        headers: {
+                            'authorization': 'bearer ' + token
+                        },
+                        success: function(result) {
+                            self.loadeddata.remove(item);
+                        },
+                        error: function (jqXHR, errMsg, textStatus) {
+                                            
+                        }                    
+                    });
+                });
+            }
+        }
+
             // Client side filtering code 
             // Build the lists of unique entries
             self.TEList = ko.computed(function() {
@@ -339,6 +369,9 @@
 
             // Get an AD token and attach it to the AJAX request to the fn app
             authContext.acquireToken(clientid, function(error, token) {
+
+                self.Username = authContext.getCachedUser().userName;
+
                 $.ajax({
                     method: "GET",
                     url: rootfnsite + "api/GetAllBookingSlots",
@@ -535,6 +568,9 @@
 
                 loadfinished();
 
+            }
+            else {
+                ko.applyBindings(myslotsforfilter);
             }
 
         }
@@ -881,6 +917,8 @@
                 log.innerHTML = "Logout " + authContext.getCachedUser().profile.name;
 
                 log.onclick = function() { authContext.logOut(); };
+
+                var user = authContext.getCachedUser().userName;
 
             }
 
