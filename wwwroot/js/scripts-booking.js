@@ -543,12 +543,10 @@
 
         }
 
-
-
-        function fetchBookingSlotsViaFunction() {
-
-            if (viewmodel_viewslots.loadeddata === null) {
-
+        function fetchBookingSlotsViaFunction()
+        {
+            if (viewmodel_viewslots.loadeddata === null)
+            {
                 loadstarted();
 
                 // Get the main page content if we are not on the first page and render the stuff to the DOM
@@ -561,7 +559,11 @@
                             'authorization': 'bearer ' + token
                         },
                         success: function(data) {
-                           
+
+                            var self = this;
+                            self.filter = ko.observable('');
+                            alert(self.filter);
+
                             viewmodel_viewslots.loadeddata = data;
 
                             loadupdatestatus(50);
