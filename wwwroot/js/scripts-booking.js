@@ -655,8 +655,6 @@
                         },
                         success: function(result) {
 
-                            viewmodel_viewallslots.loadeddata.remove(self);
-
                             loadupdatestatus(60);
 
                             var currentStartDateTime = moment(viewmodel_addslot.StartDateTime());
