@@ -379,6 +379,26 @@
                                             <span>Book a technical session with a code: bookings available for the next 90 days</span>
                                         </h3>
                                     </div>
+                                    <div class="panel-body">
+                                        <div class="panel panel-info">
+                                            <div class="panel-heading">
+                                                <div class="form-horizontal" role="form">
+                                                    <div class="form-group">
+                                                        <label for="topicFilter" class="col-sm-1 control-label">Topic</label>
+                                                        <div class="col-sm-2">
+                                                            <select class="col-sm-2 form-control" id="topicFilter">
+                                                                <option value="General">General</option>
+                                                                <option value="AppInfra">Applications and Infrastructure</option>
+                                                                <option value="DataAI">Data and AI</option>
+                                                                <option value="ModernWorkplace">Modern Workplace</option>
+                                                                <option value="BusApps">Business Applications</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <table class="table table-striped">
                                         <thead>
                                             <tr>
@@ -415,18 +435,33 @@
                                             </div>
                                             <div class="modal-body">
                                                 <form class="form-horizontal" role="form" data-bind="submit: FireBooking">
+
                                                     <div class="form-group">
                                                         <label class="col-sm-2 control-label" for="RowKey">
-                                                Booking Session
-                                            </label>
+                                                            Session
+                                                        </label>
                                                         <div class="col-sm-10">
                                                             <label class="form-control" id="RowKey" data-bind="text: submitdata.VisualSlot"></label>
                                                         </div>
+                                                    </div>                                                    
+                                                    <div class="form-group">
+                                                            <label class="col-sm-2 control-label" for="BookingTopic">
+                                                                Topic
+                                                            </label>
+                                                            <div class="col-sm-10">
+                                                                <select class="form-control" data-bind="value: submitdata.Topic" id="BookingTopic" disabled="true">
+                                                                        <option value="General">General</option>
+                                                                        <option value="AppInfra">Applications and Infrastructure</option>
+                                                                        <option value="DataAI">Data and AI</option>
+                                                                        <option value="ModernWorkplace">Modern Workplace</option>
+                                                                        <option value="BusApps">Business Applications</option>
+                                                                </select>
+                                                            </div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="col-sm-2 control-label" for="EnterBookingCode">
-                                                Enter a booking code
-                                            </label>
+                                                            Enter your code
+                                                        </label>
                                                         <div class="col-sm-10">
                                                             <input class="form-control" id="EnterBookingCode" type="text" data-bind="value: submitdata.BookingCode" />
                                                         </div>
