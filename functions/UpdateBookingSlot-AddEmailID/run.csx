@@ -1,4 +1,5 @@
 ﻿#load "..\Shared\httpUtils.csx"
+#load "..\Domain\BookingSlot.csx"
 
 #r "Microsoft.WindowsAzure.Storage"
 
@@ -40,35 +41,3 @@ public class UpdateDTO
     public string EventID {get;set;}
 
 }   
-public class bookingslot : TableEntity
-{
-    public bookingslot()
-    {
-
-        CreatedDateTime = DateTime.Now; 
-
-    }
-    
-    public string TechnicalEvangelist {get; set;}
-    public DateTime StartDateTime {get; set;}
-    public DateTime EndDateTime {get; set;}
-
-    public string MailID {get;set;}
-
-    public int Duration
-    {
-        get
-        {
-            TimeSpan ts = EndDateTime - StartDateTime;
-            return ts.Minutes + (ts.Hours * 60);
-        }
-        set { }
-    }
-
-    public string BookedToISV { get; set; }
-    public string BookingCode { get; set; }
-    public string PBE { get; set; }
-
-    public DateTime CreatedDateTime { get; set; }
-
-}
