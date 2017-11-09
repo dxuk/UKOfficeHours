@@ -750,7 +750,7 @@
 
                         error: function (jqXHR, errMsg, textStatus) {
                                            
-                            $('#statussend').html("Failed " + jqXHRint.status + ":" + errMsg );
+                            $('#statussend').html("Failed " + jqXHR.status + ":" + errMsg );
                             loadfinished();
                             $('#sendlink').addClass('hidden');
                             $('#sendlink').removeClass('btn-success');
