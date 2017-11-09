@@ -447,6 +447,7 @@
                 RowKey: ko.observable('ERROR'),
                 PartitionKey: ko.observable('ERROR'),
                 BookingCode: ko.observable($.QueryString.BookingCode),
+                Topic: ko.observable(''),
                 VisualSlot: ko.observable('2017-02-12T17:00:00.000')
 
             },
