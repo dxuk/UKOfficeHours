@@ -260,6 +260,17 @@
                                                                 <option value="Within 4 wks">Within 4 wks</option>
                                                             </select>
                                                         </div>
+                                                        <label for="topicfilter" class="col-sm-1 control-label">Topic</label>
+                                                        <div class="col-sm-2">
+                                                            <select id="topicfilter" class="col-sm-2 form-control" data-bind="value: FilterTopic">
+                                                                <option>--All--</option>
+                                                                <option>General</option>
+                                                                <option>Applications and Infrastructure</option>
+                                                                <option>Data and AI</option>
+                                                                <option>Modern Workplace</option>
+                                                                <option>Business Applications</option>
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -273,9 +284,9 @@
                                                     <th>Start Time</th>
                                                     <th>Duration (mins)</th>
                                                     <th>Technical resource</th>
+                                                    <th>Topic</th>
                                                     <th>Partner Development Manager</th>
                                                     <th>Partner</th>
-                                                    <th>Month</th>
                                                 </tr>
                                             </thead>
                                             <tbody data-bind="foreach: $root.filteredItems">
@@ -284,9 +295,9 @@
                                                     <td data-bind="text: moment(StartDateTime).format('LT')"></td>
                                                     <td data-bind="text: Duration"></td>
                                                     <td data-bind="text: TechnicalEvangelist"></td>
+                                                    <td data-bind="text: Topic"></td>
                                                     <td data-bind="text: PBE"></td>
                                                     <td data-bind="text: BookedToISV"></td>
-                                                    <td data-bind="text: PartitionKey"></td>
                                                     <td><button id="deleteslot" class="btn btn-danger" type="button" data-bind="click: $root.DeleteSlot, visible: TechnicalEvangelist === $root.Username && BookedToISV === 'None'">Remove</button></td>
                                                 </tr>
                                             </tbody>
@@ -330,11 +341,11 @@
                                             </label>
                                             <div class="col-sm-10">
                                                 <select class="form-control col-sm-2" data-bind="value: ContactTopic" id="ContactTopic">
-                                                        <option value="General">General</option>
-                                                        <option value="AppInfra">Applications and Infrastructure</option>
-                                                        <option value="DataAI">Data and AI</option>
-                                                        <option value="ModernWorkplace">Modern Workplace</option>
-                                                        <option value="BusApps">Business Applications</option>
+                                                    <option>General</option>
+                                                    <option>Applications and Infrastructure</option>
+                                                    <option>Data and AI</option>
+                                                    <option>Modern Workplace</option>
+                                                    <option>Business Applications</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -387,12 +398,12 @@
                                                     <div class="form-group">
                                                         <label for="topicFilter" class="col-sm-1 control-label">Topic</label>
                                                         <div class="col-sm-2">
-                                                            <select class="col-sm-2 form-control" id="topicFilter" databind="value: filter">
-                                                                <option value="General">General</option>
-                                                                <option value="AppInfra">Applications and Infrastructure</option>
-                                                                <option value="DataAI">Data and AI</option>
-                                                                <option value="ModernWorkplace">Modern Workplace</option>
-                                                                <option value="BusApps">Business Applications</option>
+                                                            <select class="form-control" id="topicFilter" data-bind="value: FilterTopic">
+                                                                <option>General</option>
+                                                                <option>Applications and Infrastructure</option>
+                                                                <option>Data and AI</option>
+                                                                <option>Modern Workplace</option>
+                                                                <option>Business Applications</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -410,7 +421,7 @@
                                                 <th></th>
                                             </tr>
                                         </thead>
-                                        <tbody data-bind="foreach: $root.loadeddata" id="bindingforBookinglist">
+                                        <tbody data-bind="foreach: $root.filteredAvailableSlots" id="bindingforBookinglist">
                                             <tr>
                                                 <td data-bind="text: moment(StartDateTime).format( 'dddd, MMMM Do YYYY')"></td>
                                                 <td data-bind="text: moment(StartDateTime).format( 'LT')"></td>
@@ -446,18 +457,12 @@
                                                         </div>
                                                     </div>                                                    
                                                     <div class="form-group">
-                                                            <label class="col-sm-2 control-label" for="BookingTopic">
-                                                                Topic
-                                                            </label>
-                                                            <div class="col-sm-10">
-                                                                <select class="form-control" data-bind="value: submitdata.Topic" id="BookingTopic" disabled="true">
-                                                                        <option value="General">General</option>
-                                                                        <option value="AppInfra">Applications and Infrastructure</option>
-                                                                        <option value="DataAI">Data and AI</option>
-                                                                        <option value="ModernWorkplace">Modern Workplace</option>
-                                                                        <option value="BusApps">Business Applications</option>
-                                                                </select>
-                                                            </div>
+                                                        <label class="col-sm-2 control-label" for="BookingTopic">
+                                                            Topic
+                                                        </label>
+                                                        <div class="col-sm-10">
+                                                            <label class="form-control" data-bind="text: submitdata.Topic" id="BookingTopic"></label>
+                                                        </div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="col-sm-2 control-label" for="EnterBookingCode">
@@ -525,11 +530,11 @@
                                                         <option value="180">ADS or Envisioning Session</option>
                                                     </select>
                                                     <select class="form-control col-sm-2" data-bind="value: Topic" id="Topic">
-                                                        <option value="General">General</option>
-                                                        <option value="AppInfra">Applications and Infrastructure</option>
-                                                        <option value="DataAI">Data and AI</option>
-                                                        <option value="ModernWorkplace">Modern Workplace</option>
-                                                        <option value="BusApps">Business Applications</option>
+                                                        <option>General</option>
+                                                        <option>Applications and Infrastructure</option>
+                                                        <option>Data and AI</option>
+                                                        <option>Modern Workplace</option>
+                                                        <option>Business Applications</option>
                                                     </select>
                                                 </div>
                                             </div>

@@ -19,6 +19,7 @@
         var loadedpercent = 0;
         var allbookingslotsbound = false;
         var allisvsbound = false;
+        var availableSlotsBound = false;
         var myisvsforfilter;
         var thisvar;
         var loadme = true;
@@ -253,25 +254,25 @@
                                                     
                     authContext.acquireToken(clientid, function(error, token) {
 
-                    $.ajax({
+                        $.ajax({
 
-                        method: "POST",
-                        contentType: "application/json",
-                        url: rootfnsite + "api/DeleteBookingSlot",
-                        data: sender,
-                        headers: {
-                            'authorization': 'bearer ' + token
-                        },
-                        success: function(result) {
-                            self.loadeddata.remove(item);
-                        },
-                        error: function (jqXHR, errMsg, textStatus) {
-                                            
-                        }                    
+                            method: "POST",
+                            contentType: "application/json",
+                            url: rootfnsite + "api/DeleteBookingSlot",
+                            data: sender,
+                            headers: {
+                                'authorization': 'bearer ' + token
+                            },
+                            success: function(result) {
+                                self.loadeddata.remove(item);
+                            },
+                            error: function (jqXHR, errMsg, textStatus) {
+                                                
+                            }                    
+                        });
                     });
-                });
+                }
             }
-        }
 
             // Client side filtering code 
             // Build the lists of unique entries
@@ -327,9 +328,10 @@
             self.FilterDate = ko.observable(localStorage.getItem("FilterDate") || '--All--');
             self.FilterDuration = ko.observable(localStorage.getItem("FilterDuration") || '--All--');
             self.FilterFutureOrPast = ko.observable(localStorage.getItem("FilterFutureOrPast") || '--All--');
-
-            self.ResetFilters = function() {
-
+            self.FilterTopic = ko.observable(localStorage.getItem("FilterTopic") || '--All--');
+            
+            self.ResetFilters = function()
+            {
                 // Bind the filter values themselves
                 self.FilterTE('--All--');
                 self.FilterPK('--All--');
@@ -338,7 +340,7 @@
                 self.FilterDate('--All--');
                 self.FilterDuration('--All--');
                 self.FilterFutureOrPast('--All--');
-
+                self.FilterTopic('--All--');
             };
             self.SaveFilters = function() {
 
@@ -350,7 +352,7 @@
                 localStorage.setItem("FilterDate", self.FilterDate());
                 localStorage.setItem("FilterDuration", self.FilterDuration());
                 localStorage.setItem("FilterFutureOrPast", self.FilterFutureOrPast());
-
+                localStorage.setItem("FilterTopic", self.FilterTopic());
             };
             self.LoadFilters = function() {
 
@@ -363,7 +365,8 @@
                 self.FilterPK(localStorage.getItem("FilterPK") || '--All--');
                 self.FilterPBE(localStorage.getItem("FilterPBE") || '--All--');
                 self.FilterDate(localStorage.getItem("FilterDate") || '--All--');
-
+                self.FilterTopic(localStorage.getItem("FilterTopic") || '--All--');
+                
                 $("#notify-settings").html(" Filters Loaded");
 
             };
@@ -427,7 +430,8 @@
                     var FutureOrPastPass = self.SearchForMatchInArrayAgainstDateHelper(self.FilterFutureOrPast(), row.StartDateTime);
                     var PKPass = self.SearchForMatchInArrayAgainstItemHelper(self.FilterPK(), row.PartitionKey);
                     var PBEPass = self.SearchForMatchInArrayAgainstItemHelper(self.FilterPBE(), row.PBE);
-                    return TEFilterPass && DateFilterPass && DurationFilterPass && ISVFilterPass && FutureOrPastPass && PKPass && PBEPass;
+                    var TopicPass = self.SearchForMatchInArrayAgainstItemHelper(self.FilterTopic(), row.Topic);
+                    return TEFilterPass && DateFilterPass && DurationFilterPass && ISVFilterPass && FutureOrPastPass && PKPass && PBEPass && TopicPass;
 
                 });
             });
@@ -436,29 +440,55 @@
             ko.applyBindings(self, document.getElementById("bindingforBookedlist"));
         }
 
-        // This viewmodel is used for viewing the list of available slots and booking a slot (the submitdata object) 
-        var viewmodel_viewslots = {
+        function viewmodel_availableslots()
+        {
+            var self = this;
+            self.loadeddata = ko.observableArray(null);
+            self.FilterTopic = ko.observable('General');
+            
+            // Get the main page content if we are not on the first page and render the stuff to the DOM
+            authContext.acquireToken(clientid, function(error, token)
+            {
+                $.ajax({
+                    method: "GET",
+                    url: rootfnsite + "api/GetBookingSlot",
+                    headers: {
+                        'authorization': 'bearer ' + token
+                    },
+                    success: function(data)
+                    {
+                        self.loadeddata(data);
+                    }
+                });
+            }); 
+            
+            self.filteredAvailableSlots = ko.computed(function() 
+            {
+                var filter = self.FilterTopic();
+                if (filter != null)
+                {
+                    return ko.utils.arrayFilter(self.loadeddata(), function(slot)
+                    {
+                        return slot.Topic === filter;
+                    });
+                }
+            });
 
-            // Var to store the loaded free slots
-            loadeddata: null,
             // Var to store the currently selected slot data for the booking
-            submitdata: {
-
+            self.submitdata = {
                 RowKey: ko.observable('ERROR'),
                 PartitionKey: ko.observable('ERROR'),
                 BookingCode: ko.observable($.QueryString.BookingCode),
                 Topic: ko.observable(''),
                 VisualSlot: ko.observable('2017-02-12T17:00:00.000')
-
-            },
-
+            };
+                            
             // Function to get a token and actually fire the booking itself
-            FireBooking: function() {
-
-                authContext.acquireToken(clientid, function(error, token) {
-
+            self.FireBooking = function()
+            {
+                authContext.acquireToken(clientid, function(error, token)
+                {
                     loadupdatestatus(15);
-                    self = viewmodel_viewslots;
 
                     // We're booking the slot, disable the book button to stop duplicates
                     $('#sendbobtn').prop("disabled", true);
@@ -478,16 +508,16 @@
                             loadupdatestatus(70);
                             // Now the booking was successful, the code is no longer valid, so clear it. 
                             self.submitdata.BookingCode('');
-                          
+                            
                             $('#statusbosend').html("OK, You're booked in!");
                             document.getElementById("statusbosend").className += "bg-success";
                             $('#sendbobtn').prop("disabled", false);
                             loadfinished();
                         },
-                       error: function (jqXHR, errMsg, textStatus) {
+                        error: function (jqXHR, errMsg, textStatus) {
                             if (jqXHR.status == 409)
                                 {
-                                     $('#statusbosend').html("Error: either that booking code has already been used or that slot has already been booked, please create another.");
+                                        $('#statusbosend').html("Error: either that booking code has already been used or that slot has already been booked, please create another.");
                                 }
                                 else 
                                 {
@@ -505,15 +535,16 @@
                         }
                     });
                 });
-            },
+            };
+
             // This function sets up the booking slot object with the record that was clicked from the grid via the knockout binding
             // and it then pops up the modal dialog.
-            SetBookingSlot: function(bookingslot) {
+            self.SetBookingSlot = function(bookingslot) {
                 // Set up the modal form data bindings to receive the selected row values
-                viewmodel_viewslots.submitdata.RowKey(bookingslot.RowKey);
-                viewmodel_viewslots.submitdata.PartitionKey(bookingslot.PartitionKey);
-                viewmodel_viewslots.submitdata.Topic(bookingslot.Topic);
-                viewmodel_viewslots.submitdata.VisualSlot(moment(bookingslot.StartDateTime).format("DD MMM YYYY @ HH:mm") + "(" + bookingslot.Duration + "m)");
+                self.submitdata.RowKey(bookingslot.RowKey);
+                self.submitdata.PartitionKey(bookingslot.PartitionKey);
+                self.submitdata.Topic(bookingslot.Topic);
+                self.submitdata.VisualSlot(moment(bookingslot.StartDateTime).format("DD MMM YYYY @ HH:mm") + "(" + bookingslot.Duration + "m session)");
 
                 $('#sendbobtn').prop("disabled", false);
 
@@ -521,7 +552,10 @@
                 return true;
             }
 
-        };
+            ko.applyBindings(self, document.getElementById("bookwithcodesection"));
+            //ko.applyBindings(self, document.getElementById("bindingforBookinglist"));
+            //ko.applyBindings(self, document.getElementById("myBookingModal"));
+        }
 
         // This viewmodel is used for the 'Add an ISV / get a code' postback
         var viewmodel_isvdata = {
@@ -579,56 +613,18 @@
 
         }
 
-        function fetchBookingSlotsViaFunction()
+        function fetchAvailableBookingSlotsViaFunction()
         {
-            if (viewmodel_viewslots.loadeddata === null)
+            if (availableSlotsBound === false) 
             {
                 loadstarted();
-
-                // Get the main page content if we are not on the first page and render the stuff to the DOM
-                authContext.acquireToken(clientid, function(error, token) {
-
-                    $.ajax({
-                        method: "GET",
-                        url: rootfnsite + "api/GetBookingSlot",
-                        headers: {
-                            'authorization': 'bearer ' + token
-                        },
-                        success: function(data) {
-
-                            var self = this;
-                            self.filter = ko.observable('');
-                            alert(self.filter);
-
-                            viewmodel_viewslots.loadeddata = data;
-
-                            loadupdatestatus(50);
-
-                            ko.applyBindings(viewmodel_viewslots, document.getElementById("bindingforBookinglist"));
-                            ko.applyBindings(viewmodel_viewslots, document.getElementById("myBookingModal"));
-
-                            loadfinished();
-                        }
-                    });
-
-                });
-
-            } else {
-
-                loadstarted();
-
-                authContext.acquireToken(clientid, function(error, token) {
-
-                    $.getJSON(rootfnsite + "api/GetBookingSlot", function(data) {
-
-                        viewmodel_viewslots.loadeddata = data;
-
-                        loadupdatestatus(50);
-
-                        loadfinished();
-
-                    });
-                });
+                myslotsforfilter = new viewmodel_availableslots();
+                availableSlotsBound = true;
+                loadfinished();
+            }
+            else 
+            {
+                //ko.applyBindings(myslotsforfilter);
             }
         }
 
@@ -823,10 +819,9 @@
 
         }
 
-        function initpanel(panelOn) {
-
+        function initpanel(panelOn) 
+        {
             // Initialise the appropriate panel loader here on demand
-
             switch (panelOn) {
 
                 case "viewslots":
@@ -841,8 +836,7 @@
                     break;
 
                 case "bookwithcode":
-
-                    fetchBookingSlotsViaFunction();
+                    fetchAvailableBookingSlotsViaFunction();
                     break;
 
                 case "addslots":

@@ -1,6 +1,6 @@
 {
     "frameworks": {
-        "net46":{
+        "net47":{
             "dependencies": {
                 "Microsoft.IdentityModel.Clients.ActiveDirectory": "2.16.204221202", 
                 "Microsoft.Azure.KeyVault": "1.0.0",
