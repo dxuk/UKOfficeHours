@@ -1,3 +1,5 @@
+#r "Microsoft.WindowsAzure.Storage"
+
 using System.Text;
 using System.Security.Cryptography;
 using Microsoft.WindowsAzure.Storage.Table;

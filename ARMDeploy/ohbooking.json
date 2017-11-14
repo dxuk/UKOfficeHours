@@ -3,32 +3,59 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "svprefix": {
-            "type": "string"
+            "type": "string",
+            "metadata": {                
+                "description": "Service prefix (eh 'lo' for local, 'ts' for test, 'pr' for production etc"
+            }            
         },
         "AzureAD_TenantURI": {
-            "type": "string"
+            "type": "string",
+            "metadata": {                
+                "description": "This is the AAD Security Token Service endpoint eg https://sts.windows.net/12345678-1234-41af-91ab-2d7cd011db47/. The GUID is the AAD tenant GUID."
+            }              
         },
         "AzureAD_guid": {
-            "type": "string"
+            "type": "string",
+            "metadata": {                
+                "description": "This is the AAD tenant GUID. Use 'Get-AzureRmSubscrtiption' - TenantId."
+            }              
         },
         "KV_ObjID": {
-            "type": "string"
+            "type": "string",
+            "metadata": {                
+                "description": "This is the Azure Id of the AAD Service Principal that needs permissions to the Key Vault. Use 'Get-AzureRmADServicePrincipal' - Id"
+            }              
         },
         "AzureAD_TenantID": {
-            "type": "string"
+            "type": "string",
+            "metadata": {                
+                "description": "This is the AAD directory tenant eg microsoft.onmicrosoft.com."
+            }              
         },
         "AzureAD_ClientID": {
-            "type": "string"
+            "type": "string",
+            "metadata": {                
+                "description": "This is the AAD Application ID. Use 'Get-AzureADApplication' - AppId or get from the Portal."
+            }              
         },
         "KVKeyID": {
-            "type": "string"
-        },
+            "type": "string",
+            "metadata": {                
+                "description": "This is the KeyVault key id. Use 'Get-AzureKeyVaultKey' - Id or get from the Portal."
+            }              
+        },        
         "KVKey": {
-            "type": "string"
+            "type": "string",
+            "metadata": {                
+                "description": "This is the key (Client Secret) for the AAD Service Principal. Create in the Portal (AAD App Registrations)."
+            }              
         },
         "sna": {
             "type": "string",
-            "defaultValue": "Office Hours Service"
+            "defaultValue": "Office Hours Service",
+            "metadata": {                
+                "description": ""
+            }              
         }
     },
     "variables": {

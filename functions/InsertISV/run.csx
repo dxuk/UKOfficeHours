@@ -33,9 +33,6 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, CloudT
     
     isv thisISV = await httpUtils.GetTFromJSONRequestBody<isv>(req);
 
-    thisISV.RowKey = thisISV.Name;
-    thisISV.PartitionKey = httpUtils.GetCurrentUserEmailFromClaims();
-
     if (thisISV.CurrentCode == "" || thisISV.CurrentCode == null) 
     {
 
@@ -43,13 +40,14 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, CloudT
         thisISV.AddUniqueAlphaNumCodeAndSave();
     }
 
-    log.Info(JsonConvert.SerializeObject(thisISV));
+    thisISV.RowKey = $"{thisISV.Name}_{thisISV.CurrentCode}";
+    thisISV.PartitionKey = httpUtils.GetCurrentUserEmailFromClaims();
+    //thisISV.Createdby = httpUtils.GetCurrentUserEmailFromClaims();
 
     TableOperation operationadd = TableOperation.Insert(thisISV);
     outObj.Execute(operationadd, GetEncryptionPolicy());
 
     return req.CreateResponse(HttpStatusCode.OK, thisISV);
-
 }
 
 public static TableRequestOptions GetEncryptionPolicy()
@@ -66,5 +64,3 @@ public static TableRequestOptions GetEncryptionPolicy()
     TableRequestOptions rqOptions = new TableRequestOptions() { EncryptionPolicy = encryptionPolicy };
     return rqOptions; 
 } 
-
-
