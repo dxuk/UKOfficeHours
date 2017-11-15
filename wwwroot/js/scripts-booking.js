@@ -104,6 +104,8 @@
             async: false
         });
 
+        // Attach a handler to the dismiss event on the modal booking dialogue
+        // So we can do something sensible when the dialog is dismissed
         $('#myBookingModal').on('hidden.bs.modal', function () {
             window.location.href = window.location.origin;
         });
