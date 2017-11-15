@@ -26,7 +26,7 @@ using System.IO;
 using Newtonsoft.Json; 
 using Microsoft.WindowsAzure.Storage.Table.Queryable;
 
-public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, CloudTable outObj, TraceWriter log)
+public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, CloudTable tblbk, CloudTable outObj, TraceWriter log)
 { 
  
     if (!httpUtils.IsAuthenticated()) { return req.CreateResponse(HttpStatusCode.Forbidden, "You have to be signed in!"); };
@@ -35,9 +35,13 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, CloudT
 
     if (thisISV.CurrentCode == "" || thisISV.CurrentCode == null) 
     {
-
-        log.Info("ISV is a new one, generating code"); 
-        thisISV.AddUniqueAlphaNumCodeAndSave();
+        try {
+            log.Info("ISV is a new one, generating code"); 
+            thisISV.AddUniqueAlphaNumCodeAndSave(tblbk);
+        }
+        catch (ApplicationException ex) {
+            return req.CreateResponse(HttpStatusCode.Conflict, "Unable to generate a unique booking code.");
+        }
     }
 
     thisISV.RowKey = $"{thisISV.Name}_{thisISV.CurrentCode}";

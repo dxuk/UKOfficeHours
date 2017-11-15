@@ -1,3 +1,5 @@
+#load "..\Domain\BookingSlot.csx" 
+
 #r "Microsoft.WindowsAzure.Storage"
 
 using System.Text;
@@ -15,7 +17,8 @@ public class isv : TableEntity
 
     public string ContactTopic { get; set; }
     public string CurrentCode { get; set; }
-    public string AddUniqueAlphaNumCodeAndSave()
+    //public string AddUniqueAlphaNumCodeAndSave(CloudTable tblbk, TraceWriter log)
+    public string AddUniqueAlphaNumCodeAndSave(CloudTable tblbk)
     {
         // Generate a unique alphanumeric 8 digit code. 
 
@@ -24,17 +27,38 @@ public class isv : TableEntity
         // Confirm it's unique in the isv table 
         // If unique store it ! 
 
+        bookingslot chkslt = null;
+        int trycount = 0;
+        string tryCode;
+
+        do {
+            trycount++;
+            //log.Info($"Trycount: {trycount}");
+            tryCode = CreateCode();        
+            chkslt = (from slot in tblbk.CreateQuery<bookingslot>() select slot).Where(e => e.BookingCode == tryCode).FirstOrDefault();
+        } while (chkslt != null && trycount < 100);
+
+        if (trycount >= 100)
+            throw new ApplicationException("Unable to generated unique booking code.");   
+
+        CurrentCode = tryCode;
+        return CurrentCode;
+    }
+
+    private string CreateCode()
+    {
         Random rnd = new Random();
+        string generatedCode;
 
         string source = $"{ContactName}{Name}{DateTime.UtcNow.ToLongTimeString()}{rnd.Next().ToString()}{PartitionKey}";
 
         using (SHA512 Hash = SHA512.Create())
         {
             string hash = GetSHA512Hash(Hash, source);
-            CurrentCode = hash.ToUpper().Substring(0, 8);
+            generatedCode = hash.ToUpper().Substring(0, 8);
         }
 
-        return CurrentCode;
+        return generatedCode;
     }
 
     private static string GetSHA512Hash(SHA512 shaHash, string input)
