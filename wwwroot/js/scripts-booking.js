@@ -104,6 +104,10 @@
             async: false
         });
 
+        $('#myBookingModal').on('hidden.bs.modal', function () {
+            window.location.href = window.location.origin;
+        });
+
         // Declare Special Binding Handlers to deal with the datepickers bindings in knockout
         // DatePicker
         ko.bindingHandlers.weekdaydatePicker = {
@@ -476,6 +480,7 @@
                             loadupdatestatus(70);
                             // Now the booking was successful, the code is no longer valid, so clear it. 
                             self.submitdata.BookingCode('');
+                           // window.location.href = "/";
                           
                             $('#statusbosend').html("OK, You're booked in!");
                             document.getElementById("statusbosend").className += "bg-success";
@@ -513,7 +518,7 @@
                 viewmodel_viewslots.submitdata.VisualSlot(moment(bookingslot.StartDateTime).format("DD MMM YYYY @ HH:mm") + "(" + bookingslot.Duration + "m)");
 
                 $('#sendbobtn').prop("disabled", false);
-
+               
                 // Exit and allow bootstrap to pop up the modal
                 return true;
             }
