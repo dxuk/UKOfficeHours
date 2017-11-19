@@ -12,9 +12,9 @@ public class isv : TableEntity
     public string ContactName { get; set; }
     [EncryptProperty]
     public string ContactEmail { get; set; }
-
     public string ContactTopic { get; set; }
     public string CurrentCode { get; set; }
+    public string ContactSynopsis { get; set; }     
     public string AddUniqueAlphaNumCodeAndSave()
     {
         // Generate a unique alphanumeric 8 digit code. 

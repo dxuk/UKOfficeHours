@@ -1,0 +1,33 @@
+﻿{
+  "bindings": [
+    {
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "get"
+      ],
+      "authLevel": "anonymous"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    },
+    {
+      "type": "table",
+      "name": "bookingSlotTable",
+      "tableName": "bookingslot",
+      "connection": "storageConnection",
+      "direction": "in"
+    },
+    {
+      "type": "table",
+      "name": "partnerTable",
+      "tableName": "isv",
+      "connection": "storageConnection",
+      "direction": "in"
+    }
+  ],
+  "disabled": false
+}

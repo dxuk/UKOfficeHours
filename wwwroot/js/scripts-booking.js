@@ -443,24 +443,10 @@
         function viewmodel_availableslots()
         {
             var self = this;
+            self.availability = ko.observable('false');
             self.loadeddata = ko.observableArray(null);
             self.FilterTopic = ko.observable('General');
-            
-            // Get the main page content if we are not on the first page and render the stuff to the DOM
-            authContext.acquireToken(clientid, function(error, token)
-            {
-                $.ajax({
-                    method: "GET",
-                    url: rootfnsite + "api/GetBookingSlot",
-                    headers: {
-                        'authorization': 'bearer ' + token
-                    },
-                    success: function(data)
-                    {
-                        self.loadeddata(data);
-                    }
-                });
-            }); 
+            self.BookingCode = ko.observable($.QueryString.BookingCode);
             
             self.filteredAvailableSlots = ko.computed(function() 
             {
@@ -478,11 +464,45 @@
             self.submitdata = {
                 RowKey: ko.observable('ERROR'),
                 PartitionKey: ko.observable('ERROR'),
-                BookingCode: ko.observable($.QueryString.BookingCode),
+                BookingCode: ko.observable(self.BookingCode()),
                 Topic: ko.observable(''),
                 VisualSlot: ko.observable('2017-02-12T17:00:00.000')
             };
-                            
+
+            self.GetSlotsForCode = function()
+            {
+                self.availability(false);
+                self.submitdata.BookingCode = self.BookingCode();
+                
+                // Get the main page content if we are not on the first page and render the stuff to the DOM
+                authContext.acquireToken(clientid, function(error, token)
+                {
+                    $.ajax({
+                        method: "GET",
+                        url: rootfnsite + "api/GetAvailableSlotByBookingCode?BookingCode=" + self.BookingCode(),
+                        headers: {
+                            'authorization': 'bearer ' + token
+                        },
+                        success: function(data)
+                        {
+                            $('#statusFindSlot').html("");
+                            self.loadeddata(data);                            
+                            self.availability(true);
+                        },
+                        error: function (jqXHR, errMsg, textStatus)
+                        {
+                            if (jqXHR.status == 404)
+                            {
+                                $('#statusFindSlot').html("Error: We cannot find that booking code. Please contact your Partner Development Manager to get a new one.");
+                            }
+                            document.getElementById("statusFindSlot").className += "bg-danger";
+                            self.availability(false);
+                            loadfinished();
+                        }
+                    });
+                }); 
+            };
+
             // Function to get a token and actually fire the booking itself
             self.FireBooking = function()
             {
@@ -564,7 +584,8 @@
             ContactName: ko.observable(''),
             CurrentCode: ko.observable(''),
             ContactTopic: ko.observable(''),
-            EmailLink: ko.observable('')
+            EmailLink: ko.observable(''),
+            ContactSynopsis: ko.observable('')
         };
 
         // Show the status bar, we're performing an action
@@ -617,10 +638,10 @@
         {
             if (availableSlotsBound === false) 
             {
-                loadstarted();
+//                loadstarted();
                 myslotsforfilter = new viewmodel_availableslots();
                 availableSlotsBound = true;
-                loadfinished();
+//                loadfinished();
             }
             else 
             {
@@ -694,25 +715,32 @@
 
         function wireISVSubmitFormViaFunction() {
 
-            viewmodel_isvdata.WriteISV = function(data) {
-
+            viewmodel_isvdata.WriteISV = function(data)
+            {
                 self = this;
-
                 var sender = ko.toJSON(self);
 
                 $('#statussend').removeClass('text-danger');
                 $('#isvnamelabel').removeClass('text-danger');
+                $('#partneremaillabel').removeClass('text-danger');
+                $('#contactnamelabel').removeClass('text-danger');
+                $('#ContactSynopsisLabel').removeClass('text-danger');
                 $('#continuecheck').removeClass('text-danger');
 
-                if (viewmodel_isvdata.Name() !== '' && ((document.getElementById('isvconsent').checked) || (document.getElementById('msisvconsent').checked))) {
+                if (viewmodel_isvdata.Name() !== '' 
+                    && viewmodel_isvdata.ContactName() !== ''
+                    && viewmodel_isvdata.ContactEmail() !== ''
+                    && viewmodel_isvdata.ContactSynopsis() !== ''
+                    && ((document.getElementById('isvconsent').checked) 
+                    || (document.getElementById('msisvconsent').checked)))
+                {
+                    authContext.acquireToken(clientid, function(error, token)
+                    {
+                        loadstarted();
 
-                    authContext.acquireToken(clientid, function(error, token) {
+                        loadupdatestatus(30);
 
-                    loadstarted();
-
-                    loadupdatestatus(30);
-
-                    $('#sendisvbtn').prop("disabled", true);
+                        $('#sendisvbtn').prop("disabled", true);
 
                     $.ajax({
 
@@ -731,10 +759,11 @@
                             var uri = encodeURI(endpoint + "?StartPanel=bookwithcode&BookingCode=" + result.CurrentCode);
 
                             viewmodel_isvdata.EmailLink = ko.observable('');
-                            viewmodel_isvdata.ContactEmail('email@nomail.com');
-                            viewmodel_isvdata.ContactName('Anyone');
+                            viewmodel_isvdata.ContactEmail('');
+                            viewmodel_isvdata.ContactName('');
                             viewmodel_isvdata.Name('');
                             viewmodel_isvdata.CurrentCode('');
+                            viewmodel_isvdata.ContactSynopsis('')
 
                             $('#sendlink').attr('href', uri);
                             $('#sendlink').removeClass('hidden');
@@ -744,7 +773,6 @@
 
                             loadfinished();
                             $('#sendisvbtn').prop("disabled", false);
-
                         },
 
                         error: function (jqXHR, errMsg, textStatus) {
@@ -754,9 +782,7 @@
                             $('#sendlink').addClass('hidden');
                             $('#sendlink').removeClass('btn-success');
                             $('#sendisvbtn').prop("disabled", false);
-
                         }
-                       
                     });
                 });
             }
@@ -767,22 +793,23 @@
                 if (viewmodel_isvdata.Name() === '') {
                     validstring = "Field 'Partner Name' is required. ";
                     $('#isvnamelabel').addClass('text-danger');
-                    ;
                 }
                 if (viewmodel_isvdata.ContactEmail() === '') {
-                    validstring = "Field 'Partner Email' is required. ";
+                    validstring += "Field 'Partner Email' is required. ";
                     $('#partneremaillabel').addClass('text-danger');
-                    ;
                 }
                 if (viewmodel_isvdata.ContactName() === '') {
-                    validstring = "Field 'Contact Name' is required. ";
+                    validstring += "Field 'Contact Name' is required. ";
                     $('#contactnamelabel').addClass('text-danger');
-                    ;
+                }
+                if (viewmodel_isvdata.ContactSynopsis() === '') {
+                    validstring += "Please tell us what you would like to discuss. ";
+                    $('#ContactSynopsisLabel').addClass('text-danger');
                 }
 
                 if (!(document.getElementById('isvconsent').checked || document.getElementById('msisvconsent').checked)) 
                 {
-                    validstring = validstring + "You must acknowledge the privacy statement";                                
+                    validstring += "You must acknowledge the privacy statement";                                
                     $('#statussend').addClass('text-danger');
                     $('#continuecheck').addClass('text-danger')
                 }

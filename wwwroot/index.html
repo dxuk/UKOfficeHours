@@ -350,6 +350,14 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
+                                            <label class="col-sm-2 control-label" id="ContactSynopsisLabel" for="ContactSynopsis">
+                                                Synopsis
+                                            </label>
+                                            <div class="col-sm-10">
+                                                <textarea class="form-control" id="ContactSynopsis" data-bind="value: ContactSynopsis"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
                                              <div class="panel panel-default">
                                                 <div class="panel-heading">
                                                     <div>Microsoft respects your privacy. Please read our Privacy and Cookies statement <a href="https://go.microsoft.com/fwlink/?LinkId=521839">here</a>.</div>
@@ -385,13 +393,30 @@
                                 </div>
                             </div>
                             <div class="col-md-12" id="bookwithcodesection">
-                                <div class="panel panel-primary">
+                                <div class="panel panel-primnary" id="bookingCodeCapture">
                                     <div class="panel-heading">
                                         <h3 class="panel-title">
-                                            <span>Book a technical session with a code: bookings available for the next 90 days</span>
+                                            <form role="form" data-bind="submit: GetSlotsForCode">
+                                                <span>Enter your code to book a technical session</span> <input id="bookingCode" data-bind="value: BookingCode" /> <button type="submit" class="btn btn-success" id="bookingCodeButton">Find slot</button>
+                                            </form>
                                         </h3>
                                     </div>
-                                    <div class="panel-body">
+                                    <div class="modal-footer">
+                                        <span id="statusFindSlot"></span>
+                                    </div>
+                                    <div class="panel-body" id="availableSlots" data-bind="visible: availability">
+                                        <!-- <div class="panel panel-info">
+                                            <div class="panel-heading">
+                                                <div class="form-horizontal" role="form">
+                                                    <div class="form-group">
+                                                        <label for="bookingCode" class="col-sm-1 control-label">Booking code</label>
+                                                        <div class="col-sm-2">
+                                                            <input class="form-control" id="bookingCode" data-bind="value: BookingCode" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="panel panel-info">
                                             <div class="panel-heading">
                                                 <div class="form-horizontal" role="form">
@@ -409,32 +434,32 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Start Time</th>
+                                                    <th>Duration (mins)</th>
+                                                    <th>Topic</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody data-bind="foreach: $root.loadeddata" id="bindingforBookinglist">
+                                                <tr>
+                                                    <td data-bind="text: moment(StartDateTime).format( 'dddd, MMMM Do YYYY')"></td>
+                                                    <td data-bind="text: moment(StartDateTime).format( 'LT')"></td>
+                                                    <td data-bind="text: Duration"></td>
+                                                    <td data-bind="text: Topic"></td>
+                                                    <td>
+                                                        <a class="btn btn-success" data-toggle="modal" data-target="#myBookingModal" data-bind="click: $root.SetBookingSlot">
+                                                Book It!
+                                            </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
-                                    <table class="table table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Date</th>
-                                                <th>Start Time</th>
-                                                <th>Duration (mins)</th>
-                                                <th>Topic</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody data-bind="foreach: $root.filteredAvailableSlots" id="bindingforBookinglist">
-                                            <tr>
-                                                <td data-bind="text: moment(StartDateTime).format( 'dddd, MMMM Do YYYY')"></td>
-                                                <td data-bind="text: moment(StartDateTime).format( 'LT')"></td>
-                                                <td data-bind="text: Duration"></td>
-                                                <td data-bind="text: Topic"></td>
-                                                <td>
-                                                    <a class="btn btn-success" data-toggle="modal" data-target="#myBookingModal" data-bind="click: $root.SetBookingSlot">
-                                            Book It!
-                                        </a>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
                                 </div>
                                 <!-- Modal -->
                                 <div id="myBookingModal" class="modal fade" role="dialog">
